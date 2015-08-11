@@ -1,0 +1,9 @@
+{application, nitro, [
+    {description,  "NITRO HTML5 DSL"},
+    {vsn,          "0.8"},
+    {applications, [kernel, stdlib]},
+    {modules, []},
+    {registered,   []},
+    {mod, { nitro, []}},
+    {env, []}
+]}.

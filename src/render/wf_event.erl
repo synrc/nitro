@@ -1,6 +1,6 @@
 -module(wf_event).
 -author('Maxim Sokhatsky').
--include_lib ("n2o/include/wf.hrl").
+-include_lib ("nitro/include/nitro.hrl").
 -compile(export_all).
 
 new(bin,Data) -> <<"ws.send(enc(tuple(atom('bin'),bin('",(wf:pickle(Data))/binary,"'))));">>.

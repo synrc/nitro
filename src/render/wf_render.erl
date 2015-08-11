@@ -1,5 +1,5 @@
 -module(wf_render).
--include_lib("n2o/include/wf.hrl").
+-include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
 render_item(E) when element(2,E) == element -> wf_render_elements:render_element(E);

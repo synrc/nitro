@@ -1,6 +1,9 @@
 -ifndef(N2O_HRL).
 -define(N2O_HRL, true).
 
+-define(CTX, (get(context))).
+-define(REQ, (get(context))#cx.req).
+
 -record(handler, {name, module, config, state}).
 -record(cx,      {handlers, actions, req, module, lang, path, session, params, form, state=[]}).
 -record(ev,      {module, msg, trigger, name :: api_event | control_event | event | atom() }).
@@ -188,3 +191,5 @@
 -record(confirm, {?ACTION_BASE(action_confirm), text, postback, delegate}).
 -record(jq,      {?ACTION_BASE(action_jq), property, method, args=[], right, format="~s"}).
 -record(transfer,{?ACTION_BASE(action_transfer), state, events=[] }).
+
+-endif.
