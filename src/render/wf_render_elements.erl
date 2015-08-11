@@ -23,11 +23,11 @@ render_element(Element) when is_tuple(Element) ->
         undefined -> 
 	    default_render(Tag, Element);
         Module -> 
-	    wf:to_binary(Module:render_element(setelement(#element.id,Element,Id))) end;
+	    nitro:to_binary(Module:render_element(setelement(#element.id,Element,Id))) end;
 render_element(Element) -> wf:error("Unknown Element: ~p",[Element]).
 
 default_render(Tag, Record) ->
-    wf_tags:emit_tag(Tag, wf:render(element(#element.body,Record)),
+    wf_tags:emit_tag(Tag, nitro:render(element(#element.body,Record)),
         lists:append([
            [{<<"id">>,              element(#element.id, Record)},
             {<<"class">>,           element(#element.class, Record)},

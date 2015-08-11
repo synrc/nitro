@@ -1,4 +1,5 @@
 -module(nitro).
+-include("nitro.hrl").
 -compile(export_all).
 -behaviour(application).
 -export([start/2, stop/1, init/1]).
