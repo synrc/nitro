@@ -6,6 +6,11 @@ Features
 
 * Full HTML5 Support
 * Support for N2O Erlang WebSocket Application Server
+* Native Erlang way for HTML Templating
+* Tag Inheritance
+* Polymorphic Tuples
+* Compact size (3000 LOC)
+* As fast as DTL
 
 Credits
 -------
