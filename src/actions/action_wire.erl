@@ -7,5 +7,5 @@ render_action(#wire{actions=Actions}) -> nitro:render(Actions);
 render_action(S) when is_list(S) -> S;
 render_action(_) -> [].
 
-wire(Actions) -> Actions = case get(actions) of undefined -> []; E -> E end,
-                 put(actions,Actions++[#wire{actions=Actions}]).
+wire(A) -> Actions = case get(actions) of undefined -> []; E -> E end,
+           put(actions,Actions++[#wire{actions=A}]).
