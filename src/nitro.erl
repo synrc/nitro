@@ -65,7 +65,7 @@ depickle(SerializedData, TTLSeconds) -> ?PICKLER:depickle(SerializedData, TTLSec
 render(X) -> wf_render:render(X).
 wire(Actions) -> action_wire:wire(Actions).
 
-temp_id() -> {_, _, C} = now(), "auto" ++ integer_to_list(C).
+temp_id() -> {_, _, C} = os:timestamp(), "auto" ++ integer_to_list(C).
 
 html_encode(L,Fun) when is_function(Fun) -> Fun(L);
 html_encode(L,EncType) when is_atom(L) -> html_encode(nitro:to_list(L),EncType);
