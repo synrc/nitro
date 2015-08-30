@@ -9,8 +9,8 @@ Features
 * Native Erlang way for HTML Templating
 * Tag Inheritance
 * Polymorphic Tuples
-* Compact size (3000 LOC)
-* As fast as DTL
+* Compact size (2500 LOC)
+* As fast as DTL and EEX
 
 Credits
 -------
