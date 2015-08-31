@@ -1,12 +1,5 @@
--ifndef(N2O_HRL).
--define(N2O_HRL, true).
-
--define(CTX, (get(context))).
--define(REQ, (get(context))#cx.req).
-
--record(handler, {name, module, config, state}).
--record(cx,      {handlers, actions, req, module, lang, path, session, params, form, state=[]}).
--record(ev,      {module, msg, trigger, name :: api_event | control_event | event | atom() }).
+-ifndef(NITRO_HRL).
+-define(NITRO_HRL, true).
 
 -define(DEFAULT_BASE, {?ELEMENT_BASE(undefined)}).
 -define(DEFAULT_BASE_TAG(Tag), {?ELEMENT_BASE(undefined,Tag,undefined)}).
@@ -14,8 +7,7 @@
 -define(ELEMENT_BASE(Module,Tag,Delegate),
         ancestor=element, id, module=Module, delegate=Delegate, validation=[], actions, class=[], style=[], source=[], onmouseover, onkeypress, onchange, onkeyup, onkeydown, onclick,
         data_fields=[], aria_states=[], body, role, tabindex, show_if=true, html_tag=Tag, title, accesskey, contenteditable, contextmenu, dir, draggable, dropzone, hidden, lang, spellcheck, translate, onafterprint, onbeforeprint, onbeforeunload, onblur, onerror, onfocus, onhashchange, onload, onmessage, onoffline, ononline, onpagehide, onpageshow, onpopstate, onresize, onstorage, onunload).
--define(ACTION_BASE(Module),
-        ancestor=action, trigger, target, module=Module, actions, source=[]).
+-define(ACTION_BASE(Module), ancestor=action, trigger, target, module=Module, actions, source=[]).
 -define(CTRL_BASE(Module), ?ELEMENT_BASE(Module,undefined,Module)).
 
 -record(element, {?ELEMENT_BASE(undefined)}).

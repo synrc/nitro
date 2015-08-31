@@ -3,6 +3,8 @@
 -include_lib ("nitro/include/nitro.hrl").
 -compile(export_all).
 
+-record(cx, { handlers, actions, req, module, lang, path, session, params, form, state=[] }).
+
 new(bin,Data) -> <<"ws.send(enc(tuple(atom('bin'),bin('",(wf:pickle(Data))/binary,"'))));">>.
 
 new(undefined, _, _, _, _, _) -> <<>>;
