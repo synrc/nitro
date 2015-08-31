@@ -4,6 +4,7 @@
 -compile(export_all).
 
 -record(cx, { handlers, actions, req, module, lang, path, session, params, form, state=[] }).
+-define(CTX, (get(context))).
 
 new(bin,Data) -> <<"ws.send(enc(tuple(atom('bin'),bin('",(wf:pickle(Data))/binary,"'))));">>.
 
