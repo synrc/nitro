@@ -8,4 +8,4 @@ render_action(S) when is_list(S) -> S;
 render_action(_) -> [].
 
 wire(A) -> Actions = case get(actions) of undefined -> []; E -> E end,
-           put(actions,Actions++[#wire{actions=A}]).
+           put(actions,Actions++[#wire{actions=A}]), [].

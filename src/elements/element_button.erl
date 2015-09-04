@@ -11,7 +11,7 @@ render_element(Record) ->
           wf:wire(#event{type=click, postback=Postback, target=ID,
                   source=Record#button.source, delegate=Record#button.delegate }),
           ID end,
-    wf_tags:emit_tag(<<"button">>, wf:render(Record#button.body), [
+    wf_tags:emit_tag(<<"button">>, nitro:render(Record#button.body), [
         {<<"id">>, Id},
         {<<"type">>, Record#button.type},
         {<<"name">>, Record#button.name},
