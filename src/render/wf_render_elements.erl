@@ -6,7 +6,7 @@
 render_element(E) when is_list(E) -> E;
 render_element(Element) when is_tuple(Element) ->
     Id = case element(#element.id,Element) of
-        undefined -> undefined; % wf:temp_id();
+        undefined -> undefined;
         L when is_list(L) -> L;
         Other -> nitro:to_list(Other) end,
     case element(#element.actions,Element) of undefined -> skip; Actions -> nitro:wire(Actions) end,
@@ -20,11 +20,11 @@ render_element(Element) when is_tuple(Element) ->
               "qi(name).validation = true;}",[Id,Code]))
             end,
     case element(#element.module,Element) of
-        undefined -> 
+        undefined ->
 	    default_render(Tag, Element);
-        Module -> 
+        Module ->
 	    nitro:to_binary(Module:render_element(setelement(#element.id,Element,Id))) end;
-render_element(Element) -> wf:error("Unknown Element: ~p",[Element]).
+render_element(Element) -> io:format("Unknown Element: ~p~n\r",[Element]).
 
 default_render(Tag, Record) ->
     wf_tags:emit_tag(Tag, nitro:render(element(#element.body,Record)),

@@ -7,8 +7,8 @@ render_element(Record) ->
     Id = case Record#button.postback of
         undefined -> Record#button.id;
         Postback ->
-          ID = case Record#button.id of undefined -> wf:temp_id(); I -> I end,
-          wf:wire(#event{type=click, postback=Postback, target=ID,
+          ID = case Record#button.id of undefined -> nitro:temp_id(); I -> I end,
+          nitro:wire(#event{type=click, postback=Postback, target=ID,
                   source=Record#button.source, delegate=Record#button.delegate }),
           ID end,
     wf_tags:emit_tag(<<"button">>, nitro:render(Record#button.body), [
