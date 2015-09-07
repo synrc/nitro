@@ -65,7 +65,8 @@ depickle(SerializedData, TTLSeconds) -> ?PICKLER:depickle(SerializedData, TTLSec
 render(X) -> wf_render:render(X).
 wire(Actions) -> action_wire:wire(Actions).
 
-temp_id() -> {_, _, C} = os:timestamp(), "auto" ++ integer_to_list(C).
+unique_integer() -> try erlang:unique_integer() catch _:_ -> {MS,S,US} = erlang:now(), (MS*1000000+S)*1000000+US end.
+temp_id() -> "auto" ++ integer_to_list(unique_integer() rem 1000000).
 
 html_encode(L,Fun) when is_function(Fun) -> Fun(L);
 html_encode(L,EncType) when is_atom(L) -> html_encode(nitro:to_list(L),EncType);
