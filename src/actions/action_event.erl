@@ -10,7 +10,7 @@ render_action(#event{postback={bin,Value},target=Control,type=Type}) ->
     [list_to_binary([<<"qi('">>,nitro:to_binary(Control),<<"').addEventListener('">>,
         nitro:to_binary(Type),<<"',function (event){">>,PostbackBin,<<"});">>])];
 
-render_action(#event{postback=Postback,actions=_Actions,source=Source,target=Control,type=Type,delegate=Delegate}) ->
+render_action(#event{postback=Postback,actions=_Actions,source=Source,target=Control,type=Type,delegate=Delegate,validation=Validation}) ->
     Element = nitro:to_list(Control),
     Data=list_to_binary([<<"[tuple(tuple(utf8_toByteArray('">>,Element,<<"'),bin('detail')),event.detail)">>,
          [ begin {SrcType,Src2}=case is_atom(Src) of
@@ -18,7 +18,7 @@ render_action(#event{postback=Postback,actions=_Actions,source=Source,target=Con
                  false -> { <<"utf8_toByteArray">>,Src } end,
              [ <<",tuple(">>,SrcType,<<"('">>,Src2,<<"'),querySource('">>,Src2,<<"'))">> ]
              end || Src <- Source ],<<"]">>]),
-    PostbackBin = wf_event:new(Postback, Element, Delegate, event, Data, Source),
+    PostbackBin = wf_event:new(Postback, Element, Delegate, event, Data, Source, Validation),
     [list_to_binary([<<"{var x=qi('">>,Element,<<"'); x && x.addEventListener('">>,
         nitro:to_binary(Type),<<"',function (event){">>,
         PostbackBin,<<"});};">>])].

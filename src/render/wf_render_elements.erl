@@ -13,12 +13,12 @@ render_element(Element) when is_tuple(Element) ->
     Tag = case element(#element.html_tag,Element) of undefined -> nitro:to_binary(element(1, Element)); T -> T end,
     case element(#element.validation,Element) of
          [] -> skip;
-         Code ->
+         Code when element(#element.postback,Element) == [] ->
          nitro:wire(nitro:f("{var name='~s'; qi(name)"
            ".addEventListener('validation',"
               "function(e) { if (!(~s)) e.preventDefault(); });"
-              "qi(name).validation = true;}",[Id,Code]))
-            end,
+              "qi(name).validation = true;}",[Id,Code]));
+         _ -> skip end,
     case element(#element.module,Element) of
         undefined ->
 	    default_render(Tag, Element);
