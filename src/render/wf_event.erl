@@ -20,4 +20,4 @@ new(Postback, Element, Delegate, Name, Data, Source, Validation) ->
         Join([ case is_atom(S) of true -> atom_to_list(S); false -> S end || S <- Source, S =/= []]),
         <<"])) { ">>,nitro:to_binary(Validation),<<" ws.send(enc(tuple(atom('">>,
         nitro:to_binary(application:get_env(n2o,event,pickle)),<<"'),bin('">>,Element,<<"'),bin('">>,
-        nitro:pickle(Event),<<"'),">>,Data,<<"))); } else console.log('Validation Error'); }">> ]).
+        nitro:pickle(Event),<<"'),[]))); } else console.log('Validation Error'); }">> ]).
