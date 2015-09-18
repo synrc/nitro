@@ -12,7 +12,7 @@
 -define(CTRL_BASE(Module), ?ELEMENT_BASE(Module,undefined,Module)).
 
 -record(element, {?ELEMENT_BASE(undefined)}).
--record(literal, {?ELEMENT_BASE(element_literal)}).
+-record(literal, {?ELEMENT_BASE(element_literal), html_encode=true }).
 -record(dtl, {?ELEMENT_BASE(element_dtl), file="index", bindings=[], app=web, folder="priv/templates", ext="html", bind_script=true, js_escape=false }).
 -record(list, {?ELEMENT_BASE(element_list), numbered=false }).
 -record(dropdown, {?ELEMENT_BASE(element_dropdown), options, value, multiple=false, disabled=false, name}).
