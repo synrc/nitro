@@ -43,6 +43,7 @@ render_element(Record) ->
       {<<"required">>,if Record#calendar.required == true -> "required"; true -> undefined end},
       {<<"step">>,Record#calendar.step},
       {<<"type">>, <<"calendar">>},
+      {<<"placeholder">>,Record#calendar.placeholder},
       {<<"value">>,nitro:js_escape(Record#calendar.value)} | Record#calendar.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#calendar.body), List).
