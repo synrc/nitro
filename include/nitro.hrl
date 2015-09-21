@@ -12,7 +12,7 @@
 -define(CTRL_BASE(Module), ?ELEMENT_BASE(Module,undefined,Module)).
 
 -record(element, {?ELEMENT_BASE(undefined)}).
--record(literal, {?ELEMENT_BASE(element_literal)}).
+-record(literal, {?ELEMENT_BASE(element_literal), html_encode=true }).
 -record(dtl, {?ELEMENT_BASE(element_dtl), file="index", bindings=[], app=web, folder="priv/templates", ext="html", bind_script=true, js_escape=false }).
 -record(list, {?ELEMENT_BASE(element_list), numbered=false }).
 -record(dropdown, {?ELEMENT_BASE(element_dropdown), options, value, multiple=false, disabled=false, name}).
@@ -67,7 +67,7 @@
 -record(checkbox,           {?ELEMENT_BASE(element_checkbox),  autofocus, checked=false, disabled, form, name, required, value}).
 -record(color,           {?ELEMENT_BASE(element_color),  autocomplete, autofocus, disabled, form, list, name, value}).
 -record(date,           {?ELEMENT_BASE(element_date),  autocomplete, autofocus, disabled, form, list, max, min, name, step, readonly, required, value}).
--record(calendar,       {?ELEMENT_BASE(element_calendar),  autocomplete, autofocus, disabled, form, list, maxDate, minDate, format, name, step, readonly, required, value}).
+-record(calendar,       {?ELEMENT_BASE(element_calendar),  autocomplete, autofocus, disabled, form, list, maxDate, minDate, format, name, step, readonly, required, value, placeholder}).
 -record(datetime,           {?ELEMENT_BASE(element_datetime),  autocomplete, autofocus, disabled, form, list, max, min, name, step, readonly, required, value}).
 -record(datetime_local,           {?ELEMENT_BASE(element_datetime_local),  autocomplete, autofocus, disabled, form, list, max, min, name, step, readonly, required, value}).
 -record(email,           {?ELEMENT_BASE(element_email),  autocomplete, autofocus, disabled, form, list, maxlength, multiple, name, pattern, placeholder, readonly, required, size, value}).
