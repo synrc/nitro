@@ -176,6 +176,9 @@
 -record(u,       		?DEFAULT_BASE).
 -record(var,       		?DEFAULT_BASE).
 
+% Extras
+-record(upload,         {?CTRL_BASE(element_upload), name, value}).
+
 % Actions
 -record(action,  {?ACTION_BASE(undefined)}).
 -record(wire,    {?ACTION_BASE(action_wire)}).
