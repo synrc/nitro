@@ -4,12 +4,6 @@
 -compile(export_all).
 
 render_action(#event{source=undefined}) -> [];
-
-render_action(#event{postback={bin,Value},target=Control,type=Type}) ->
-    PostbackBin = wf_event:new(bin,Value),
-    [list_to_binary([<<"qi('">>,nitro:to_binary(Control),<<"').addEventListener('">>,
-        nitro:to_binary(Type),<<"',function (event){">>,PostbackBin,<<"});">>])];
-
 render_action(#event{postback=Postback,actions=_Actions,source=Source,target=Control,type=Type,delegate=Delegate,validation=Validation}) ->
     Element = nitro:to_list(Control),
     Data=list_to_binary([<<"[tuple(tuple(utf8_toByteArray('">>,Element,<<"'),bin('detail')),[])">>,

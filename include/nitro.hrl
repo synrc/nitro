@@ -181,6 +181,7 @@
 -record(wire,    {?ACTION_BASE(action_wire)}).
 -record(api,     {?ACTION_BASE(action_api), name, tag, delegate }).
 -record(event,   {?ACTION_BASE(action_event), type=default, postback, delegate, validation=[]}).
+-record(bind,    {?ACTION_BASE(action_bind), type=click, postback=[]}).
 -record(alert,   {?ACTION_BASE(action_alert), text}).
 -record(confirm, {?ACTION_BASE(action_confirm), text, postback, delegate}).
 -record(jq,      {?ACTION_BASE(action_jq), property, method, args=[], right, format="~s"}).
