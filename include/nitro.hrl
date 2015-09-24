@@ -176,6 +176,9 @@
 -record(u,       		?DEFAULT_BASE).
 -record(var,       		?DEFAULT_BASE).
 
+% HTML5 template
+-record(template,		?DEFAULT_BASE).
+
 % Extras
 -record(upload,         {?CTRL_BASE(element_upload), name, value}).
 
