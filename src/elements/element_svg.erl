@@ -5,7 +5,7 @@
 
 render_element(Record) ->
 	wf_tags:emit_tag(<<"svg">>, nitro:render(Record#svg.body),
-	list:append([
+	lists:append([
 		[
 			{<<"id">>, Record#svg.id},
 			{<<"class">>, Record#svg.class},
@@ -52,7 +52,7 @@ svg_document_event(Record)-> [
 	{<<"onerror">>, Record#svg.onerror},
 	{<<"onresize">>, Record#svg.onresize},
 	{<<"onscroll">>, Record#svg.onscroll},
-	{<<"onunload">>, Record#svg.onunload},
+	{<<"onunload">>, Record#svg.onunload_document},
 	{<<"onzoom">>, Record#svg.onzoom}
 ].
 
@@ -69,7 +69,7 @@ svg_graphical_event(Record)-> [
 	{<<"onclick">>, Record#svg.onclick},
 	{<<"onfocusin">>, Record#svg.onfocusin},
 	{<<"onfocusout">>, Record#svg.onfocusout},
-	{<<"onload">>, Record#svg.onload},
+	{<<"onload">>, Record#svg.onload_graphical},
 	{<<"onmousedown">>, Record#svg.onmousedown},
 	{<<"onmousemove">>, Record#svg.onmousemove},
 	{<<"onmouseout">>, Record#svg.onmouseout},
