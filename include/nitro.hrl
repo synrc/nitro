@@ -11,16 +11,16 @@
 -define(ACTION_BASE(Module), ancestor=action, trigger, target, module=Module, actions, source=[]).
 -define(CTRL_BASE(Module), ?ELEMENT_BASE(Module,undefined,Module)).
 % SVG attribute groups
--define(SVG_ANIMATION_EVENT, onbegin, onend, onload, onrepeat).
+-define(SVG_ANIMATION_EVENT, onbegin, onend, onload_animation, onrepeat).
 -define(SVG_ANIMATION_ATTRIBUT_TARGET, attributeType, attributeName).
 -define(SVG_ANIMATION_TIMING, svgbegin, dur, svgend, min, max, restart, repeatCount, repeatDur, fill).
 -define(SVG_ANIMATION_VALUE, calcMode, values, keyTimes, keySplines, from, to, by, autoReverse, accelerate, decelerate).
 -define(SVG_ANIMATION_ADDITION, additive, accumulate).
 -define(SVG_CONDITIONAL_PROCESSING, requiredExtensions, requiredFeatures, systemLanguage).
 -define(SVG_CORE, xmlbase, xmllang, xmlspace).
--define(SVG_DOCUMENT_EVENT, onabort, onscroll, onunload, onzoom).  %% onerror and onresize, duplicating HTML events, were removed.
+-define(SVG_DOCUMENT_EVENT, onabort, onscroll, onunload_document, onzoom).  %% onerror and onresize, duplicating HTML events, were removed.
 -define(SVG_FILTER_PRIMITIVE, height, result, width, x, y).
--define(SVG_GRAPHICAL_EVENT, onactivate, onfocusin, onfocusout, onload, onmousedown, onmousemove, onmouseout, onmouseup). %% onclick and onmouseover, duplicating HTML events, were removed.
+-define(SVG_GRAPHICAL_EVENT, onactivate, onfocusin, onfocusout, onload_graphical, onmousedown, onmousemove, onmouseout, onmouseup). %% onclick and onmouseover, duplicating HTML events, were removed.
 -define(SVG_PRESENTATION, alignment_baseline, baseline_shift, clip, clip_path, clip_rule, color, color_interpolation, color_interpolation_filters, color_profile, color_rendering, cursor,
 		direction, display, dominant_baseline, enable_background, fill, fill_opacity, fill_rule, filter, flood_color, flood_opacity, font_family, font_size, font_size_adjust, font_stretch,
 		font_style, font_variant, font_weight, glyph_orientation_horizontal, glyph_orientation_vertical, image_rendering, kerning, letter_spacing, lighting_color, marker_end, marker_mid,
@@ -199,7 +199,6 @@
 
 % SVG
 -record(svg, {?ELEMENT_BASE(element_svg), version="1.1", baseProfile="full", xmlns="http://www.w3.org/2000/svg", xmlnsxlink="http://www.w3.org/1999/xlink", xmlnsev="http://www.w3.org/2001/xml-events", preserveAspectRatio, contentScriptType, contentStyleType, viewBox, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_DOCUMENT_EVENT, ?SVG_FILTER_PRIMITIVE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION, ?SVG_TRANSFERT_FUNCTION, ?SVG_XLINK}).
--record(animate, {?ELEMENT_BASE(element_animate), externalResourcesRequired, ?SVG_ANIMATION_EVENT, ?SVG_ANIMATION_ATTRIBUT_TARGET, ?SVG_ANIMATION_TIMING, ?SVG_ANIMATION_VALUE, ?SVG_ANIMATION_ADDITION, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_XLINK}).
 
 % Extras
 -record(upload,         {?CTRL_BASE(element_upload), name, value}).
