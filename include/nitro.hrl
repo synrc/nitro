@@ -202,6 +202,9 @@
 
 % Extras
 -record(upload,         {?CTRL_BASE(element_upload), name, value}).
+-record(animate, {?ELEMENT_BASE(element_animate), externalResourcesRequired, ?SVG_ANIMATION_EVENT, ?SVG_ANIMATION_ATTRIBUT_TARGET, ?SVG_ANIMATION_TIMING, ?SVG_ANIMATION_VALUE, ?SVG_ANIMATION_ADDITION, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_XLINK}).
+-record(animateMotion, {?ELEMENT_BASE(element_animatemotion), path, keyPoints, rotate, origin, externalResourcesRequired, ?SVG_ANIMATION_EVENT, ?SVG_ANIMATION_TIMING, ?SVG_ANIMATION_VALUE, ?SVG_ANIMATION_ADDITION,  ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_XLINK}).
+-record(animateTransform, {?ELEMENT_BASE(element_animatetransform), type, externalResourcesRequired, ?SVG_ANIMATION_EVENT, ?SVG_ANIMATION_ATTRIBUT_TARGET, ?SVG_ANIMATION_TIMING, ?SVG_ANIMATION_VALUE, ?SVG_ANIMATION_ADDITION, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_XLINK}).
 
 % Actions
 -record(action,  {?ACTION_BASE(undefined)}).
