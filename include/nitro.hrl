@@ -199,12 +199,18 @@
 
 % SVG
 -record(svg, {?ELEMENT_BASE(element_svg), version="1.1", baseProfile="full", xmlns="http://www.w3.org/2000/svg", xmlnsxlink="http://www.w3.org/1999/xlink", xmlnsev="http://www.w3.org/2001/xml-events", preserveAspectRatio, contentScriptType, contentStyleType, viewBox, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_DOCUMENT_EVENT, ?SVG_FILTER_PRIMITIVE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION, ?SVG_TRANSFERT_FUNCTION, ?SVG_XLINK}).
-
-% Extras
--record(upload,         {?CTRL_BASE(element_upload), name, value}).
 -record(animate, {?ELEMENT_BASE(element_animate), externalResourcesRequired, ?SVG_ANIMATION_EVENT, ?SVG_ANIMATION_ATTRIBUT_TARGET, ?SVG_ANIMATION_TIMING, ?SVG_ANIMATION_VALUE, ?SVG_ANIMATION_ADDITION, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_XLINK}).
 -record(animateMotion, {?ELEMENT_BASE(element_animatemotion), path, keyPoints, rotate, origin, externalResourcesRequired, ?SVG_ANIMATION_EVENT, ?SVG_ANIMATION_TIMING, ?SVG_ANIMATION_VALUE, ?SVG_ANIMATION_ADDITION,  ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_XLINK}).
 -record(animateTransform, {?ELEMENT_BASE(element_animatetransform), type, externalResourcesRequired, ?SVG_ANIMATION_EVENT, ?SVG_ANIMATION_ATTRIBUT_TARGET, ?SVG_ANIMATION_TIMING, ?SVG_ANIMATION_VALUE, ?SVG_ANIMATION_ADDITION, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_XLINK}).
+-record(circle, {?ELEMENT_BASE(element_circle), cx, cy, r, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(g, {?ELEMENT_BASE(element_g), transform, externalResourcesRequired,  ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(path, {?ELEMENT_BASE(element_path), d, pathLength, transform, externalResourcesRequired,  ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(rect, {?ELEMENT_BASE(element_rect), x, y, width, height, rx, ry, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(text, {?ELEMENT_BASE(element_text), x, y, dx, dy, rotate, textLength, lengthAdjust, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(tspan, {?ELEMENT_BASE(element_tspan), x, y, dx, dy, rotate, textLength, lengthAdjust, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+
+% Extras
+-record(upload,         {?CTRL_BASE(element_upload), name, value}).
 
 % Actions
 -record(action,  {?ACTION_BASE(undefined)}).
