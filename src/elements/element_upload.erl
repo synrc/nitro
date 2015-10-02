@@ -9,7 +9,7 @@ render_element(#upload{id=Id} = U) ->
     bind(ftp_stop,  click,  "ftp.stop();"),
     bind(nitro:to_atom(Uid), change, "ftp.init(this.files[0],false);"),
     Upload = #panel  { body = [
-             #input  { id   = Uid,         type    = <<"file">>, style = "display:block" },
+             #input  { id   = Uid,         type    = <<"file">>, style = "display:none" },
              #span   { id   = ftp_status,  body    = [] },
              #span   { body = [
              #button { id   = ftp_open,    body = "Browse" },
