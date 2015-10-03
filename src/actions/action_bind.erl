@@ -4,4 +4,4 @@
 -compile(export_all).
 
 render_action(#bind{postback=Code,target=Control,type=Type}) ->
-    [list_to_binary(nitro:f("{ var x=qi('~w'); if(x)x.addEventListener('~w', function(e) { ~s }); }",[Control,Type,Code]))].
+    [list_to_binary(nitro:f("{ var x=qi('~s'); if(x)x.addEventListener('~s', function(e) { ~s }); }",[Control,Type,Code]))].
