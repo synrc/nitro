@@ -194,23 +194,33 @@
 -record(u,       		?DEFAULT_BASE).
 -record(var,       		?DEFAULT_BASE).
 
+% Extras
+-record(upload,         {?CTRL_BASE(element_upload), name, value}).
+
 % HTML5 template
 -record(template,		?DEFAULT_BASE).
 
 % SVG
 -record(svg, {?ELEMENT_BASE(element_svg), version="1.1", baseProfile="full", xmlns="http://www.w3.org/2000/svg", xmlnsxlink="http://www.w3.org/1999/xlink", xmlnsev="http://www.w3.org/2001/xml-events", preserveAspectRatio, contentScriptType, contentStyleType, viewBox, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_DOCUMENT_EVENT, ?SVG_FILTER_PRIMITIVE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION, ?SVG_TRANSFERT_FUNCTION, ?SVG_XLINK}).
+-record(altGlyph, {?ELEMENT_BASE(element_altglyph), x, y, dx, dy, rotate, glyphRef, format, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION, ?SVG_XLINK}).
+-record(altGlyphDef, {?ELEMENT_BASE(element_altglyphdef), ?SVG_CORE}).
+-record(altGlyphItem, {?ELEMENT_BASE(element_altglyphitem), ?SVG_CORE}).
 -record(animate, {?ELEMENT_BASE(element_animate), externalResourcesRequired, ?SVG_ANIMATION_EVENT, ?SVG_ANIMATION_ATTRIBUT_TARGET, ?SVG_ANIMATION_TIMING, ?SVG_ANIMATION_VALUE, ?SVG_ANIMATION_ADDITION, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_XLINK}).
 -record(animateMotion, {?ELEMENT_BASE(element_animatemotion), path, keyPoints, rotate, origin, externalResourcesRequired, ?SVG_ANIMATION_EVENT, ?SVG_ANIMATION_TIMING, ?SVG_ANIMATION_VALUE, ?SVG_ANIMATION_ADDITION,  ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_XLINK}).
 -record(animateTransform, {?ELEMENT_BASE(element_animatetransform), type, externalResourcesRequired, ?SVG_ANIMATION_EVENT, ?SVG_ANIMATION_ATTRIBUT_TARGET, ?SVG_ANIMATION_TIMING, ?SVG_ANIMATION_VALUE, ?SVG_ANIMATION_ADDITION, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_XLINK}).
 -record(circle, {?ELEMENT_BASE(element_circle), cx, cy, r, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(clipPath, {?ELEMENT_BASE(element_clippath), clipPathUnits, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_PRESENTATION}).
+-record(color_profile, {?ELEMENT_BASE(element_colorprofile), local, name, rendering_intent, ?SVG_CORE, ?SVG_XLINK}).
+-record(cursor, {?ELEMENT_BASE(element_cursor), x, y, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_XLINK}).
+-record(defs, {?ELEMENT_BASE(element_defs), transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(desc, {?ELEMENT_BASE(element_desc), ?SVG_CORE}).
+-record(ellipse, {?ELEMENT_BASE(element_ellipse), cx, cy, rx, ry, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(g, {?ELEMENT_BASE(element_g), transform, externalResourcesRequired,  ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(path, {?ELEMENT_BASE(element_path), d, pathLength, transform, externalResourcesRequired,  ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(rect, {?ELEMENT_BASE(element_rect), x, y, width, height, rx, ry, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(text, {?ELEMENT_BASE(element_text), x, y, dx, dy, rotate, textLength, lengthAdjust, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(tspan, {?ELEMENT_BASE(element_tspan), x, y, dx, dy, rotate, textLength, lengthAdjust, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
-
-% Extras
--record(upload,         {?CTRL_BASE(element_upload), name, value}).
+-record(xlink, {?ELEMENT_BASE(element_xlink), target, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION, ?SVG_TRANSFERT_FUNCTION, ?SVG_XLINK}).
 
 % Actions
 -record(action,  {?ACTION_BASE(undefined)}).
