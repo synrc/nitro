@@ -215,6 +215,31 @@
 -record(defs, {?ELEMENT_BASE(element_defs), transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(desc, {?ELEMENT_BASE(element_desc), ?SVG_CORE}).
 -record(ellipse, {?ELEMENT_BASE(element_ellipse), cx, cy, rx, ry, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(feBlend, {?ELEMENT_BASE(element_feblend), in, in2, mode, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
+-record(feColorMatrix, {?ELEMENT_BASE(element_fecolormatrix), in, type, values, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
+-record(feComponentTransfer, {?ELEMENT_BASE(element_fecomponenttransfer), in, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
+-record(feComposite, {?ELEMENT_BASE(element_fecomposite), in, in2, operator, k1, k2, k3, k4, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
+-record(feConvolveMatrix, {?ELEMENT_BASE(element_feconvolvematrix), in, order, kernelMatrix, divisor, bias, targetX, targetY, edgeMode, kernelUnitLength, preserveAlpha, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
+-record(feDiffuseLighting, {?ELEMENT_BASE(element_fediffuselighting), in, surfaceScale, diffuseConstant, kernelUnitLength, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
+-record(feDisplacementMap, {?ELEMENT_BASE(element_fedisplacementmap), in, in2, scale, xChannelSelector, yChannelSelector, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
+-record(feDistantLight, {?ELEMENT_BASE(element_fedistantlight), azimuth, elevation, ?SVG_CORE}).
+-record(feFlood, {?ELEMENT_BASE(element_feflood), ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
+-record(feFuncA, {?ELEMENT_BASE(element_fefunca), ?SVG_CORE, ?SVG_TRANSFERT_FUNCTION}).
+-record(feFuncB, {?ELEMENT_BASE(element_fefuncb), ?SVG_CORE, ?SVG_TRANSFERT_FUNCTION}).
+-record(feFuncG, {?ELEMENT_BASE(element_fefuncg), ?SVG_CORE, ?SVG_TRANSFERT_FUNCTION}).
+-record(feFuncR, {?ELEMENT_BASE(element_fefuncr), ?SVG_CORE, ?SVG_TRANSFERT_FUNCTION}).
+-record(feGaussianBlur, {?ELEMENT_BASE(element_fegaussianblur), in, stdDeviation, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
+-record(feImage, {?ELEMENT_BASE(element_feimage), preserveAspectRatio, externalResourcesRequired, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION, ?SVG_XLINK}).
+-record(feMerge, {?ELEMENT_BASE(element_femerge), ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
+-record(feMergeNode, {?ELEMENT_BASE(element_femergenode), in, ?SVG_CORE}).
+-record(feMorphology, {?ELEMENT_BASE(element_femorphology), in, operator, radius, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
+-record(feOffset, {?ELEMENT_BASE(element_feoffset), in, dx, dy, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
+-record(fePointLight, {?ELEMENT_BASE(element_fepointlight), x, y, z, ?SVG_CORE}).
+-record(feSpecularLighting, {?ELEMENT_BASE(element_fespecularlighting), in, surfaceScale, specularConstant, specularExponent, kernelUnitLength, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
+-record(feSpotLight, {?ELEMENT_BASE(element_fespotlight), x, y, z, pointsAtX, pointsAtY, pointsAtZ, specularExponent, limitingConeAngle, ?SVG_CORE}).
+-record(feTile, {?ELEMENT_BASE(element_fetile), in, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
+-record(feTurbulence, {?ELEMENT_BASE(element_feturbulence), baseFrequency, numOctaves, seed, stitchTiles, type, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
+-record(filter, {?ELEMENT_BASE(element_filter), x, y, width, height, filterRes, filterUnits, primitiveUnits, externalResourcesRequired, ?SVG_CORE, ?SVG_PRESENTATION, ?SVG_XLINK}).
 -record(g, {?ELEMENT_BASE(element_g), transform, externalResourcesRequired,  ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(path, {?ELEMENT_BASE(element_path), d, pathLength, transform, externalResourcesRequired,  ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(rect, {?ELEMENT_BASE(element_rect), x, y, width, height, rx, ry, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
