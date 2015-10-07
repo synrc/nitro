@@ -8,6 +8,7 @@ render_element(Record) ->
     {<<"class">>, Record#td.class},
     {<<"style">>, Record#td.style},
     {<<"rowspan">>, Record#td.rowspan},
+    {<<"bgcolor">>, Record#td.bgcolor},
     {<<"colspan">>, Record#td.colspan},
     {<<"scope">>, Record#td.scope} | Record#td.data_fields
   ]).

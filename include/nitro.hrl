@@ -160,7 +160,7 @@
 -record(colgroup,       {?ELEMENT_BASE(element_colgroup), col, span}).
 -record(table,          {?ELEMENT_BASE(element_table),  caption, colgroup, border, footer, header}).
 -record(tbody,          ?DEFAULT_BASE).
--record(td, 			{?ELEMENT_BASE(element_td), colspan=1, headers, rowspan=1, scope}).
+-record(td, 			{?ELEMENT_BASE(element_td), colspan=1, headers, rowspan=1, scope, bgcolor}).
 -record(tfoot,       	?DEFAULT_BASE).
 -record(th, 			{?ELEMENT_BASE(element_th), colspan=1, headers, rowspan=1, scope}).
 -record(thead,       	?DEFAULT_BASE).
