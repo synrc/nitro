@@ -39,6 +39,7 @@ render_element(Record) ->
       {<<"placeholder">>,Record#input.placeholder},
       {<<"min">>, Record#input.min},
       {<<"multiple">>, Record#input.multiple },
+      {<<"pattern">>,Record#input.pattern},
       {<<"value">>,      nitro:js_escape(Record#input.value)},
       {<<"onkeypress">>, nitro:js_escape(Record#input.onkeypress)},
       {<<"onkeyup">>,    nitro:js_escape(Record#input.onkeyup)},
