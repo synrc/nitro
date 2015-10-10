@@ -2,7 +2,6 @@
 -author('Konstantin Zakablukovsky').
 -include("nitro.hrl").
 -compile(export_all).
-%% -import(element_svg, [svg_conditional_processing/1, svg_core/1, svg_xlink/1]).
 
 render_element(Record) ->
 	wf_tags:emit_tag(<<"animate">>, nitro:render(Record#animate.body),

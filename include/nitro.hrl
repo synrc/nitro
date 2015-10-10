@@ -260,7 +260,17 @@
 -record(missing_glyph, {?ELEMENT_BASE(element_missingglyph), d, horiz_adv_x, vert_origin_x, vert_origin_y, vert_adv_y, ?SVG_CORE, ?SVG_PRESENTATION}).
 -record(mpath, {?ELEMENT_BASE(element_mpath), externalResourcesRequired, ?SVG_CORE, ?SVG_XLINK}).
 -record(path, {?ELEMENT_BASE(element_path), d, pathLength, transform, externalResourcesRequired,  ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(pattern, {?ELEMENT_BASE(element_pattern), patternUnits, patternContentUnits, patternTransform, x, y, width, height, preserveAspectRatio, viewBox, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_PRESENTATION, ?SVG_XLINK}).
+-record(polygon, {?ELEMENT_BASE(element_polygon), points, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(polyline, {?ELEMENT_BASE(element_polyline), points, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(radialGradient, {?ELEMENT_BASE(element_radialgradient), gradientUnits, gradientTransform, cx, cy, r, fx, fy, spreadMethod, externalResourcesRequired, ?SVG_CORE, ?SVG_PRESENTATION, ?SVG_XLINK}).
 -record(rect, {?ELEMENT_BASE(element_rect), x, y, width, height, rx, ry, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(svgscript, {?ELEMENT_BASE(element_svgscript), type, externalResourcesRequired, ?SVG_CORE, ?SVG_XLINK}).
+-record(set, {?ELEMENT_BASE(element_set), to, externalResourcesRequired, ?SVG_ANIMATION_EVENT, ?SVG_ANIMATION_ATTRIBUT_TARGET, ?SVG_ANIMATION_TIMING, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_XLINK}).
+-record(stop, {?ELEMENT_BASE(element_stop), offset, ?SVG_CORE, ?SVG_PRESENTATION}).
+-record(svgstyle, {?ELEMENT_BASE(element_svgstyle), type, media, ?SVG_CORE, ?SVG_XLINK}).
+-record(switch, {?ELEMENT_BASE(element_switch), allowReorderm, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(symbol, {?ELEMENT_BASE(element_symbol), preserveAspectRatio, viewBox, externalResourcesRequired, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(text, {?ELEMENT_BASE(element_text), x, y, dx, dy, rotate, textLength, lengthAdjust, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(tspan, {?ELEMENT_BASE(element_tspan), x, y, dx, dy, rotate, textLength, lengthAdjust, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(xlink, {?ELEMENT_BASE(element_xlink), target, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION, ?SVG_TRANSFERT_FUNCTION, ?SVG_XLINK}).
