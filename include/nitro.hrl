@@ -247,9 +247,18 @@
 -record(font_face_src, {?ELEMENT_BASE(element_fontfacesrc), ?SVG_CORE}).
 -record(font_face_uri, {?ELEMENT_BASE(element_fontfaceuri), ?SVG_CORE, ?SVG_XLINK}).
 -record(foreignObject, {?ELEMENT_BASE(element_foreignobject), x, y, width, height, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(g, {?ELEMENT_BASE(element_g), transform, externalResourcesRequired,  ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(glyph, {?ELEMENT_BASE(element_glyph), d, horiz_adv_x, vert_origin_x, vert_origin_y, vert_adv_y, unicode, glyph_name, orientation, arabic_form, ?SVG_CORE, ?SVG_PRESENTATION}).
 -record(glyphRef, {?ELEMENT_BASE(element_glyphref), x, y, dx, dy, glyphRef, format, ?SVG_CORE, ?SVG_PRESENTATION, ?SVG_XLINK}).
--record(g, {?ELEMENT_BASE(element_g), transform, externalResourcesRequired,  ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(hkern, {?ELEMENT_BASE(element_hkern), u1, g1, u2, g2, k, ?SVG_CORE}).
+-record(svgimage, {?ELEMENT_BASE(element_svgimage), x, y, width, height, preserveAspectRatio, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION, ?SVG_XLINK}).
+-record(line, {?ELEMENT_BASE(element_line), x1, y1, x2, y2, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(linearGradient, {?ELEMENT_BASE(element_lineargradient), gradientUnits, gradientTransform, x1, y1, x2, y2, spreadMethod, externalResourcesRequired, ?SVG_CORE, ?SVG_PRESENTATION, ?SVG_XLINK}).
+-record(marker, {?ELEMENT_BASE(element_marker), markerUnits, refX, refY, markerWidth, markerHeight, orient, viewBox, preserveAspectRatio, transform, externalResourcesRequired, ?SVG_CORE, ?SVG_PRESENTATION}).
+-record(mask, {?ELEMENT_BASE(element_mask), maskUnits, maskContentUnits, x, y, width, height, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_PRESENTATION}).
+-record(metadata, {?ELEMENT_BASE(element_metadata), ?SVG_CORE}).
+-record(missing_glyph, {?ELEMENT_BASE(element_missingglyph), d, horiz_adv_x, vert_origin_x, vert_origin_y, vert_adv_y, ?SVG_CORE, ?SVG_PRESENTATION}).
+-record(mpath, {?ELEMENT_BASE(element_mpath), externalResourcesRequired, ?SVG_CORE, ?SVG_XLINK}).
 -record(path, {?ELEMENT_BASE(element_path), d, pathLength, transform, externalResourcesRequired,  ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(rect, {?ELEMENT_BASE(element_rect), x, y, width, height, rx, ry, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(text, {?ELEMENT_BASE(element_text), x, y, dx, dy, rotate, textLength, lengthAdjust, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
