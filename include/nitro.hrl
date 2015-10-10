@@ -240,6 +240,15 @@
 -record(feTile, {?ELEMENT_BASE(element_fetile), in, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
 -record(feTurbulence, {?ELEMENT_BASE(element_feturbulence), baseFrequency, numOctaves, seed, stitchTiles, type, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_PRESENTATION}).
 -record(filter, {?ELEMENT_BASE(element_filter), x, y, width, height, filterRes, filterUnits, primitiveUnits, externalResourcesRequired, ?SVG_CORE, ?SVG_PRESENTATION, ?SVG_XLINK}).
+-record(font, {?ELEMENT_BASE(element_font), horiz_origin_x, horiz_origin_y, horiz_adv_x, vert_origin_x, vert_origin_y, vert_adv_y, externalResourcesRequired, ?SVG_CORE, ?SVG_PRESENTATION}).
+-record(font_face, {?ELEMENT_BASE(element_fontface), font_family, font_style, font_variant, font_weight, font_stretch, font_size, unicode_range, units_per_em, panose_1, stemv, stemh, slope, cap_height, x_height, accent_height, ascent, descent, widths, bbox, ideographic, alphabetic, mathematical, hanging, v_ideographic, v_alphabetic, v_mathematical, v_hanging, underline_position, underline_thickness, strikethrough_position, strikethrough_thickness, overline_position, overline_thickness, ?SVG_CORE}).
+-record(font_face_format, {?ELEMENT_BASE(element_fontfaceformat), string, ?SVG_CORE}).
+-record(font_face_name, {?ELEMENT_BASE(element_fontfacename), name, ?SVG_CORE}).
+-record(font_face_src, {?ELEMENT_BASE(element_fontfacesrc), ?SVG_CORE}).
+-record(font_face_uri, {?ELEMENT_BASE(element_fontfaceuri), ?SVG_CORE, ?SVG_XLINK}).
+-record(foreignObject, {?ELEMENT_BASE(element_foreignobject), x, y, width, height, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(glyph, {?ELEMENT_BASE(element_glyph), d, horiz_adv_x, vert_origin_x, vert_origin_y, vert_adv_y, unicode, glyph_name, orientation, arabic_form, ?SVG_CORE, ?SVG_PRESENTATION}).
+-record(glyphRef, {?ELEMENT_BASE(element_glyphref), x, y, dx, dy, glyphRef, format, ?SVG_CORE, ?SVG_PRESENTATION, ?SVG_XLINK}).
 -record(g, {?ELEMENT_BASE(element_g), transform, externalResourcesRequired,  ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(path, {?ELEMENT_BASE(element_path), d, pathLength, transform, externalResourcesRequired,  ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(rect, {?ELEMENT_BASE(element_rect), x, y, width, height, rx, ry, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
