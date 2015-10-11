@@ -254,6 +254,7 @@
 -record(svgimage, {?ELEMENT_BASE(element_svgimage), x, y, width, height, preserveAspectRatio, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION, ?SVG_XLINK}).
 -record(line, {?ELEMENT_BASE(element_line), x1, y1, x2, y2, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(linearGradient, {?ELEMENT_BASE(element_lineargradient), gradientUnits, gradientTransform, x1, y1, x2, y2, spreadMethod, externalResourcesRequired, ?SVG_CORE, ?SVG_PRESENTATION, ?SVG_XLINK}).
+-record(xlink, {?ELEMENT_BASE(element_xlink), target, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION, ?SVG_TRANSFERT_FUNCTION, ?SVG_XLINK}).
 -record(marker, {?ELEMENT_BASE(element_marker), markerUnits, refX, refY, markerWidth, markerHeight, orient, viewBox, preserveAspectRatio, transform, externalResourcesRequired, ?SVG_CORE, ?SVG_PRESENTATION}).
 -record(mask, {?ELEMENT_BASE(element_mask), maskUnits, maskContentUnits, x, y, width, height, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_PRESENTATION}).
 -record(metadata, {?ELEMENT_BASE(element_metadata), ?SVG_CORE}).
@@ -272,8 +273,13 @@
 -record(switch, {?ELEMENT_BASE(element_switch), allowReorderm, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(symbol, {?ELEMENT_BASE(element_symbol), preserveAspectRatio, viewBox, externalResourcesRequired, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
 -record(text, {?ELEMENT_BASE(element_text), x, y, dx, dy, rotate, textLength, lengthAdjust, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
+-record(textPath, {?ELEMENT_BASE(element_textpath), startOffset, method, spacing, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION, ?SVG_XLINK}).
+-record(svgtitle, {?ELEMENT_BASE(element_svgtitle), ?SVG_CORE}).
+-record(tref, {?ELEMENT_BASE(element_tref), externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION, ?SVG_XLINK}).
 -record(tspan, {?ELEMENT_BASE(element_tspan), x, y, dx, dy, rotate, textLength, lengthAdjust, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION}).
--record(xlink, {?ELEMENT_BASE(element_xlink), target, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_FILTER_PRIMITIVE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION, ?SVG_TRANSFERT_FUNCTION, ?SVG_XLINK}).
+-record(use, {?ELEMENT_BASE(element_use), x, y, width, height, transform, externalResourcesRequired, ?SVG_CONDITIONAL_PROCESSING, ?SVG_CORE, ?SVG_GRAPHICAL_EVENT, ?SVG_PRESENTATION, ?SVG_XLINK}).
+-record(view, {?ELEMENT_BASE(element_view), viewBox, preserveAspectRatio, zoomAndPan, viewTarget, externalResourcesRequired, ?SVG_CORE}).
+-record(vkern, {?ELEMENT_BASE(element_vkern), u1, g1, u2, g2, k, ?SVG_CORE}).
 
 % Actions
 -record(action,  {?ACTION_BASE(undefined)}).
