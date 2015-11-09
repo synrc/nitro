@@ -43,12 +43,11 @@ render_element(Record) ->
       {<<"required">>,if Record#calendar.required == true -> "required"; true -> undefined end},
       {<<"step">>,Record#calendar.step},
       {<<"type">>, <<"calendar">>},
-      {<<"placeholder">>,Record#calendar.placeholder},
-      {<<"value">>,nitro:js_escape(Record#calendar.value)} | Record#calendar.data_fields
+      {<<"placeholder">>,Record#calendar.placeholder} | Record#calendar.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#calendar.body), List).
 
-init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form}) ->
+init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form,value=Value}) ->
     ID = nitro:to_list(Id),
     I18n = case Lang of
                undefined -> "clLangs.ua";
@@ -56,6 +55,9 @@ init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form}) ->
     Format = case Form of
                  undefined -> "YYYY-MM-DD";
                  Form -> Form end,
+    DefaultDate = case Value of
+                      {Yv,Mv,Dv} -> nitro:f("new Date(~s,~s,~s)",[nitro:to_list(Yv),nitro:to_list(Mv-1),nitro:to_list(Dv)]);
+                      _ -> "null" end,
     MinDate = case Min of
                   {Y,M,D} -> nitro:f("new Date(~s,~s,~s)",[nitro:to_list(Y),nitro:to_list(M-1),nitro:to_list(D)]);
                   _ -> "new Date(2000, 0, 1)" end,
@@ -67,9 +69,11 @@ init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form}) ->
             field: document.getElementById('~s'),
             firstDay: 1,
             i18n: ~s,
+            defaultDate: ~s,
+            setDefaultDate: true,
             minDate: ~s,
             maxDate: ~s,
             format: '~s'
         });",
-        [ID,ID,I18n,MinDate,MaxDate,Format]
+        [ID,ID,I18n,DefaultDate,MinDate,MaxDate,Format]
     )).
