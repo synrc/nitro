@@ -35,6 +35,7 @@ render_element(Record) ->
       {<<"disabled">>, if Record#input.disabled == true -> "disabled"; true -> undefined end},
       {<<"name">>,Record#input.name},
       {<<"type">>, Record#input.type},
+      {<<"accept">>, Record#input.accept},
       {<<"max">>, Record#input.max},
       {<<"placeholder">>,Record#input.placeholder},
       {<<"min">>, Record#input.min},
