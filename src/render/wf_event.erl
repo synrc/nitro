@@ -4,7 +4,7 @@
 -compile(export_all).
 
 -record(ev, { module, msg, trigger, name }).
--record(cx, { handlers, actions, req, module, lang, path, session, params, form, state=[] }).
+-record(cx, { handlers, actions, req, module, lang, path, session, formatter, params, form, state=[] }).
 -define(CTX, (get(context))).
 
 new(P,E,D,N,Data,Source) -> new(P,E,D,N,Data,Source,<<>>).
