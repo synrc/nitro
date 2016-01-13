@@ -540,7 +540,9 @@ function formatter(date, format) {
                 date = new Date(Date.parse(opts.field.value));
             }
             if (isDate(date)) {
-              self.setDate(date);
+                self.setDate(date);
+            }else {
+                self.setDate(null);
             }
             if (!self._v) {
                 self.show();
