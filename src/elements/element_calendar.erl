@@ -47,7 +47,7 @@ render_element(Record) ->
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#calendar.body), List).
 
-init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form,value=Value,onSelect=SelectFn,disableDayFn=DisDayFn}) ->
+init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form,value=Value,onSelect=SelectFn,disableDayFn=DisDayFn, position=Pos,reposition=Repos}) ->
     ID = nitro:to_list(Id),
     I18n =        case Lang  of undefined  -> "clLangs.ua"; Lang -> "clLangs."++nitro:to_list(Lang) end,
     Format =      case Form  of undefined  -> "YYYY-MM-DD"; Form -> Form end,
@@ -56,6 +56,8 @@ init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form,value=Value,onSe
     MaxDate =     case Max   of {Y1,M1,D1} -> nitro:f("new Date(~s,~s,~s)",[nitro:to_list(Y1),nitro:to_list(M1-1),nitro:to_list(D1)]);  _ -> "new Date(2087, 4, 13)" end,
     OnSelect =    case SelectFn of undefined -> "null"; _ -> SelectFn end,
     DisDay =      case DisDayFn of undefined -> "null"; _ -> nitro:f("function(thisDate){return ~s(thisDate);}",[DisDayFn]) end,
+    Position =    case Pos of undefined -> "bottom left"; _ -> nitro:to_list(Pos) end,
+    Reposition =  case Repos of undefined -> "true"; _ -> nitro:to_list(Repos) end,
     nitro:wire(nitro:f(
         "pickers['~s'] = new Pikaday({
             field: document.getElementById('~s'),
@@ -67,7 +69,9 @@ init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form,value=Value,onSe
             maxDate: ~s,
             format: '~s',
             onSelect: ~s,
-            disableDayFn: ~s
+            disableDayFn: ~s,
+            position: '~s',
+            reposition: ~s
         });",
-        [ID,ID,I18n,DefaultDate,MinDate,MaxDate,Format,OnSelect,DisDay]
+        [ID,ID,I18n,DefaultDate,MinDate,MaxDate,Format,OnSelect,DisDay,Position,Reposition]
     )).
