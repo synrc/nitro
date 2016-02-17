@@ -70,6 +70,14 @@ function formatter(date, format) {
     return value;
 }
 
+function parseDateFromInput(value) {
+    if(isNaN(Date.parse(value))) {
+        var res = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec(value);
+        if(res.length == 4) { return new Date(res[3],(res[2]-1),res[1]); }
+        else { return null; }
+    }else{ return new Date(Date.parse(value)); }
+}
+
 
 (function (root, factory)
 {
@@ -537,7 +545,7 @@ function formatter(date, format) {
                 date = (date && date.isValid()) ? date.toDate() : null;
             }
             else {
-                date = new Date(Date.parse(opts.field.value));
+                date = parseDateFromInput(opts.field.value);
             }
             if (isDate(date)) {
                 self.setDate(date);
