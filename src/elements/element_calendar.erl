@@ -49,7 +49,7 @@ render_element(Record) ->
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#calendar.body), List).
 
-init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form,value=Value,onSelect=SelectFn,disableDayFn=DisDayFn, position=Pos,reposition=Repos}) ->
+init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form,value=Value,onSelect=SelectFn,disableDayFn=DisDayFn, position=Pos,reposition=Repos,yearRange=YearRange}) ->
     ID = nitro:to_list(Id),
     I18n =        case Lang  of undefined  -> "clLangs.ua"; Lang -> "clLangs."++nitro:to_list(Lang) end,
     Format =      case Form  of undefined  -> "YYYY-MM-DD"; Form -> Form end,
@@ -73,7 +73,8 @@ init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form,value=Value,onSe
             onSelect: ~s,
             disableDayFn: ~s,
             position: '~s',
-            reposition: ~s
+            reposition: ~s,
+            yearRange: ~s
         });",
-        [ID,ID,I18n,DefaultDate,MinDate,MaxDate,Format,OnSelect,DisDay,Position,Reposition]
+        [ID,ID,I18n,DefaultDate,MinDate,MaxDate,Format,OnSelect,DisDay,Position,Reposition,nitro:to_list(YearRange)]
     )).
