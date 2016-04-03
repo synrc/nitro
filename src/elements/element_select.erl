@@ -12,7 +12,7 @@ render_element(Record = #select{}) ->
                                 source=[nitro:to_atom(ID)],
                                 delegate=Record#select.delegate }) end,
   Props = [
-    {<<"id">>, Record#select.id},
+    {<<"id">>, ID},
     {<<"class">>, Record#select.class},
     {<<"style">>, Record#select.style},
     {<<"name">>, Record#select.name},
