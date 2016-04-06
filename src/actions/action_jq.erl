@@ -19,6 +19,10 @@ render_action(#jq{target=T,method=undefined,property=P,args=simple,right=R,forma
 render_action(#jq{target=T,method=undefined,property=P,right=undefined}) ->
     nitro:f("qi('~s').~s;", [nitro:to_list(T),nitro:to_list(P)]);
 
+render_action(#jq{target=T,method=undefined,property=P,right=#jq{}=R,format=_F}) ->
+    nitro:f("qi('~s').~s = ~s;",
+        [nitro:to_list(T),nitro:to_list(P),binary_to_list(iolist_to_binary(nitro:render(R)))]);
+
 render_action(#jq{target=T,method=undefined,property=P,right=R,format=_F}) ->
     nitro:f("qi('~s').~s = '~s';",
         [nitro:to_list(T),nitro:to_list(P),binary_to_list(iolist_to_binary(nitro:render(R)))]).
