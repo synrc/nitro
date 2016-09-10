@@ -185,6 +185,12 @@
 % Actions
 -record(action,  {?ACTION_BASE(undefined)}).
 -record(wire,    {?ACTION_BASE(action_wire)}).
+
+-record(replace, {?ACTION_BASE(action_manage), elements}).
+-record(insert,  {?ACTION_BASE(action_manage), elements, position = beforeend}).
+-record(multi,   {?ACTION_BASE(action_manage)}).
+-record(focus,   {?ACTION_BASE(action_ui)}).
+
 -record(api,     {?ACTION_BASE(action_api), name, tag, delegate }).
 -record(event,   {?ACTION_BASE(action_event), type=default, postback, delegate, validation=[]}).
 -record(bind,    {?ACTION_BASE(action_bind), type=click, postback=[]}).

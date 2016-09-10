@@ -3,14 +3,7 @@
 -include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
-render_action(Record) -> 
-    Control = Record#confirm.target,
-    Delegate = Record#confirm.delegate,
-    Postback = Record#confirm.postback,
+render_action(#confirm{target=Control,text=Text,postback=Postback,delegate=Delegate}) -> 
     PostbackScript = wf_event:new(Postback, Control, Delegate, event, "[]", []),
-    [
-        nitro:f("if (confirm(\"~s\")) {", [nitro:js_escape(Record#confirm.text)]),
-        PostbackScript,
-        "}"
-    ].
+    ["if (confirm(\"",nitro:js_escape(Text),"\")) {",PostbackScript,"}"].
 

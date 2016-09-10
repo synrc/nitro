@@ -3,4 +3,4 @@
 -include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
-render_action(Record) -> nitro:f("alert(\"~s\");", [nitro:js_escape(Record#alert.text)]).
+render_action(#alert{text=T}) -> ["alert(\"",nitro:js_escape(T),"\");"].
