@@ -17,7 +17,7 @@
 -record(list, {?ELEMENT_BASE(element_list), numbered=false }).
 -record(dropdown, {?ELEMENT_BASE(element_dropdown), options, value, multiple=false, disabled=false, name}).
 -record(radiogroup, {?ELEMENT_BASE(element_radiogroup)}).
--record(spinner, {?ELEMENT_BASE(element_spinner), image="/nitrogen/spinner.gif"}).
+-record(spinner, {?ELEMENT_BASE(element_spinner), image="/priv/static/spinner.gif"}).
 
 % HTML Document meta
 -record(base,       {?ELEMENT_BASE(element_meta_base), href, target}).
@@ -74,7 +74,7 @@
 -record(file,           {?ELEMENT_BASE(element_file),  accept, autofocus, disabled, form, multiple, name, required}).
 -record(hidden,           {?ELEMENT_BASE(element_hidden),  disabled, form, name, value, html_name}).
 -record(input_image,           {?ELEMENT_BASE(element_input_image),  alt, autofocus, disabled, form, formaction, formenctype, formmethod, formnovalue, formtarget, height, name, src, width}).
--record(month,              {?ELEMENT_BASE(element_month),  alt, autocomplite, autofocus, disabled, form, list, min, max, name, readonly, required, step, value}).
+-record(month,              {?ELEMENT_BASE(element_month),  alt, autocomplete, autofocus, disabled, form, list, min, max, name, readonly, required, step, value}).
 -record(number,              {?ELEMENT_BASE(element_number),  autocomplete, autofocus, disabled, form, list, max, min, name, placeholder, readonly, required, step, value}).
 -record(password,              {?ELEMENT_BASE(element_password),  autocomplete, autofocus, disabled, form, maxlength, name, pattern, placeholder, readonly, required, size, value}).
 -record(radio,              {?ELEMENT_BASE(element_radio),  autofocus, checked, disabled, form, name, required, value, html_name}).
