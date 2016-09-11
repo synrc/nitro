@@ -3,9 +3,10 @@
 -include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
-render_action(Record) ->
-    Name = Record#api.name,
+-define(B(E), nitro:to_binary(E)).
+
+render_action(#api{name=Name,delegate=Delegate}) ->
     Data = "utf8_toByteArray(JSON.stringify(data))",
-    PostbackScript = wf_event:new(Name, "document", Record#api.delegate, api_event, Data, []),
-    nitro:f("~s = function(data) {",  [Name]) ++ binary_to_list(PostbackScript) ++ "};".
+    PostbackScript = wf_event:new(Name, "document", Delegate, api_event, Data, []),
+    [?B(Name),"=function(data){",PostbackScript,"};"].
 

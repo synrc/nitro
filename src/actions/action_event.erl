@@ -1,21 +1,21 @@
 -module(action_event).
-
+-author('Maxim Sokhatsky').
+-author('Andrey Martemyanov').
 -include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
+-define(B(E), nitro:to_binary(E)).
+
 render_action(#event{source=undefined}) -> [];
 render_action(#event{postback=Postback,actions=_A,source=Source,target=Control,type=Type,delegate=D,validation=V}) ->
-    Element = nitro:to_list(Control),
+    E = ?B(Control),
     ValidationSource = [ S || S <- Source, not is_tuple(S) ],
-    PostbackBin = wf_event:new(Postback, Element, D, event, data(Element,Source), ValidationSource, V),
-    [list_to_binary([<<"{ var x=qi('">>,Element,<<"'); x && x.addEventListener('">>,
-        nitro:to_binary(Type),<<"',function (event){ ">>,
-        PostbackBin,<<"});};">>])].
+    PostbackBin = wf_event:new(Postback, E, D, event, data(E,Source), ValidationSource, V),
+    ["{var x=qi('",E,"'); x && x.addEventListener('",?B(Type),"',function (event){ ",PostbackBin,"});};"].
 
-data(Element,SourceList) ->
+data(E,SourceList) ->
     Type=fun(A) when is_atom(A) -> [ "atom('",atom_to_list(A),"')" ]; (A) -> [ "utf8_toByteArray('",A,"')" ] end,
-    list_to_binary([<<"[tuple(tuple(utf8_toByteArray('">>,Element,<<"'),bin('detail')),[])">>,
-        [ begin case S of
-                {Id,JsGetCode} -> [ ",tuple(",Type(Id),",",JsGetCode,")" ];
-                _ -> [ ",tuple(",Type(S),",querySource('",nitro:to_list(S),"'))" ]
-            end end || S <- SourceList ], <<"]">>]).
+    list_to_binary(["[tuple(tuple(utf8_toByteArray('",E,"'),bin('detail')),[])",
+        [ case S of {Id,Code} -> [ ",tuple(",Type(Id),",",Code,")" ];
+                            _ -> [ ",tuple(",Type(S),",querySource('",?B(S),"'))" ]
+          end || S <- SourceList ],"]"]).
