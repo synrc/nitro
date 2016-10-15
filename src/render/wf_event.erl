@@ -9,8 +9,9 @@
 -define(CTX, (get(context))).
 
 -define(B(E), nitro:to_binary(E)).
-target({qs,S}) -> ["qs('",S,"')"];
-target(Id)     -> ["qi('",?B(Id),"')"].
+-define(L(E), nitro:to_list(E)).
+target({qs,S}) -> ["qs('",nitro:js_escape(?L(S)), "')"];
+target(Id)     -> ["qi('",nitro:js_escape(?L(Id)),"')"].
 
 new(P,E,D,N,Data,Source) -> new(P,E,D,N,Data,Source,<<>>).
 
