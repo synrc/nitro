@@ -41,6 +41,6 @@ render_element(Record) ->
       {<<"name">>,Record#range.name},
       {<<"step">>,Record#range.step},
       {<<"type">>, <<"range">>},
-      {<<"value">>, nitro:js_escape(Record#range.value)} | Record#range.data_fields
+      {<<"value">>, Record#range.value} | Record#range.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#range.body), List).

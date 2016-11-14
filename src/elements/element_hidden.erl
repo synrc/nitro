@@ -26,6 +26,6 @@ render_element(Record) ->
       {<<"form">>,Record#hidden.form},
       {<<"name">>,Record#hidden.name},
       {<<"type">>, <<"hidden">>},
-      {<<"value">>, nitro:js_escape(Record#hidden.value)} | Record#hidden.data_fields
+      {<<"value">>, Record#hidden.value} | Record#hidden.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#hidden.body), List).

@@ -11,7 +11,7 @@ render_element(Record) ->
       {<<"style">>,Record#textbox.style},
       {<<"name">>,Record#textbox.name},
       {<<"placeholder">>,Record#textbox.placeholder},
-      {<<"value">>,nitro:js_escape(Record#textbox.value)},
+      {<<"value">>, Record#textbox.value},
       {<<"disabled">>,Record#textbox.disabled},
       {<<"autofocus">>,Record#textbox.autofocus},
       {<<"readonly">>,Record#textbox.readonly},

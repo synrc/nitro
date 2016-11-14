@@ -43,6 +43,6 @@ render_element(Record) ->
       {<<"required">>,if Record#password.required == true -> "required"; true -> undefined end},      
       {<<"size">>,Record#password.size},
       {<<"type">>, <<"password">>},
-      {<<"value">>,nitro:js_escape(Record#password.value)} | Record#password.data_fields
+      {<<"value">>, Record#password.value} | Record#password.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#password.body), List).

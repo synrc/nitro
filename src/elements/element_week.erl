@@ -43,6 +43,6 @@ render_element(Record) ->
       {<<"required">>,if Record#week.required == true -> "required"; true -> undefined end},      
       {<<"step">>,Record#week.step},
       {<<"type">>, <<"week">>},
-      {<<"value">>,nitro:js_escape(Record#week.value)} | Record#week.data_fields
+      {<<"value">>, Record#week.value} | Record#week.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#week.body), List).

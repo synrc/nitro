@@ -35,6 +35,6 @@ render_element(Record) ->
       {<<"disabled">>, if Record#input_button.disabled == true -> "disabled"; true -> undefined end},
       {<<"name">>,Record#input_button.name},
       {<<"type">>, <<"button">>},
-      {<<"value">>,nitro:js_escape(Record#input_button.value)} | Record#input_button.data_fields
+      {<<"value">>, Record#input_button.value} | Record#input_button.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#input_button.body), List).

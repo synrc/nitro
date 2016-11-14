@@ -45,6 +45,6 @@ render_element(Record) ->
       {<<"required">>,if Record#search.required == true -> "required"; true -> undefined end},      
       {<<"size">>,Record#search.size},
       {<<"type">>, <<"search">>},
-      {<<"value">>, nitro:js_escape(Record#search.value)} | Record#search.data_fields
+      {<<"value">>, Record#search.value} | Record#search.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#search.body), List).

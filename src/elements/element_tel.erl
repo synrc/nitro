@@ -44,6 +44,6 @@ render_element(Record) ->
       {<<"required">>,if Record#tel.required == true -> "required"; true -> undefined end},      
       {<<"size">>,Record#tel.size},
       {<<"type">>, <<"tel">>},
-      {<<"value">>,nitro:js_escape(Record#tel.value)} | Record#tel.data_fields
+      {<<"value">>, Record#tel.value} | Record#tel.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#tel.body), List).

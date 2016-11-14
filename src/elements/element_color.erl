@@ -38,6 +38,6 @@ render_element(Record) ->
       {<<"list">>,Record#color.list},      
       {<<"name">>,Record#color.name},
       {<<"type">>, <<"color">>},
-      {<<"value">>,nitro:js_escape(Record#color.value)} | Record#color.data_fields
+      {<<"value">>, Record#color.value} | Record#color.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#color.body), List).

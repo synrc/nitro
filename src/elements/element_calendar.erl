@@ -45,7 +45,7 @@ render_element(Record) ->
       {<<"type">>, <<"calendar">>},
       {<<"pattern">>,Record#calendar.pattern},
       {<<"placeholder">>,Record#calendar.placeholder},
-      {<<"onkeypress">>, nitro:js_escape(Record#calendar.onkeypress)} | Record#calendar.data_fields
+      {<<"onkeypress">>, Record#calendar.onkeypress} | Record#calendar.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#calendar.body), List).
 

@@ -27,6 +27,6 @@ render_element(Record) ->
       {<<"max">>,Record#meter.max},
       {<<"min">>,Record#meter.min},
       {<<"optimum">>,Record#meter.optimum},
-      {<<"value">>, nitro:js_escape(Record#meter.value)} | Record#meter.data_fields
+      {<<"value">>, Record#meter.value} | Record#meter.data_fields
     ],
     wf_tags:emit_tag(<<"meter">>, nitro:render(case Record#meter.body of undefined -> []; B -> B end), List).

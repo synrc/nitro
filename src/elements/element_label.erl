@@ -9,5 +9,5 @@ render_element(Record) ->
     {<<"class">>, Record#label.class},
     {<<"style">>, Record#label.style},
     {<<"for">>, Record#label.for},
-    {<<"onclick">>, nitro:js_escape(Record#label.onclick)} | Record#label.data_fields
+    {<<"onclick">>, Record#label.onclick} | Record#label.data_fields
   ]).

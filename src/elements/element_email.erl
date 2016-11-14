@@ -45,6 +45,6 @@ render_element(Record) ->
       {<<"required">>,if Record#email.required == true -> "required"; true -> undefined end}, 
       {<<"size">>,Record#email.size},
       {<<"type">>, <<"email">>},
-      {<<"value">>,nitro:js_escape(Record#email.value)} | Record#email.data_fields
+      {<<"value">>, Record#email.value} | Record#email.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#email.body), List).

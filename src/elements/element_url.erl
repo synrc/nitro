@@ -44,6 +44,6 @@ render_element(Record) ->
       {<<"required">>,if Record#url.required == true -> "required"; true -> undefined end},      
       {<<"size">>,Record#url.size},
       {<<"type">>, <<"url">>},
-      {<<"value">>,nitro:js_escape(Record#url.value)} | Record#url.data_fields
+      {<<"value">>, Record#url.value} | Record#url.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#url.body), List).

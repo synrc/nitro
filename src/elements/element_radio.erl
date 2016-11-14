@@ -28,7 +28,7 @@ render_element(Record) ->
             {<<"name">>, nitro:coalesce([Record#radio.html_name,Record#radio.name])},
             {<<"class">>, Record#radio.class},
             {<<"style">>, Record#radio.style},
-            {<<"onclick">>, nitro:js_escape(Record#radio.onclick)}
+            {<<"onclick">>, Record#radio.onclick}
         ])
 
     ].

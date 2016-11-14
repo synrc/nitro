@@ -42,6 +42,6 @@ render_element(Record) ->
       {<<"required">>,if Record#month.required == true -> "required"; true -> undefined end},      
       {<<"step">>,Record#month.step},
       {<<"type">>, <<"month">>},
-      {<<"value">>,nitro:js_escape(Record#month.value)} | Record#month.data_fields
+      {<<"value">>, Record#month.value} | Record#month.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#month.body), List).

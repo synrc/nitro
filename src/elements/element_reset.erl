@@ -36,6 +36,6 @@ render_element(Record) ->
       {<<"form">>,Record#reset.form},
       {<<"name">>,Record#reset.name},
       {<<"type">>, <<"reset">>},
-      {<<"value">>, nitro:js_escape(Record#reset.value)} | Record#reset.data_fields
+      {<<"value">>, Record#reset.value} | Record#reset.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#reset.body), List).
