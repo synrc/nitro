@@ -28,7 +28,8 @@ render_element(Record) ->
             {<<"name">>, nitro:coalesce([Record#radio.html_name,Record#radio.name])},
             {<<"class">>, Record#radio.class},
             {<<"style">>, Record#radio.style},
-            {<<"onclick">>, Record#radio.onclick}
+            {<<"onclick">>, Record#radio.onclick},
+            {<<"required">>,if Record#radio.required == true -> "required"; true -> undefined end}
         ])
 
     ].

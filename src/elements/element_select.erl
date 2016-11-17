@@ -18,6 +18,7 @@ render_element(Record = #select{}) ->
     {<<"name">>, Record#select.name},
     {<<"onchange">>, Record#select.onchange},
     {<<"title">>, Record#select.title},
+    {<<"required">>, case Record#select.required of true -> <<"required">>; _-> undefined end},
     {<<"disabled">>, case Record#select.disabled of true -> <<"disabled">>; _-> undefined end},
     {<<"multiple">>, case Record#select.multiple of true -> <<"multiple">>; _-> undefined end} | Record#select.data_fields
   ],
