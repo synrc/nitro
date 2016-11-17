@@ -14,8 +14,8 @@ render_element(Record) ->
       {<<"value">>, Record#textbox.value},
       {<<"disabled">>,Record#textbox.disabled},
       {<<"autofocus">>,Record#textbox.autofocus},
-      {<<"readonly">>,Record#textbox.readonly},
-      {<<"required">>,Record#textbox.required},
+      {<<"readonly">>,if Record#textbox.readonly == true -> "readonly"; true -> undefined end},
+      {<<"required">>,if Record#textbox.required == true -> "required"; true -> undefined end}, 
       {<<"class">>,Record#textbox.class} | Record#textbox.data_fields
   ] ++ case Record#textbox.disabled of undefined -> []; _ -> [{<<"disabled">>,<<"disabled">>}] end,
   wf_tags:emit_tag(<<"input">>, nitro:render(Record#textbox.body), List).
