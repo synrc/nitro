@@ -6,7 +6,7 @@
 render_element(Record) -> 
     ID = Record#radiogroup.id,
     Body = apply_name(ID, Record#radiogroup.body),
-    element_panel:render_element(#panel {
+    wf_render_elements:render_element(#panel {
         id=ID,
         class=[radiogroup, Record#radiogroup.class],
         style=Record#radiogroup.style,
