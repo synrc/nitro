@@ -32,7 +32,7 @@ render_element(Group = #optgroup{}) ->
 render_element(O = #option{}) ->
   wf_tags:emit_tag(<<"option">>, nitro:render(O#option.body), [
     {<<"id">>, O#option.id},
-    {<<"disabled">>, O#option.disabled},
+    {<<"disabled">>, case O#option.disabled of true -> <<"disabled">>; _-> undefined end},
     {<<"label">>, O#option.label},
     {<<"title">>, O#option.title},
     {<<"selected">>, case O#option.selected of true -> <<"selected">>; _-> undefined end},
