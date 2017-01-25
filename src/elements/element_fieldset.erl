@@ -29,7 +29,10 @@ render_element(Record) ->
     wf_tags:emit_tag(
       <<"fieldset">>,
       [
-        wf_tags:emit_tag(<<"legend">>, nitro:render(case Record#fieldset.legend of undefined -> []; B -> B end), []), 
+        case Record#fieldset.legend of 
+          undefined -> [];
+          B -> wf_tags:emit_tag(<<"legend">>, nitro:render(B), [])
+        end, 
         nitro:render(case Record#fieldset.body of undefined -> []; B -> B end)
       ], 
       List).
