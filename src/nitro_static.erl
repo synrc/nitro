@@ -1,5 +1,5 @@
--module(n2o_static).
--description('N2O Static bridge for MAD containers').
+-module(nitro_static).
+-description('NITRO Static bridge for MAD containers').
 -author('Maxim Sokhatsky').
 -compile(export_all).
 -include_lib("kernel/include/file.hrl").
