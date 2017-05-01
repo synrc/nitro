@@ -18,6 +18,8 @@ coalesce([undefined|T]) -> coalesce(T);
 coalesce([[]|T]) -> coalesce(T);
 coalesce([H|_]) -> H.
 
+jse(X) -> js_escape(X).
+
 js_escape(undefined) -> [];
 js_escape(Value) when is_list(Value) -> binary_to_list(js_escape(iolist_to_binary(Value)));
 js_escape(Value) -> js_escape(Value, <<>>).
