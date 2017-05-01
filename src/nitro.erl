@@ -65,7 +65,7 @@ depickle(SerializedData, TTLSeconds) -> ?PICKLER:depickle(SerializedData, TTLSec
 render(X) -> wf_render:render(X).
 wire(Actions) -> action_wire:wire(Actions).
 
-unique_integer() -> try erlang:unique_integer() catch _:_ -> {MS,S,US} = erlang:now(), (MS*1000000+S)*1000000+US end.
+unique_integer() -> erlang:unique_integer().
 temp_id() -> "auto" ++ integer_to_list(unique_integer() rem 1000000).
 
 html_encode(L,Fun) when is_function(Fun) -> Fun(L);
@@ -78,34 +78,100 @@ html_encode(L, whites) -> html_encode_whites(nitro:to_list(lists:flatten([L]))).
 html_encode(<<>>) -> [];
 html_encode([]) -> [];
 html_encode([H|T]) ->
-	case H of
-		$< -> "&lt;" ++ html_encode(T);
-		$> -> "&gt;" ++ html_encode(T);
-		$" -> "&quot;" ++ html_encode(T);
-		$' -> "&#39;" ++ html_encode(T);
-		$& -> "&amp;" ++ html_encode(T);
-		BigNum when is_integer(BigNum) andalso BigNum > 255 ->
-			%% Any integers above 255 are converted to their HTML encode equivilant,
-			%% Example: 7534 gets turned into &#7534;
-			[$&,$# | nitro:to_list(BigNum)] ++ ";" ++ html_encode(T);
-		Tup when is_tuple(Tup) ->
-			throw({html_encode,encountered_tuple,Tup});
-		_ -> [H|html_encode(T)]
-	end.
+    case H of
+        $< -> "&lt;" ++ html_encode(T);
+        $> -> "&gt;" ++ html_encode(T);
+        $" -> "&quot;" ++ html_encode(T);
+        $' -> "&#39;" ++ html_encode(T);
+        $& -> "&amp;" ++ html_encode(T);
+        BigNum when is_integer(BigNum) andalso BigNum > 255 ->
+        [$&,$# | nitro:to_list(BigNum)] ++ ";" ++ html_encode(T);
+        Tup when is_tuple(Tup) -> throw({html_encode,encountered_tuple,Tup});
+        _ -> [H|html_encode(T)]
+    end.
 
 html_encode_whites([]) -> [];
 html_encode_whites([H|T]) ->
-	case H of
-		$\s -> "&nbsp;" ++ html_encode_whites(T);
-		$\t -> "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" ++ html_encode_whites(T);
-		$< -> "&lt;" ++ html_encode_whites(T);
-		$> -> "&gt;" ++ html_encode_whites(T);
-		$" -> "&quot;" ++ html_encode_whites(T);
-		$' -> "&#39;" ++ html_encode_whites(T);
-		$& -> "&amp;" ++ html_encode_whites(T);
-		$\n -> "<br>" ++ html_encode_whites(T);
-		_ -> [H|html_encode_whites(T)]
-	end.
+    case H of
+        $\s -> "&nbsp;" ++ html_encode_whites(T);
+        $\t -> "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" ++ html_encode_whites(T);
+        $< -> "&lt;" ++ html_encode_whites(T);
+        $> -> "&gt;" ++ html_encode_whites(T);
+        $" -> "&quot;" ++ html_encode_whites(T);
+        $' -> "&#39;" ++ html_encode_whites(T);
+        $& -> "&amp;" ++ html_encode_whites(T);
+        $\n -> "<br>" ++ html_encode_whites(T);
+        _ -> [H|html_encode_whites(T)]
+    end.
 
 script() -> get(script).
 script(Script) -> put(script,Script).
+
+% Update DOM nitro:update
+
+update(Target, Elements) ->
+    nitro:wire(#jq{target=Target,property=outerHTML,right=Elements,format="'~s'"}).
+
+insert_top(Tag,Target, Elements) ->
+    Pid = self(),
+    Ref = make_ref(),
+    spawn(fun() -> R = nitro:render(Elements), Pid ! {R,Ref,nitro:actions()} end),
+    {Render,Ref,Actions} = receive {_, Ref, _} = A -> A end,
+    nitro:wire(nitro:f(
+        "qi('~s').insertBefore("
+        "(function(){var div = qn('~s'); div.innerHTML = '~s'; return div.firstChild; })(),"
+        "qi('~s').firstChild);",
+        [Target,Tag,Render,Target])),
+    nitro:wire(nitro:render(Actions)).
+
+insert_bottom(Tag, Target, Elements) ->
+    Pid = self(),
+    Ref = make_ref(),
+    spawn(fun() -> R = nitro:render(Elements), Pid ! {R,Ref,nitro:actions()} end),
+    {Render,Ref,Actions} = receive {_, Ref, _} = A -> A end,
+    nitro:wire(nitro:f(
+        "(function(){ var div = qn('~s'); div.innerHTML = '~s';"
+                     "qi('~s').appendChild(div.firstChild); })();",
+        [Tag,Render,Target])),
+    niro:wire(nitro:render(Actions)).
+
+insert_adjacent(Command,Target, Elements) ->
+    Pid = self(),
+    Ref = make_ref(),
+    spawn(fun() -> R = nitro:render(Elements), Pid ! {R,Ref,nitro:actions()} end),
+    {Render,Ref,Actions} = receive {_, Ref, _} = A -> A end,
+    nitro:wire(nitro:f("qi('~s').insertAdjacentHTML('~s', '~s');",[Target,Command,Render])),
+    nitro:wire(nitro:render(Actions)).
+
+actions() -> get(actions).
+actions(Ac) -> put(actions,Ac).
+
+insert_top(Target, Elements) when element(1,Elements) == tr -> insert_top(tbody,Target, Elements);
+insert_top(Target, Elements) -> insert_top('div',Target, Elements).
+insert_bottom(Target, Elements) when element(1,Elements) == tr -> insert_bottom(tbody, Target, Elements);
+insert_bottom(Target, Elements) -> insert_bottom('div', Target, Elements).
+insert_before(Target, Elements) -> insert_adjacent(beforebegin,Target, Elements).
+insert_after(Target, Elements) -> insert_adjacent(afterend,Target, Elements).
+
+remove(Target) ->
+    nitro:wire("var x=qi('"++nitro:to_list(Target)++"'); x && x.parentNode.removeChild(x);").
+
+% Wire JavaScript nitro:wire
+
+state(Key) -> erlang:get(Key).
+state(Key,Value) -> erlang:put(Key,Value).
+
+% Redirect and purge connection nitro:redirect
+
+redirect({http,Url}) -> n2o:header(<<"Location">>,nitro_conv:to_binary(Url)), nitro:state(status,302), [];
+redirect(Url) -> nitro:wire(#jq{target='window.top',property=location,args=simple,right=Url}).
+header(K,V) -> nitro:context((?CTX)#cx{req=cowboy_req:set_resp_header(K,V,?REQ)}).
+
+% Convert and Utils API
+
+display(Element,Status) -> 
+   nitro:wire("{ var x = qi('"++
+      nitro:to_list(Element)++"'); if (x) x.style.display = '"++nitro:to_list(Status)++"'; }").
+
+show(Element) -> display(Element,block).
+hide(Element) -> display(Element,none).

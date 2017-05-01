@@ -17,13 +17,10 @@ render_element(Element) when is_tuple(Element) ->
          nitro:wire(nitro:f("{var name='~s'; qi(name)"
            ".addEventListener('validation',"
               "function(e) { if (!(~s)) e.preventDefault(); });"
-              "qi(name).validation = true;}",[Id,Code]));
-         _ -> skip end,
+              "qi(name).validation = true;}",[Id,Code])) end,
     case element(#element.module,Element) of
-        undefined ->
-	    default_render(Tag, Element);
-        Module ->
-	    nitro:to_binary(Module:render_element(setelement(#element.id,Element,Id))) end;
+        undefined -> default_render(Tag, Element);
+        Module -> nitro:to_binary(Module:render_element(setelement(#element.id,Element,Id))) end;
 render_element(Element) -> io:format("Unknown Element: ~p~n\r",[Element]).
 
 default_render(Tag, Record) ->

@@ -2,9 +2,9 @@
 -compile(export_all).
 -include_lib("nitro/include/nitro.hrl").
 
-render_element(#upload{id=Id} = U) ->
+render_element(#upload{id=Id}) ->
     Uid = case Id of undefined -> wf:temp_id(); I -> I end,
-    wf:wire("ftp_file=undefined;"),
+    nitro:wire("ftp_file=undefined;"),
     bind(ftp_open,  click,  wf:f("qi('~s').click(); event.preventDefault();", [wf:to_list(Uid)])),
     bind(ftp_start, click,  "ftp.start(ftp_file);"),
     bind(ftp_stop,  click,  "ftp.stop(ftp_file);"),
@@ -19,4 +19,4 @@ render_element(#upload{id=Id} = U) ->
     ] } ] }, wf:render(Upload).
 
 bind(Control,Event,Code) ->
-    wf:wire(#bind{target=Control,type=Event,postback=Code}).
+    nitro:wire(#bind{target=Control,type=Event,postback=Code}).
