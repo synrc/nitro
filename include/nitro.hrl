@@ -1,11 +1,6 @@
 -ifndef(NITRO_HRL).
 -define(NITRO_HRL, true).
 
--record(cx,      { handlers, actions, req, module, lang, path, session, formatter=false, params, form, state=[] }).
-
--define(CTX, (get(context))).
--define(REQ, (get(context))#cx.req).
-
 -define(DEFAULT_BASE, {?ELEMENT_BASE(undefined)}).
 -define(DEFAULT_BASE_TAG(Tag), {?ELEMENT_BASE(undefined,Tag,undefined)}).
 -define(ELEMENT_BASE(Module), ?ELEMENT_BASE(Module,undefined,undefined)).

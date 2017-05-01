@@ -1,4 +1,5 @@
 -module(nitro).
+-include_lib("n2o/include/n2o.hrl").
 -include("nitro.hrl").
 -compile(export_all).
 -behaviour(application).
@@ -169,9 +170,9 @@ header(K,V) -> nitro:context((?CTX)#cx{req=cowboy_req:set_resp_header(K,V,?REQ)}
 
 % Convert and Utils API
 
-display(Element,Status) -> 
+display(Element,Status) ->
    nitro:wire("{ var x = qi('"++
-      nitro:to_list(Element)++"'); if (x) x.style.display = '"++nitro:to_list(Status)++"'; }").
+   nitro:to_list(Element)++"'); if (x) x.style.display = '"++nitro:to_list(Status)++"'; }").
 
 show(Element) -> display(Element,block).
 hide(Element) -> display(Element,none).

@@ -3,9 +3,9 @@
 -include_lib("nitro/include/nitro.hrl").
 
 render_element(#upload{id=Id}) ->
-    Uid = case Id of undefined -> wf:temp_id(); I -> I end,
+    Uid = case Id of undefined -> n2o:temp_id(); I -> I end,
     nitro:wire("ftp_file=undefined;"),
-    bind(ftp_open,  click,  wf:f("qi('~s').click(); event.preventDefault();", [wf:to_list(Uid)])),
+    bind(ftp_open,  click,  nitro:f("qi('~s').click(); event.preventDefault();", [nitro:to_list(Uid)])),
     bind(ftp_start, click,  "ftp.start(ftp_file);"),
     bind(ftp_stop,  click,  "ftp.stop(ftp_file);"),
     bind(nitro:to_atom(Uid), change, "ftp_file=ftp.init(this.files[0]);"),
@@ -16,7 +16,7 @@ render_element(#upload{id=Id}) ->
              #button { id   = ftp_open,    body = "Browse" },
              #button { id   = ftp_start,   body = "Upload" },
              #button { id   = ftp_stop,    body = "Stop" }
-    ] } ] }, wf:render(Upload).
+    ] } ] }, n2o:render(Upload).
 
 bind(Control,Event,Code) ->
     nitro:wire(#bind{target=Control,type=Event,postback=Code}).
