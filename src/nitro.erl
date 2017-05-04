@@ -1,6 +1,6 @@
 -module(nitro).
 -include_lib("n2o/include/n2o.hrl").
--include("nitro.hrl").
+-include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 -behaviour(application).
 -export([start/2, stop/1, init/1]).
@@ -168,7 +168,7 @@ state(Key,Value) -> erlang:put(Key,Value).
 
 redirect({http,Url}) -> n2o:header(<<"Location">>,nitro_conv:to_binary(Url)), nitro:state(status,302), [];
 redirect(Url) -> nitro:wire(#jq{target='window.top',property=location,args=simple,right=Url}).
-header(K,V) -> nitro:context((?CTX)#cx{req=cowboy_req:set_resp_header(K,V,?REQ)}).
+header(K,V) -> nitro:context((?CTX)#cx{req=cowboy_req:set_resp_header(K,V,?CTX#cx.req)}).
 
 % Convert and Utils API
 
