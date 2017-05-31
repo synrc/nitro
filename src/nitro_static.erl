@@ -20,10 +20,18 @@ forbidden(Req, State={_, {error, eacces}, _}) -> {true, Req, State};
 forbidden(Req, State={_, {ok, #file_info{access=Access}}, _}) when Access =:= write; Access =:= none -> {true, Req, State};
 forbidden(Req, State) -> {false, Req, State}.
 
+
+
+fixpath(Path) -> {Module,Fun} = application:get_env(n2o,fixpath,{nitro_static,fix}),
+                 Module:Fun(Path).
+
+fix(A) -> A.
+
 content_types_provided(Req, State={Path, _, Extra}) ->
     case lists:keyfind(mimetypes, 1, Extra) of
          false -> {[{cow_mimetypes:web(Path), get_file}], Req, State};
-         {mimetypes, Module, Function} -> {[{Module:Function(Path), get_file}], Req, State};
+         {mimetypes, Module, Function} ->
+            {[{Module:Function(fixpath(Path)), get_file}], Req, State};
          {mimetypes, Type} -> {[{Type, get_file}], Req, State}
     end.
 
@@ -42,7 +50,8 @@ generate_default_etag(Size, Mtime) ->
 
 last_modified(Req, State={_, {ok, #file_info{mtime=Modified}}, _}) -> {Modified, Req, State}.
 
-get_file(Req, State={Path, {ok, #file_info{size=_Size}}, _}) ->
+get_file(Req, State={P, {ok, #file_info{size=_Size}}, _}) ->
+    Path = fixpath(P),
     StringPath = nitro:to_list(unicode:characters_to_binary(Path,utf8,utf8)),
     [_Type,Name|RestPath]=SplitPath = filename:split(StringPath),
     FileName = filename:absname(StringPath),
