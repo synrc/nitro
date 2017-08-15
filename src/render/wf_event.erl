@@ -6,7 +6,7 @@
 
 -record(ev,      { module, msg, trigger, name }).
 -record(cx,      { handlers=[], actions=[], req=[], module=[], lang=[], path=[],
-                   session=[], formatter=bert, params=[], node=[], client_pid=[], state=[], from=[] }).
+                   session=[], formatter=bert, params=[], node=[], client_pid=[], state=[], from=[], vsn = [] }).
 
 -define(B(E), nitro:to_binary(E)).
 -define(L(E), nitro:to_list(E)).
