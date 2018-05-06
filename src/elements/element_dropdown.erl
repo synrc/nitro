@@ -6,7 +6,7 @@ render_element(Record = #dropdown{}) ->
     ID = case Record#dropdown.id of undefined -> nitro:temp_id(); I->I end,
     case Record#dropdown.postback of
          undefined -> skip;
-         Postback -> nitro:wire(#event { type=click, postback=Postback, target=ID,
+         Postback -> nitro:wire(#event { type=change, postback=Postback, target=ID,
                         source=Record#dropdown.source, delegate=Record#dropdown.delegate } ) end,
 
     Opts = [wf_tags:emit_tag(<<"option">>, [O#option.label], [
