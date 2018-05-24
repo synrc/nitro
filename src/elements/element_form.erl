@@ -4,6 +4,13 @@
 -compile(export_all).
 
 render_element(Record) ->
+    ID = case Record#form.id of undefined -> nitro:temp_id(); I->I end,
+    case Record#form.postback of
+         undefined -> skip;
+         Postback -> nitro:wire(#event { type=submit,
+                                         target=ID,
+                                         postback=Postback,
+                                         source=Record#form.source }) end,
     List = [
       %global
       {<<"accesskey">>, Record#form.accesskey},
@@ -14,16 +21,16 @@ render_element(Record) ->
       {<<"draggable">>, case Record#form.draggable of true -> "true"; false -> "false"; _ -> undefined end},
       {<<"dropzone">>, Record#form.dropzone},
       {<<"hidden">>, case Record#form.hidden of "hidden" -> "hidden"; _ -> undefined end},
-      {<<"id">>, Record#form.id},
+      {<<"id">>, ID},
       {<<"lang">>, Record#form.lang},
       {<<"spellcheck">>, case Record#form.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
       {<<"style">>, Record#form.style},
       {<<"tabindex">>, Record#form.tabindex},
       {<<"title">>, Record#form.title},
-      {<<"translate">>, case Record#form.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
+      {<<"translate">>, case Record#form.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},
       % spec
-      {<<"accept-charset">>, Record#form.accept_charset},      
-      {<<"action">>, Record#form.action},      
+      {<<"accept-charset">>, Record#form.accept_charset},
+      {<<"action">>, Record#form.action},
       {<<"autocomplete">>, case Record#form.autocomplete of true -> "on"; false -> "off"; _ -> undefined end},
       {<<"enctype">>, case Record#form.enctype of "application/x-www-form-urlencoded" -> "application/x-www-form-urlencoded"; "multipart/form-data" -> "multipart/form-data"; "text/plain" -> "text/plain"; _ -> undefined end},
       {<<"method">>, case Record#form.method of "post" -> "post"; _ -> "get" end},
