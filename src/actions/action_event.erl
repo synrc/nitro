@@ -11,7 +11,7 @@ render_action(#event{postback=Postback,actions=_A,source=Source,target=Control,t
     E = ?B(Control),
     ValidationSource = [ S || S <- Source, not is_tuple(S) ],
     PostbackBin = wf_event:new(Postback, E, D, event, data(E,Source), ValidationSource, V),
-    ["{var x=qi('",E,"'); x && x.addEventListener('",?B(Type),"',function (event){ ",PostbackBin,"});};"].
+    ["{var x=qi('",E,"'); x && x.addEventListener('",?B(Type),"',function (event){ event.preventDefault(); ",PostbackBin,"});};"].
 
 data(E,SourceList) ->
     Type=fun(A) when is_atom(A) -> [ "atom('",atom_to_list(A),"')" ]; (A) -> [ "utf8_toByteArray('",A,"')" ] end,
