@@ -138,7 +138,7 @@ insert_bottom(Tag, Target, Elements) ->
         "(function(){ var div = qn('~s'); div.innerHTML = '~s';"
                      "qi('~s').appendChild(div.firstChild); })();",
         [Tag,Render,Target])),
-    niro:wire(nitro:render(Actions)).
+    nitro:wire(nitro:render(Actions)).
 
 insert_adjacent(Command,Target, Elements) ->
     Pid = self(),
