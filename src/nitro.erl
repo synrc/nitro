@@ -1,11 +1,11 @@
 -module(nitro).
+-include_lib("nitro/include/cx.hrl").
 -include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 -behaviour(application).
 -export([start/2, stop/1, init/1]).
 
 -record(ev,      { module, msg, trigger, name }).
--record(cx,      { handlers, actions, req, module, lang, path, session, formatter=false, params, form, state=[] }).
 
 start(_StartType, _StartArgs) -> supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 stop(_State) -> ok.
