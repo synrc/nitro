@@ -46,6 +46,7 @@ render_element(Record) ->
       {<<"onkeyup">>, Record#input.onkeyup},
       {<<"onkeydown">>, Record#input.onkeydown},
       {<<"onclick">>, Record#input.onclick},
+      {<<"required">>, if Record#input.required == true -> "required"; true -> undefined end},
       {<<"onchange">>, Record#input.onchange} | Record#input.data_fields
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#input.body), List).
