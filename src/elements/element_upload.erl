@@ -16,7 +16,7 @@ render_element(#upload{id=Id}) ->
              #button { id   = ftp_open,    body = "Browse" },
              #button { id   = ftp_start,   body = "Upload" },
              #button { id   = ftp_stop,    body = "Stop" }
-    ] } ] }, n2o:render(Upload).
+    ] } ] }, nitro:render(Upload).
 
 bind(Control,Event,Code) ->
     nitro:wire(#bind{target=Control,type=Event,postback=Code}).
