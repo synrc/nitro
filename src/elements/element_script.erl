@@ -28,4 +28,7 @@ render_element(Record) ->
       {<<"src">>,Record#script.src},
       {<<"type">>,Record#script.type} | Record#script.data_fields
     ],
-    wf_tags:emit_tag(<<"script">>, nitro:render(case Record#script.body of undefined -> []; B -> B end), List).
+    wf_tags:emit_tag(<<"script">>,
+      case Record#script.src of
+           [] -> nitro:render(case Record#script.body of undefined -> []; B -> B end);
+           X -> [] end, List).

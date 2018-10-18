@@ -117,7 +117,7 @@
 -record(html,			{?ELEMENT_BASE(element_html), manifest}).
 
 % HTML Scripting
--record(script,			{?ELEMENT_BASE(element_script),  async, charset, defer, src, type}).
+-record(script,			{?ELEMENT_BASE(element_script),  async=[], charset=[], defer=[], src=[], type=[]}).
 -record(noscript,      	?DEFAULT_BASE).
 
 % HTML Sections
