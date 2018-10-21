@@ -1,6 +1,8 @@
 NITRO: Erlang Records DSL for HTML5
 ===================================
 
+[![Build Status](https://travis-ci.org/synrc/nitro.svg?branch=master)](https://travis-ci.org/synrc/nitro)
+
 Features
 --------
 
