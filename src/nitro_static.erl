@@ -53,7 +53,7 @@ last_modified(Req, State={_, {ok, #file_info{mtime=Modified}}, _}) -> {Modified,
 get_file(Req, State={P, {ok, #file_info{size=_Size}}, _}) ->
     Path = fixpath(P),
     StringPath = nitro:to_list(unicode:characters_to_binary(Path,utf8,utf8)),
-    [_Type,Name|RestPath]=SplitPath = filename:split(StringPath),
+    [_Type,Name|RestPath] = filename:split(StringPath),
     FileName = filename:absname(StringPath),
     Raw = case file:read_file(FileName) of
           {ok,Bin} -> Bin;

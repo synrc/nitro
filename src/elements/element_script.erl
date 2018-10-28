@@ -31,4 +31,4 @@ render_element(Record) ->
     wf_tags:emit_tag(<<"script">>,
       case Record#script.src of
            [] -> nitro:render(case Record#script.body of undefined -> []; B -> B end);
-           X -> [] end, List).
+           _ -> [] end, List).
