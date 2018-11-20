@@ -6,7 +6,7 @@
 -define(B(E), nitro:to_binary(E)).
 
 render_action(#api{name=Name,delegate=Delegate}) ->
-    Data = "utf8_toByteArray(JSON.stringify(data))",
+    Data = "string(JSON.stringify(data))",
     PostbackScript = wf_event:new(Name, "document", Delegate, api_event, Data, []),
     [?B(Name),"=function(data){",PostbackScript,"};"].
 
