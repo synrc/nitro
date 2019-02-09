@@ -6,7 +6,7 @@ NITRO: Erlang Records DSL for HTML5
 Features
 --------
 
-* Full HTML5 Support
+* Full HTML5 and SVG Support
 * Support for N2O Erlang WebSocket Application Server
 * Native Erlang way for HTML Templating
 * Tag Inheritance
