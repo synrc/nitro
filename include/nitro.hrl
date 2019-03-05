@@ -9,10 +9,12 @@
 -define(DEFAULT_BASE_TAG(Tag), {?ELEMENT_BASE(undefined,Tag,undefined)}).
 -define(ELEMENT_BASE(Module), ?ELEMENT_BASE(Module,undefined,undefined)).
 -define(ELEMENT_BASE(Module,Tag,Delegate),
-        ancestor=element, id, module=Module, delegate=Delegate, validation=[], validate=[], actions, class=[], style=[], source=[], onmouseover, onkeypress, onchange, onkeyup, onkeydown, onclick,
-        data_fields=[], aria_states=[], body, role, tabindex, show_if=true, html_tag=Tag, title, postback, accesskey, contenteditable, contextmenu, dir, draggable, dropzone,
-        hidden, lang, spellcheck, translate, onblur, onerror, onfocus, onmessage, onresize).
--define(ACTION_BASE(Module), ancestor=action, trigger, target, module=Module, actions, source=[]).
+        ancestor=element, id=[], module=Module, delegate=Delegate, validation=[], validate=[], actions=[], class=[], style=[], source=[], onmouseover=[], onkeypress=[],
+        onchange=[], onkeyup=[], onkeydown=[], onclick=[],
+        data_fields=[], aria_states=[], body=[], role=[], tabindex=[], show_if=true, html_tag=Tag, title=[], postback=[],
+        accesskey=[], contenteditable=[], contextmenu=[], dir=[], draggable=[], dropzone=[],
+        hidden=[], lang=[], spellcheck=[], translate=[], onblur=[], onerror=[], onfocus=[], onmessage=[], onresize=[]).
+-define(ACTION_BASE(Module), ancestor=action, trigger=[], target=[], module=Module, actions=[], source=[]).
 -define(CTRL_BASE(Module), ?ELEMENT_BASE(Module,undefined,Module)).
 
 -record(element, {?ELEMENT_BASE(undefined)}).
@@ -24,16 +26,16 @@
 -record(spinner, {?ELEMENT_BASE(element_spinner), image="/priv/static/spinner.gif"}).
 
 % HTML Document meta
--record(base,       {?ELEMENT_BASE(element_meta_base), href, target}).
+-record(base,       {?ELEMENT_BASE(element_meta_base), href=[], target=[]}).
 -record(head,       ?DEFAULT_BASE).
--record(meta_link,       {?ELEMENT_BASE(element_meta_link), href, hreflang, media, rel, sizes, type}).
--record(meta,       {?ELEMENT_BASE(element_meta), charset, content, http_equiv, name, type}).
--record(style,       {?ELEMENT_BASE(element_style), media, scoped, type}).
+-record(meta_link,       {?ELEMENT_BASE(element_meta_link), href=[], hreflang=[], media=[], rel=[], sizes=[], type=[]}).
+-record(meta,       {?ELEMENT_BASE(element_meta), charset=[], content=[], http_equiv=[], name=[], type=[]}).
+-record(style,       {?ELEMENT_BASE(element_style), media=[], scoped=[], type=[]}).
 -record(title,       ?DEFAULT_BASE).
 
 % HTML Edits
--record('del',       {?ELEMENT_BASE(element_del), cite, datetime}).
--record(ins,       {?ELEMENT_BASE(element_ins), cite, datetime}).
+-record('del',       {?ELEMENT_BASE(element_del), cite=[], datetime}).
+-record(ins,       {?ELEMENT_BASE(element_ins), cite=[], datetime}).
 
 % HTML Embedded
 -record(area,       {?ELEMENT_BASE(element_area), alt, coords, href, hreflang, media, target, rel, shape, type}).
@@ -50,20 +52,20 @@
 -record(video,       {?ELEMENT_BASE(element_video), autoplay, controls, height, loop, mediagroup, muted, poster, preload, src, width}).
 
 % HTML Form
--record(button,       {?ELEMENT_BASE(element_button), autofocus, disabled, form, formaction, formenctype, formmethod, formtarget, formnovalidate, name, type= <<"button">>, value}).
+-record(button,       {?ELEMENT_BASE(element_button), autofocus=[], disabled=[], form=[], formaction=[], formenctype=[], formmethod=[], formtarget=[], formnovalidate=[], name=[], type= <<"button">>, value=[]}).
 -record(datalist,       ?DEFAULT_BASE).
--record(fieldset,       {?ELEMENT_BASE(element_fieldset), disabled, form, name, legend}).
--record(form,       {?ELEMENT_BASE(element_form), accept_charset, action, autocomplete, enctype, method, name, novalidate, target}).
--record(keygen,       {?ELEMENT_BASE(element_keygen), autofocus, challenge, disabled, form, keytype, name}).
+-record(fieldset,       {?ELEMENT_BASE(element_fieldset), disabled=[], form=[], name=[], legend=[]}).
+-record(form,       {?ELEMENT_BASE(element_form), accept_charset=[], action=[], autocomplete=[], enctype=[], method=[], name=[], novalidate=[], target=[]}).
+-record(keygen,       {?ELEMENT_BASE(element_keygen), autofocus=[], challenge=[], disabled=[], form=[], keytype=[], name=[]}).
 -record(legend,       ?DEFAULT_BASE).
--record(label,       {?ELEMENT_BASE(element_label), for, form}).
--record(meter,       {?ELEMENT_BASE(element_meter), high, low, max, min, optimum, value}).
--record(optgroup,       {?ELEMENT_BASE(element_select), disabled, label}).
--record(option,       {?ELEMENT_BASE(element_select), disabled, label, selected=false, value}).
+-record(label,       {?ELEMENT_BASE(element_label), for=[], form=[]}).
+-record(meter,       {?ELEMENT_BASE(element_meter), high=[], low=[], max=[], min=[], optimum=[], value=[]}).
+-record(optgroup,       {?ELEMENT_BASE(element_select), disabled=[], label=[]}).
+-record(option,       {?ELEMENT_BASE(element_select), disabled=[], label=[], selected=false, value=[]}).
 -record(output,       {?ELEMENT_BASE(element_output), for, form, name}).
--record(progress,       {?ELEMENT_BASE(element_progress), max, value}).
--record(select,       {?ELEMENT_BASE(element_select), autofocus, disabled, form, multiple, name, required, size}).
--record(textarea,       {?ELEMENT_BASE(element_textarea), autofocus, cols, dirname, disabled, form, maxlength, name, placeholder, readonly, required, rows, wrap, value}).
+-record(progress,       {?ELEMENT_BASE(element_progress), max=[], value=[]}).
+-record(select,       {?ELEMENT_BASE(element_select), autofocus=[], disabled=[], form=[], multiple=[], name=[], required=[], size=[]}).
+-record(textarea,       {?ELEMENT_BASE(element_textarea), autofocus=[], cols=[], dirname=[], disabled=[], form=[], maxlength, name, placeholder, readonly=[], required=[], rows=[], wrap=[], value=[]}).
 
 % HTML Form inputs
 -record(input,       {?ELEMENT_BASE(element_input), required, autofocus, disabled, form, name, value, type=[], placeholder, multiple, min, max, pattern, accept}).
