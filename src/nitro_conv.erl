@@ -46,12 +46,12 @@ to_integer(F) when is_float(F) -> round(F).
 % HTML encode/decode
 
 html_encode(L,Fun) when is_function(Fun) -> Fun(L);
-html_encode(L,EncType) when is_atom(L) -> html_encode(wf:to_list(L),EncType);
+html_encode(L,EncType) when is_atom(L) -> html_encode(nitro:to_list(L),EncType);
 html_encode(L,EncType) when is_integer(L) -> html_encode(integer_to_list(L),EncType);
 html_encode(L,EncType) when is_float(L) -> html_encode(float_to_list(L,[{decimals,9},compact]),EncType);
 html_encode(L, false) -> L;
 html_encode(L, true) -> L;
-html_encode(L, whites) -> html_encode_whites(wf:to_list(lists:flatten([L]))).
+html_encode(L, whites) -> html_encode_whites(nitro:to_list(lists:flatten([L]))).
 html_encode(<<>>) -> [];
 html_encode([]) -> [];
 html_encode([$\n|T]) -> "<br>" ++ html_encode(T);
@@ -65,7 +65,7 @@ html_encode([H|T]) ->
 		BigNum when is_integer(BigNum) andalso BigNum > 255 ->
 			%% Any integers above 255 are converted to their HTML encode equivilant,
 			%% Example: 7534 gets turned into &#7534;
-			[$&,$# | wf:to_list(BigNum)] ++ ";" ++ html_encode(T);
+			[$&,$# | nitro:to_list(BigNum)] ++ ";" ++ html_encode(T);
 		Tup when is_tuple(Tup) -> 
 			throw({html_encode,encountered_tuple,Tup});
 		_ -> [H|html_encode(T)]

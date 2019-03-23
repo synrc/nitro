@@ -16,5 +16,5 @@ render_action(#multi{actions=A}) -> ["window.requestAnimationFrame(function(time
 render_element(E) ->
     Pid = self(),
     Ref = make_ref(),
-    spawn(fun() -> Pid ! {?R(E),Ref,wf:actions()} end),
+    spawn(fun() -> Pid ! {?R(E),Ref,nitro:actions()} end),
     receive {Rendered, Ref, Actions} -> {Rendered,Actions} end.
