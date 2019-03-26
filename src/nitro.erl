@@ -5,7 +5,10 @@
 -behaviour(application).
 -export([start/2, stop/1, init/1]).
 
-q(Key) -> Val = get(Key), case Val of undefined -> qc(Key); A -> A end.
+q(Key) -> Val = get(Key), q(Key,Val).
+q(Key,undefined) -> [];
+q(Key,Val) -> Val.
+
 qc(Key) -> CX = get(context), qc(Key,CX).
 qc(Key,Ctx) -> proplists:get_value(nitro:to_binary([Key]),Ctx#cx.params).
 
