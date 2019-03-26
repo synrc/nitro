@@ -8,19 +8,19 @@ render_element(Record) ->
       %global
       {<<"accesskey">>, Record#meter.accesskey},
       {<<"class">>, Record#meter.class},
-      {<<"contenteditable">>, case Record#meter.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
+      {<<"contenteditable">>, case Record#meter.contenteditable of true -> "true"; false -> "false"; _ -> [] end},
       {<<"contextmenu">>, Record#meter.contextmenu},
-      {<<"dir">>, case Record#meter.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#meter.draggable of true -> "true"; false -> "false"; _ -> undefined end},
+      {<<"dir">>, case Record#meter.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> [] end},
+      {<<"draggable">>, case Record#meter.draggable of true -> "true"; false -> "false"; _ -> [] end},
       {<<"dropzone">>, Record#meter.dropzone},
-      {<<"hidden">>, case Record#meter.hidden of "hidden" -> "hidden"; _ -> undefined end},
+      {<<"hidden">>, case Record#meter.hidden of "hidden" -> "hidden"; _ -> [] end},
       {<<"id">>, Record#meter.id},
       {<<"lang">>, Record#meter.lang},
-      {<<"spellcheck">>, case Record#meter.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
+      {<<"spellcheck">>, case Record#meter.spellcheck of true -> "true"; false -> "false"; _ -> [] end},
       {<<"style">>, Record#meter.style},
       {<<"tabindex">>, Record#meter.tabindex},
       {<<"title">>, Record#meter.title},
-      {<<"translate">>, case Record#meter.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
+      {<<"translate">>, case Record#meter.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> [] end},      
       % spec
       {<<"high">>,Record#meter.high},
       {<<"low">>,Record#meter.low},
@@ -29,4 +29,4 @@ render_element(Record) ->
       {<<"optimum">>,Record#meter.optimum},
       {<<"value">>, Record#meter.value} | Record#meter.data_fields
     ],
-    wf_tags:emit_tag(<<"meter">>, nitro:render(case Record#meter.body of undefined -> []; B -> B end), List).
+    wf_tags:emit_tag(<<"meter">>, nitro:render(case Record#meter.body of [] -> []; B -> B end), List).

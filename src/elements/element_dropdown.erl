@@ -3,16 +3,16 @@
 -compile(export_all).
 
 render_element(Record = #dropdown{}) -> 
-    ID = case Record#dropdown.id of undefined -> nitro:temp_id(); I->I end,
+    ID = case Record#dropdown.id of [] -> nitro:temp_id(); I->I end,
     case Record#dropdown.postback of
-         undefined -> skip;
+         [] -> skip;
          Postback -> nitro:wire(#event { type=change, postback=Postback, target=ID,
                         source=Record#dropdown.source, delegate=Record#dropdown.delegate } ) end,
 
     Opts = [wf_tags:emit_tag(<<"option">>, [O#option.label], [
       {<<"disabled">>, O#option.disabled},
       {<<"label">>, O#option.label},
-      {<<"selected">>, case O#option.selected of true -> <<"selected">>; _-> undefined end},
+      {<<"selected">>, case O#option.selected of true -> <<"selected">>; _-> [] end},
       {<<"value">>, O#option.value}
     ])|| O = #option{show_if=Visible} <- Record#dropdown.options, Visible == true],
 
@@ -21,7 +21,7 @@ render_element(Record = #dropdown{}) ->
         {<<"class">>, Record#dropdown.class},
         {<<"style">>, Record#dropdown.style},
         {<<"name">>, Record#dropdown.name},
-        {<<"disabled">>, case Record#dropdown.disabled of true -> <<"disabled">>; _-> undefined end},
-        {<<"multiple">>, case Record#dropdown.multiple of true -> <<"multiple">>; _-> undefined end}|
+        {<<"disabled">>, case Record#dropdown.disabled of true -> <<"disabled">>; _-> [] end},
+        {<<"multiple">>, case Record#dropdown.multiple of true -> <<"multiple">>; _-> [] end}|
         Record#dropdown.data_fields
     ]).

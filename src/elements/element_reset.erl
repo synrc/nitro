@@ -5,10 +5,10 @@
 
 render_element(Record) ->
     Id = case Record#reset.postback of
-        undefined -> Record#reset.id;
+        [] -> Record#reset.id;
         Postback ->
           ID = case Record#reset.id of
-            undefined -> nitro:temp_id();
+            [] -> nitro:temp_id();
             I -> I end,
           nitro:wire(#event{type=click, postback=Postback, target=ID,
                   source=Record#reset.source, delegate=Record#reset.delegate }),
@@ -17,22 +17,22 @@ render_element(Record) ->
       %global
       {<<"accesskey">>, Record#reset.accesskey},
       {<<"class">>, Record#reset.class},
-      {<<"contenteditable">>, case Record#reset.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
+      {<<"contenteditable">>, case Record#reset.contenteditable of true -> "true"; false -> "false"; _ -> [] end},
       {<<"contextmenu">>, Record#reset.contextmenu},
-      {<<"dir">>, case Record#reset.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#reset.draggable of true -> "true"; false -> "false"; _ -> undefined end},
+      {<<"dir">>, case Record#reset.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> [] end},
+      {<<"draggable">>, case Record#reset.draggable of true -> "true"; false -> "false"; _ -> [] end},
       {<<"dropzone">>, Record#reset.dropzone},
-      {<<"hidden">>, case Record#reset.hidden of "hidden" -> "hidden"; _ -> undefined end},
+      {<<"hidden">>, case Record#reset.hidden of "hidden" -> "hidden"; _ -> [] end},
       {<<"id">>, Id},
       {<<"lang">>, Record#reset.lang},
-      {<<"spellcheck">>, case Record#reset.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
+      {<<"spellcheck">>, case Record#reset.spellcheck of true -> "true"; false -> "false"; _ -> [] end},
       {<<"style">>, Record#reset.style},
       {<<"tabindex">>, Record#reset.tabindex},
       {<<"title">>, Record#reset.title},
-      {<<"translate">>, case Record#reset.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
+      {<<"translate">>, case Record#reset.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> [] end},      
       % spec
-      {<<"autofocus">>,if Record#reset.autofocus == true -> "autofocus"; true -> undefined end},            
-      {<<"disabled">>, if Record#reset.disabled == true -> "disabled"; true -> undefined end},
+      {<<"autofocus">>,if Record#reset.autofocus == true -> "autofocus"; true -> [] end},            
+      {<<"disabled">>, if Record#reset.disabled == true -> "disabled"; true -> [] end},
       {<<"form">>,Record#reset.form},
       {<<"name">>,Record#reset.name},
       {<<"type">>, <<"reset">>},

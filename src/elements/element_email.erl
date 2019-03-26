@@ -5,10 +5,10 @@
 
 render_element(Record) ->
     Id = case Record#email.postback of
-        undefined -> Record#email.id;
+        [] -> Record#email.id;
         Postback ->
           ID = case Record#email.id of
-            undefined -> nitro:temp_id();
+            [] -> nitro:temp_id();
             I -> I end,
           nitro:wire(#event{type=click, postback=Postback, target=ID,
                   source=Record#email.source, delegate=Record#email.delegate }),
@@ -17,32 +17,32 @@ render_element(Record) ->
       %global
       {<<"accesskey">>, Record#email.accesskey},
       {<<"class">>, Record#email.class},
-      {<<"contenteditable">>, case Record#email.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
+      {<<"contenteditable">>, case Record#email.contenteditable of true -> "true"; false -> "false"; _ -> [] end},
       {<<"contextmenu">>, Record#email.contextmenu},
-      {<<"dir">>, case Record#email.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#email.draggable of true -> "true"; false -> "false"; _ -> undefined end},
+      {<<"dir">>, case Record#email.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> [] end},
+      {<<"draggable">>, case Record#email.draggable of true -> "true"; false -> "false"; _ -> [] end},
       {<<"dropzone">>, Record#email.dropzone},
-      {<<"hidden">>, case Record#email.hidden of "hidden" -> "hidden"; _ -> undefined end},
+      {<<"hidden">>, case Record#email.hidden of "hidden" -> "hidden"; _ -> [] end},
       {<<"id">>, Id},
       {<<"lang">>, Record#email.lang},
-      {<<"spellcheck">>, case Record#email.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
+      {<<"spellcheck">>, case Record#email.spellcheck of true -> "true"; false -> "false"; _ -> [] end},
       {<<"style">>, Record#email.style},
       {<<"tabindex">>, Record#email.tabindex},
       {<<"title">>, Record#email.title},
-      {<<"translate">>, case Record#email.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
+      {<<"translate">>, case Record#email.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> [] end},      
       % spec
-      {<<"autocomplete">>, case Record#email.autocomplete of true -> "on"; false -> "off"; _ -> undefined end},
-      {<<"autofocus">>,if Record#email.autofocus == true -> "autofocus"; true -> undefined end},
-      {<<"disabled">>, if Record#email.disabled == true -> "disabled"; true -> undefined end},
+      {<<"autocomplete">>, case Record#email.autocomplete of true -> "on"; false -> "off"; _ -> [] end},
+      {<<"autofocus">>,if Record#email.autofocus == true -> "autofocus"; true -> [] end},
+      {<<"disabled">>, if Record#email.disabled == true -> "disabled"; true -> [] end},
       {<<"form">>,Record#email.form},
       {<<"list">>,Record#email.list},
       {<<"maxlength">>,Record#email.maxlength},
-      {<<"multiple">>,if Record#email.multiple == true -> "multiple"; true -> undefined end},
+      {<<"multiple">>,if Record#email.multiple == true -> "multiple"; true -> [] end},
       {<<"name">>,Record#email.name},
       {<<"pattern">>,Record#email.pattern},
       {<<"placeholder">>,Record#email.placeholder},
-      {<<"readonly">>,if Record#email.readonly == true -> "readonly"; true -> undefined end},
-      {<<"required">>,if Record#email.required == true -> "required"; true -> undefined end}, 
+      {<<"readonly">>,if Record#email.readonly == true -> "readonly"; true -> [] end},
+      {<<"required">>,if Record#email.required == true -> "required"; true -> [] end}, 
       {<<"size">>,Record#email.size},
       {<<"type">>, <<"email">>},
       {<<"value">>, Record#email.value} | Record#email.data_fields

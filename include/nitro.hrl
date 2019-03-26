@@ -5,17 +5,19 @@
 -define(CTX, (get(context))).
 -endif.
 
--define(DEFAULT_BASE, {?ELEMENT_BASE(undefined)}).
--define(DEFAULT_BASE_TAG(Tag), {?ELEMENT_BASE(undefined,Tag,undefined)}).
--define(ELEMENT_BASE(Module), ?ELEMENT_BASE(Module,undefined,undefined)).
+-define(DEFAULT_BASE, {?ELEMENT_BASE([])}).
+-define(DEFAULT_BASE_TAG(Tag), {?ELEMENT_BASE([],Tag,[])}).
+-define(ELEMENT_BASE(Module), ?ELEMENT_BASE(Module,[],[])).
 -define(ELEMENT_BASE(Module,Tag,Delegate),
-        ancestor=element, id=[], module=Module, delegate=Delegate, validation=[], validate=[], actions=[], class=[], style=[], source=[], onmouseover=[], onkeypress=[],
-        onchange=[], onkeyup=[], onkeydown=[], onclick=[],
-        data_fields=[], aria_states=[], body=[], role=[], tabindex=[], show_if=true, html_tag=Tag, title=[], postback=[],
-        accesskey=[], contenteditable=[], contextmenu=[], dir=[], draggable=[], dropzone=[],
-        hidden=[], lang=[], spellcheck=[], translate=[], onblur=[], onerror=[], onfocus=[], onmessage=[], onresize=[]).
+        ancestor=element, id=[], module=Module, delegate=Delegate, validation=[],
+        validate=[], actions=[], class=[], style=[], source=[], onmouseover=[],
+        onkeypress=[], onchange=[], onkeyup=[], onkeydown=[], onclick=[],
+        data_fields=[], aria_states=[], body=[], role=[], tabindex=[], show_if=true,
+        html_tag=Tag, title=[], postback=[], accesskey=[], contenteditable=[],
+        contextmenu=[], dir=[], draggable=[], dropzone=[], hidden=[], lang=[],
+        spellcheck=[], translate=[], onblur=[], onerror=[], onfocus=[], onmessage=[], onresize=[]).
 -define(ACTION_BASE(Module), ancestor=action, trigger=[], target=[], module=Module, actions=[], source=[]).
--define(CTRL_BASE(Module), ?ELEMENT_BASE(Module,undefined,Module)).
+-define(CTRL_BASE(Module), ?ELEMENT_BASE(Module,[],Module)).
 
 -record(element, {?ELEMENT_BASE(undefined)}).
 -record(literal, {?ELEMENT_BASE(element_literal), html_encode=true }).

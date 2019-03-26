@@ -8,20 +8,20 @@ render_element(Record) ->
       %global
       {<<"accesskey">>, Record#map.accesskey},
       {<<"class">>, Record#map.class},
-      {<<"contenteditable">>, case Record#map.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
+      {<<"contenteditable">>, case Record#map.contenteditable of true -> "true"; false -> "false"; _ -> [] end},
       {<<"contextmenu">>, Record#map.contextmenu},
-      {<<"dir">>, case Record#map.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#map.draggable of true -> "true"; false -> "false"; _ -> undefined end},
+      {<<"dir">>, case Record#map.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> [] end},
+      {<<"draggable">>, case Record#map.draggable of true -> "true"; false -> "false"; _ -> [] end},
       {<<"dropzone">>, Record#map.dropzone},
-      {<<"hidden">>, case Record#map.hidden of "hidden" -> "hidden"; _ -> undefined end},
+      {<<"hidden">>, case Record#map.hidden of "hidden" -> "hidden"; _ -> [] end},
       {<<"id">>, Record#map.id},
       {<<"lang">>, Record#map.lang},
-      {<<"spellcheck">>, case Record#map.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
+      {<<"spellcheck">>, case Record#map.spellcheck of true -> "true"; false -> "false"; _ -> [] end},
       {<<"style">>, Record#map.style},
       {<<"tabindex">>, Record#map.tabindex},
       {<<"title">>, Record#map.title},
-      {<<"translate">>, case Record#map.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
+      {<<"translate">>, case Record#map.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> [] end},      
       % spec
       {<<"name">>,Record#map.name} | Record#map.data_fields
     ],
-    wf_tags:emit_tag(<<"map">>, nitro:render(case Record#map.body of undefined -> []; B -> B end), List).
+    wf_tags:emit_tag(<<"map">>, nitro:render(case Record#map.body of [] -> []; B -> B end), List).

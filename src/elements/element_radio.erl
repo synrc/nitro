@@ -5,12 +5,12 @@
 
 render_element(Record) ->
     ID = case Record#radio.id of
-        undefined -> nitro:temp_id();
+        [] -> nitro:temp_id();
         RadioID -> RadioID
     end,
 
     case Record#radio.postback of
-        undefined -> ignore;
+        [] -> ignore;
         Postback -> nitro:wire(#event{type=change, postback=Postback, target=ID, delegate=Record#radio.delegate })
     end,
 
@@ -29,7 +29,7 @@ render_element(Record) ->
             {<<"class">>, Record#radio.class},
             {<<"style">>, Record#radio.style},
             {<<"onclick">>, Record#radio.onclick},
-            {<<"required">>,if Record#radio.required == true -> "required"; true -> undefined end}
+            {<<"required">>,if Record#radio.required == true -> "required"; true -> [] end}
         ])
 
     ].

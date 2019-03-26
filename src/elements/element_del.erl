@@ -8,21 +8,21 @@ render_element(Record) ->
       %global
       {<<"accesskey">>, Record#del.accesskey},
       {<<"class">>, Record#del.class},
-      {<<"contenteditable">>, case Record#del.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
+      {<<"contenteditable">>, case Record#del.contenteditable of true -> "true"; false -> "false"; _ -> [] end},
       {<<"contextmenu">>, Record#del.contextmenu},
-      {<<"dir">>, case Record#del.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
-      {<<"draggable">>, case Record#del.draggable of true -> "true"; false -> "false"; _ -> undefined end},
+      {<<"dir">>, case Record#del.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> [] end},
+      {<<"draggable">>, case Record#del.draggable of true -> "true"; false -> "false"; _ -> [] end},
       {<<"dropzone">>, Record#del.dropzone},
-      {<<"hidden">>, case Record#del.hidden of "hidden" -> "hidden"; _ -> undefined end},
+      {<<"hidden">>, case Record#del.hidden of "hidden" -> "hidden"; _ -> [] end},
       {<<"id">>, Record#del.id},
       {<<"lang">>, Record#del.lang},
-      {<<"spellcheck">>, case Record#del.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
+      {<<"spellcheck">>, case Record#del.spellcheck of true -> "true"; false -> "false"; _ -> [] end},
       {<<"style">>, Record#del.style},
       {<<"tabindex">>, Record#del.tabindex},
       {<<"title">>, Record#del.title},
-      {<<"translate">>, case Record#del.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
+      {<<"translate">>, case Record#del.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> [] end},      
       % spec
       {<<"cite">>, Record#del.cite},
       {<<"datetime">>, Record#del.datetime} | Record#del.data_fields
     ],
-    wf_tags:emit_tag(<<"del">>, nitro:render(case Record#del.body of undefined -> []; B -> B end), List).
+    wf_tags:emit_tag(<<"del">>, nitro:render(case Record#del.body of [] -> []; B -> B end), List).
