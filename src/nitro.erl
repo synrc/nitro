@@ -9,8 +9,8 @@ q(Key) -> Val = get(Key), q(Key,Val).
 q(Key,undefined) -> [];
 q(Key,Val) -> Val.
 
-qc(Key) -> CX = get(context), qc(Key,CX).
-qc(Key,Ctx) -> proplists:get_value(nitro:to_binary([Key]),Ctx#cx.params).
+qc(Key) -> CX = get(context), qc(Key,CX#cx.req).
+qc(Key,Req) -> proplists:get_value(nitro:to_binary(Key),cowboy_req:parse_qs(Req)).
 
 start(_StartType, _StartArgs) -> supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 stop(_State) -> ok.
