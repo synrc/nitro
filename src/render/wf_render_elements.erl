@@ -26,7 +26,7 @@ render_element(Element) when is_tuple(Element) ->
 render_element(Element) -> io:format("Unknown Element: ~p~n\r",[Element]).
 
 default_render(Tag, Record) ->
-    wf_tags:emit_tag(Tag, nitro:render(element(#element.body,Record)),
+    wf_tags:emit_tag(Tag, nitro:render(lists:flatten([element(#element.body,Record)])),
         lists:append([
            [{<<"id">>,              element(#element.id, Record)},
             {<<"class">>,           element(#element.class, Record)},
