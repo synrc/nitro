@@ -96,12 +96,13 @@
         </p>
 
         <figure><code>
- #button { id=sendButton, body= <<"Send">>,
-           postback=reaction, source=[userName,message] 
+    nitro:update(loginButton,
+      #button{id=loginButton,
+              body="Login",postback=login,source=[user,pass]});
         </code></figure>
         <p>This will produce the following HTML:
         <figure><code>
- &lt;input value="Chat" id="sendButton" type="button"/&gt;
+ &lt;input value="Login" id="loginButton" type="button"/&gt;
         </code></figure>
        <p>and JavaScript code:</P>
         <figure><code>
