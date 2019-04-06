@@ -1,0 +1,150 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="Maxim Sokhatsky" />
+    <title>NITRO</title>
+    <link rel="stylesheet" href="https://synrc.space/synrc.css" />
+</head>
+
+<body>
+
+<nav>
+    <a href='https://n2o.space'>SPEC</a>
+    <a href='https://o7.n2o.space'>O7</a>
+    <a href='https://ws.n2o.space' style="background:#ededed;">NITRO</a>
+    <a href='https://sample.n2o.space'>WS</a>
+    <a href='https://review.n2o.space'>MQTT</a>
+</nav>
+
+<header>
+    <a href="https://github.com/synrc/n2o"><img src="https://synrc.space/images/Synrc Neo.svg?v=1"></a>
+    <h1>NITRO</h1>
+</header>
+
+<aside>
+    <article>
+        <section>
+            <h3>SYNOPSIS</h3>
+            <div>NITRO is <a href="http://nitrogenproject.com">Nitrogen</a>-like Web Framework for Erlang/OTP.
+                 It can be used not only in web applications but also in console applications
+                 that need to perform a HTML5 rendering.
+            </div>
+        </section>
+
+        <section>
+            <a name=plugin><h3>USAGE</h3></a>
+            <div>You can get rebar dependency and compile it:</div>
+        <figure>
+        <code>
+ $ mad get nitro
+ $ cd deps/nitro
+ $ mad dep com pla rep
+        </code>
+        </figure>
+            <div>
+                Nov 2018 &copy; Namdak Tonpa <a href="https://5ht.co/license.htm">ISC</a>
+            </div>
+
+        </section>
+    </article>
+</aside>
+<main>
+    <section>
+        <a name=endpoint><h3>ELEMENTS</h3></a>
+        <p> Nitrogen Elements is an HTML template engine for Erlang language where
+            all HTML tags are being rendered from Erlang records.
+        </p>
+        <p>With N2O you don’t need to use HTML at all. Instead you define your page in the form of Erlang records so that the page is type checked at the compile time. This is a classic CGI approach for compiled pages and it gives us all the benefits of compile time error checking and provides DSL for client and server-side rendering.</p>
+        <p>Nitrogen elements, by their nature, are UI control primitives that can be used to construct Nitrogen pages with Erlang internal DSL. They are compiled into HTML and JavaScript. Behavior of all elements is controlled on server-side and all the communication between browser and server-side is performed over WebSocket channels. Hence there is no need to use POST requests or HTML forms. I.e.</p>
+        <figure><code>
+ #textbox { id=userName, body= <<"Anonymous">> },
+ #panel { id=chatHistory, class=chat_history }
+        </code></figure>
+        <p>will produce</p>
+        <figure><code>
+ &lt;input value="Anonymous" id="userName" type="text"/&gt;
+ &lt;div id="chatHistory" class="chat_history"&gt;&lt;/div&gt;
+        </code></figure>
+
+    </section>
+    <section>
+        <a name=endpoint><h3>ACTIONS</h3></a>
+        <p> Nitrogen Ations is an JavaScript template engine for Erlang language where
+            all events and button reactions are being rendered from Erlang language.
+        </p>
+
+        <figure><code>
+ #button { id=sendButton, body= <<"Send">>,
+           postback=reaction, source=[userName,message] 
+        </code></figure>
+        <p>This will produce the following HTML:
+        <figure><code>
+ &lt;input value="Chat" id="sendButton" type="button"/&gt;
+        </code></figure>
+       <p>and JavaScript code:</P>
+        <figure><code>
+   qi('loginButton').outerHTML='&lt;button id=\"loginButton\"
+     type=\"button\"&gt;Login&lt;/button&gt;';{var x=qi('loginButton');
+     x && x.addEventListener('click',function (event){
+      event.preventDefault(); { if (validateSources(['user','pass'])) {
+        ws.send(enc(tuple(atom('pickle'),bin('loginButton'),
+           bin('b840bca20b3295619d1157105e355880f850bf0223f2f081549dc
+           8934ecbcd3653f617bd96cc9b36b2e7a19d2d47fb8f9fbe32d3c768866
+           cb9d6d85700416edf47b9b90742b0632c750a4240a62dfc56789e0f5d8
+           590f9afdfb31f35fbab1563ec54fcb17a8e3bad463218d6402f1304'),
+           [tuple(tuple(string('loginButton'),bin('detail')),[]),
+            tuple(atom('user'),querySource('user')),
+            tuple(atom('pass'),querySource('pass'))]))); }
+       else console.log('Validation Error'); }});};
+        </code></figure>
+
+    </section>
+    <section>
+        <a name=mqtt><h3>RENDER</h3></a>
+        <ul>
+            <li><b><a href="man/wf_render.htm">wf_render</a></b> &mdash; Render Engine for Elements and Actions</div></li>
+            <li><b><a href="man/wf_event.htm">wf_event</a></b> &mdash; Event JavaScript postback renderer</div></li>
+            <li><b><a href="man/wf_tags.htm">wf_tags</a></b> &mdash; HTML5 XML renderer</div></li>
+        </ul>
+    </section>
+    <section>
+        <a name=mqtt><h3>SPEC</h3></a>
+         <p>NITRO supports streaming of
+            prerendered forms over WebSocket and MQTT
+            and provides tiny JavaScript library to work with document model.
+            This library is compatible across implementations.</p>
+         <figure><figcaption>NITRO:</figcaption><code>
+ -spec render(list(#element{})) -> binary().
+ -spec wire(list(#action{})) -> [].
+ -spec insert_top(atom(), list(#element{})) -> [].
+ -spec insert_bottom(atom(), list(#element{})) -> [].
+ -spec update(atom(), list(#element{})) -> [].
+ -spec clear(atom()) -> [].
+ -spec remove(atom()) -> [].
+
+ -record(init,    { token  = [] :: [] | binary() }).
+ -record(pickle,  { source = [], pickled=[], args=[] }).
+ -record(flush,   { data   = [] :: [] | term() }).
+ -record(direct,  { data   = [] :: [] | term() }).
+ -record(ev,      { module = [] :: [] | atom(),
+                    msg    = [] :: [] | term(),
+                    trigger= [] :: [] | atom() | binary(),
+                    name   = [] :: [] | atom() | binary() }).
+         </code></figure>
+        <p>
+        </p>
+    </section>
+</main>
+
+<footer>
+    Made with <span class="heart">❤</span> to N2O
+</footer>
+
+</body>
+</html>
+
+
