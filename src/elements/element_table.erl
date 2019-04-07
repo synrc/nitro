@@ -15,7 +15,7 @@ render_element(Record = #table{}) ->
   Bodies = case Record#table.body of
     #tbody{} = B -> B;
     [] -> #tbody{};
-    [] -> #tbody{};
+    unndefined -> #tbody{};
     Rows -> [case B of #tbody{}=B1 -> B1; _-> #tbody{body=B} end  || B <- Rows]
   end,
   Caption = case Record#table.caption of

@@ -6,7 +6,7 @@
 render_element(Record) ->
     Id = case Record#button.postback of
         [] -> Record#button.id;
-        [] -> Record#button.id;
+        undefined -> Record#button.id;
         Postback ->
           ID = case Record#button.id of [] -> nitro:temp_id(); I -> I end,
           nitro:wire(#event{type=click, postback=Postback, target=ID,

@@ -5,7 +5,7 @@
 render_element(Record) ->
     Id = case Record#input.postback of
         [] -> Record#input.id;
-        [] -> Record#input.id;
+        undefined -> Record#input.id;
         Postback ->
           ID = case Record#input.id of
             [] -> nitro:temp_id();
