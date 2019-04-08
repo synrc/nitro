@@ -3,8 +3,8 @@ defmodule NITRO.Mixfile do
 
   def project do
     [app: :nitro,
-     version: "1.4.0",
-     description: "NITRO HTML5 Enterprise DSL",
+     version: "4.4.0",
+     description: "NITRO Web Framework and HTML5 DSL",
      package: package,
      deps: deps]
   end
