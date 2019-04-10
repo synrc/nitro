@@ -5,9 +5,12 @@
 -behaviour(application).
 -export([start/2, stop/1, init/1]).
 
-q(Key) -> q(Key,get(Key)).
-q(_,undefined) -> [];
-q(_,Val) -> Val.
+q(Key) -> q(Key, []).
+q(Key, Default) ->
+  case get(Key) of
+    undefined -> Default;
+    Value     -> Value
+  end.
 
 qc(Key) -> CX = get(context), qc(Key,CX#cx.req).
 qc(Key,Req) -> proplists:get_value(nitro:to_binary(Key),cowboy_req:parse_qs(Req)).
