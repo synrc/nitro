@@ -191,6 +191,8 @@
 
 % HTML5 template
 -record(template,		?DEFAULT_BASE).
+-record(message,		?DEFAULT_BASE).
+-record(author,		    ?DEFAULT_BASE).
 
 % Actions
 -record(action,  {?ACTION_BASE(undefined)}).
