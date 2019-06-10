@@ -6,4 +6,5 @@ defmodule NITRO do
   defrecord :h2,      extract(:h2,     from_lib: "nitro/include/nitro.hrl")
   defrecord :message, extract(:button, from_lib: "nitro/include/nitro.hrl")
   defrecord :author,  extract(:upload, from_lib: "nitro/include/nitro.hrl")
+  defrecord :jq,      extract(:jq,     from_lib: "nitro/include/nitro.hrl")
 end
