@@ -5,15 +5,15 @@ defmodule NITRO.Mixfile do
     [app: :nitro,
      version: "4.4.0",
      description: "NITRO Web Framework and HTML5 DSL",
-     package: package,
-     deps: deps]
+     package: package(),
+     deps: deps()]
   end
 
   def application do
     [mod: {:nitro, []}]
   end
 
-  defp package do
+  def package do
     [files: ["src", "include", "priv", "LICENSE", "README.md", "rebar.config" ],
      licenses: ["DHARMA"],
      maintainers: ["Namdak Tonpa"],
@@ -21,7 +21,7 @@ defmodule NITRO.Mixfile do
      links: %{"GitHub" => "https://github.com/synrc/nitro"}]
   end
 
-  defp deps do
+  def deps do
      [{:ex_doc, ">= 0.0.0", only: :dev}]
   end
 end
