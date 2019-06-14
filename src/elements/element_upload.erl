@@ -1,6 +1,7 @@
 -module(element_upload).
 -compile(export_all).
 -include_lib("nitro/include/nitro.hrl").
+-include_lib("nitro/include/event.hrl").
 
 render_element(#upload{id=Id}) ->
     Uid = case Id of [] -> nitro:temp_id(); I -> I end,

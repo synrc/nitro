@@ -1,6 +1,7 @@
 -module(nitro).
 -include_lib("nitro/include/cx.hrl").
 -include_lib("nitro/include/nitro.hrl").
+-include_lib("nitro/include/event.hrl").
 -compile(export_all).
 -behaviour(application).
 -export([start/2, stop/1, init/1]).

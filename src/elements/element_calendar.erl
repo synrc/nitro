@@ -1,6 +1,7 @@
 -module(element_calendar).
 -author('G-Grand').
 -include_lib("nitro/include/nitro.hrl").
+-include_lib("nitro/include/event.hrl").
 -export([render_element/1]).
 
 render_element(Record) ->

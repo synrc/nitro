@@ -1,6 +1,7 @@
 -module(element_link).
 -author('Rusty Klophaus').
 -include_lib("nitro/include/nitro.hrl").
+-include_lib("nitro/include/event.hrl").
 -compile(export_all).
 
 render_element(Record) -> 

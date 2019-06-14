@@ -1,6 +1,7 @@
 -module(element_form).
 -author('Vladimir Galunshchikov').
 -include_lib("nitro/include/nitro.hrl").
+-include_lib("nitro/include/event.hrl").
 -compile(export_all).
 
 render_element(Record) ->
