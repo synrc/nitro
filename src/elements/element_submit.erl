@@ -4,7 +4,7 @@
 -include_lib("nitro/include/event.hrl").
 -compile(export_all).
 
-
+render_element(Record) when Record#submit.show_if==false -> [<<>>];
 render_element(Record) ->
     ID = case Record#submit.id of [] -> nitro:temp_id(); I->I end,
     case Record#submit.postback of

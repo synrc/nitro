@@ -3,6 +3,7 @@
 -include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
+render_element(Record) when Record#textbox.show_if==false -> [<<>>];
 render_element(Record) -> 
     List = [
       {<<"id">>, Record#textbox.id},

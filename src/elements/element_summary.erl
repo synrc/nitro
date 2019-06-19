@@ -3,6 +3,7 @@
 -include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
+render_element(Record) when Record#summary.show_if==false -> [<<>>];
 render_element(Record) ->
     List = [
       %global

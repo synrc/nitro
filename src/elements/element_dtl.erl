@@ -3,6 +3,7 @@
 -include("nitro.hrl").
 -compile(export_all).
 
+render_element(Record) when Record#dtl.show_if==false -> [<<>>];
 render_element(Record=#dtl{}) ->
     M = list_to_atom(nitro:to_list(Record#dtl.file) ++ "_view"),
     %File = case code:lib_dir(nitro:to_atom(Record#dtl.app)) of

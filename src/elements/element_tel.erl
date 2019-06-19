@@ -4,6 +4,7 @@
 -include_lib("nitro/include/event.hrl").
 -compile(export_all).
 
+render_element(Record) when Record#tel.show_if==false -> [<<>>];
 render_element(Record) ->
     Id = case Record#tel.postback of
         [] -> Record#tel.id;

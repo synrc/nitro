@@ -3,6 +3,7 @@
 -include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
+render_element(Record) when Record#list.show_if==false -> [<<>>];
 render_element(Record = #list{}) -> 
   Tag = case Record#list.numbered of true -> <<"ol">>; _ -> <<"ul">> end,
 
