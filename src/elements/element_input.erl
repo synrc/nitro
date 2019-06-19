@@ -3,6 +3,7 @@
 -include_lib("nitro/include/event.hrl").
 -compile(export_all).
 
+render_element(Record) when Record#input.show_if==false -> [<<>>];
 render_element(Record) ->
     Id = case Record#input.postback of
         [] -> Record#input.id;

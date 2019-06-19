@@ -4,6 +4,7 @@
 -include_lib("nitro/include/event.hrl").
 -compile(export_all).
 
+render_element(Record) when Record#color.show_if==false -> [<<>>];
 render_element(Record) ->
     Id = case Record#color.postback of
         [] -> Record#color.id;

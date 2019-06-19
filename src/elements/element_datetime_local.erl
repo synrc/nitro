@@ -4,6 +4,7 @@
 -include_lib("nitro/include/event.hrl").
 -compile(export_all).
 
+render_element(Record) when Record#datetime_local.show_if==false -> [<<>>];
 render_element(Record) ->
     Id = case Record#datetime_local.postback of
         [] -> Record#datetime_local.id;

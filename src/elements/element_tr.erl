@@ -3,6 +3,7 @@
 -include_lib("nitro/include/event.hrl").
 -compile(export_all).
 
+render_element(Record) when Record#tr.show_if==false -> [<<>>];
 render_element(Record = #tr{postback= Postback}) ->
   Id = case Record#tr.id of [] -> nitro:temp_id(); I->I end,
   Cursor = case Postback of [] -> "";

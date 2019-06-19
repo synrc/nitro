@@ -4,6 +4,7 @@
 -include_lib("nitro/include/event.hrl").
 -compile(export_all).
 
+render_element(Record) when Record#radio.show_if==false -> [<<>>];
 render_element(Record) ->
     ID = case Record#radio.id of
         [] -> nitro:temp_id();

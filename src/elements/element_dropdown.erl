@@ -3,6 +3,7 @@
 -include_lib("nitro/include/event.hrl").
 -compile(export_all).
 
+render_element(Record) when Record#dropdown.show_if==false -> [<<>>];
 render_element(Record = #dropdown{}) -> 
     ID = case Record#dropdown.id of [] -> nitro:temp_id(); I->I end,
     case Record#dropdown.postback of

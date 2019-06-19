@@ -4,6 +4,7 @@
 -include_lib("nitro/include/event.hrl").
 -export([render_element/1]).
 
+render_element(Record) when Record#calendar.show_if==false -> [<<>>];
 render_element(Record) ->
     Id = case Record#calendar.postback of
         [] -> Record#calendar.id;

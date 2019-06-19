@@ -2,6 +2,7 @@
 -include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
+render_element(Record) when Record#table.show_if==false -> [<<>>];
 render_element(Record = #table{}) -> 
   Header = case Record#table.header of
     [] -> "";
