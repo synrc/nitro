@@ -11,7 +11,7 @@ defmodule NITRO.Mixfile do
 
   def package do
     [
-      files: ["src", "include", "priv", "LICENSE", "README.md", "rebar.config"],
+      files: ~w(doc include lib src mix.exs rebar.config LICENSE),
       licenses: ["DHARMA"],
       maintainers: ["Namdak Tonpa"],
       name: :nitro,
