@@ -12,7 +12,7 @@ defmodule NITRO.Mixfile do
   def package do
     [
       files: ~w(doc include lib src mix.exs rebar.config LICENSE),
-      licenses: ["DHARMA"],
+      licenses: ["ISC"],
       maintainers: ["Namdak Tonpa"],
       name: :nitro,
       links: %{"GitHub" => "https://github.com/synrc/nitro"}
