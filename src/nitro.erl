@@ -197,3 +197,11 @@ compact(Tuple) when is_tuple(Tuple) ->
      Fields = lists:zip(lists:seq(1,Min),lists:sublist(tuple_to_list(Tuple),1,Min)),
      "{" ++ string:join([ io_lib:format("~s",[compact(F)]) || {_,F}<- Fields ],",") ++ "}";
 compact(Tuple) -> nitro:to_list(Tuple).
+
+meg(X) -> integer_to_list(X div 1000000) ++ "M".
+rev(X) -> lists:reverse(X).
+num(S) -> case rev(S) of
+               [$K|K] -> list_to_integer(rev(K)) * 1000;
+               [$M|M] -> list_to_integer(rev(M)) * 1000 * 1000;
+               [$G|G] -> list_to_integer(rev(G)) * 1000 * 1000 * 1000;
+               [$T|T] -> list_to_integer(rev(T)) * 1000 * 1000 * 1000 * 1000 end.
