@@ -188,3 +188,12 @@ display(Element,Status) ->
 
 show(Element) -> display(Element,block).
 hide(Element) -> display(Element,none).
+
+compact([]) -> "[]";
+compact("\n") -> "[]";
+compact([X|_]=Y) when is_tuple(X) -> [ compact(F) || F <- Y ];
+compact(Tuple) when is_tuple(Tuple) ->
+     Min = erlang:min(10,size(Tuple)),
+     Fields = lists:zip(lists:seq(1,Min),lists:sublist(tuple_to_list(Tuple),1,Min)),
+     "{" ++ string:join([ io_lib:format("~s",[compact(F)]) || {_,F}<- Fields ],",") ++ "}";
+compact(Tuple) -> nitro:to_list(Tuple).
