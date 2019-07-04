@@ -1,6 +1,6 @@
 {application, nitro, [
     {description,  "NITRO Web Framework and HTML5 DSL"},
-    {vsn,          "4.7.1"},
+    {vsn,          "4.7.2"},
     {applications, [kernel, stdlib]},
     {modules, []},
     {registered,   []},
