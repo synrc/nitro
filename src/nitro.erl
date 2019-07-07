@@ -205,3 +205,13 @@ num(S) -> case rev(S) of
                [$M|M] -> list_to_integer(rev(M)) * 1000 * 1000;
                [$G|G] -> list_to_integer(rev(G)) * 1000 * 1000 * 1000;
                [$T|T] -> list_to_integer(rev(T)) * 1000 * 1000 * 1000 * 1000 end.
+
+cookie_expire(SecondsToLive) ->
+    Seconds = calendar:datetime_to_gregorian_seconds(calendar:local_time()),
+    DateTime = calendar:gregorian_seconds_to_datetime(Seconds + SecondsToLive),
+    cow_date:rfc2109(DateTime).
+
+cookie(Id, Value) -> cookie(Id, Value, 2147483647). % expire never
+cookie(Id, Value, Expire) ->
+    Format = "document.cookie='~s=~s; path=/; expires=~s';",
+    nitro:wire(nitro:f(Format,[nitro:to_list(Id),nitro:to_list(Value), cookie_expire(Expire)])).

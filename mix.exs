@@ -2,7 +2,13 @@ defmodule NITRO.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :nitro, version: "4.7.2", description: "NITRO Web Framework and HTML5 DSL", package: package(), deps: deps()]
+    [
+      app: :nitro,
+      version: "4.7.3",
+      description: "NITRO Web Framework",
+      package: package(),
+      deps: deps()
+    ]
   end
 
   def application do
