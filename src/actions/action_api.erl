@@ -9,5 +9,5 @@
 render_action(#api{name=Name,delegate=Delegate}) ->
     Data = "string(JSON.stringify(data))",
     PostbackScript = wf_event:new(Name, "document", Delegate, api_event, Data, []),
-    [?B(Name),"=function(data){",PostbackScript,"};"].
-
+    X = iolist_to_binary([?B(Name),"=function(data){",PostbackScript,"};"]),
+    io:format("API: ~p~n",[X]), X.
