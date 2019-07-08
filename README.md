@@ -1,5 +1,5 @@
-NITRO: Erlang Records DSL for HTML5
-===================================
+NITRO: Nitrogen Web Framework
+=============================
 
 [![Build Status](https://travis-ci.org/synrc/nitro.svg?branch=master)](https://travis-ci.org/synrc/nitro)
 
