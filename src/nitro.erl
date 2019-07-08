@@ -215,3 +215,6 @@ cookie(Id, Value) -> cookie(Id, Value, 2147483647). % expire never
 cookie(Id, Value, Expire) ->
     Format = "document.cookie='~s=~s; path=/; expires=~s';",
     nitro:wire(nitro:f(Format,[nitro:to_list(Id),nitro:to_list(Value), cookie_expire(Expire)])).
+
+cookies() -> cowboy_req:parse_cookies((get(context))#cx.req).
+cookie(Key) -> case lists:keyfind(Key, 1, cowboy_req:parse_cookies((get(context))#cx.req)) of false -> undefined; {_, Value} -> Value end.
