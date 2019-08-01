@@ -1,16 +1,14 @@
 -module(element_color).
 -author('Vladimir Galunshchikov').
 -include_lib("nitro/include/nitro.hrl").
--include_lib("nitro/include/event.hrl").
 -compile(export_all).
 
-render_element(Record) when Record#color.show_if==false -> [<<>>];
 render_element(Record) ->
     Id = case Record#color.postback of
-        [] -> Record#color.id;
+        undefined -> Record#color.id;
         Postback ->
           ID = case Record#color.id of
-            [] -> nitro:temp_id();
+            undefined -> nitro:temp_id();
             I -> I end,
           nitro:wire(#event{type=click, postback=Postback, target=ID,
                   source=Record#color.source, delegate=Record#color.delegate }),
@@ -19,23 +17,23 @@ render_element(Record) ->
       %global
       {<<"accesskey">>, Record#color.accesskey},
       {<<"class">>, Record#color.class},
-      {<<"contenteditable">>, case Record#color.contenteditable of true -> "true"; false -> "false"; _ -> [] end},
+      {<<"contenteditable">>, case Record#color.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
       {<<"contextmenu">>, Record#color.contextmenu},
-      {<<"dir">>, case Record#color.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> [] end},
-      {<<"draggable">>, case Record#color.draggable of true -> "true"; false -> "false"; _ -> [] end},
+      {<<"dir">>, case Record#color.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
+      {<<"draggable">>, case Record#color.draggable of true -> "true"; false -> "false"; _ -> undefined end},
       {<<"dropzone">>, Record#color.dropzone},
-      {<<"hidden">>, case Record#color.hidden of "hidden" -> "hidden"; _ -> [] end},
+      {<<"hidden">>, case Record#color.hidden of "hidden" -> "hidden"; _ -> undefined end},
       {<<"id">>, Id},
       {<<"lang">>, Record#color.lang},
-      {<<"spellcheck">>, case Record#color.spellcheck of true -> "true"; false -> "false"; _ -> [] end},
+      {<<"spellcheck">>, case Record#color.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
       {<<"style">>, Record#color.style},
       {<<"tabindex">>, Record#color.tabindex},
       {<<"title">>, Record#color.title},
-      {<<"translate">>, case Record#color.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> [] end},      
+      {<<"translate">>, case Record#color.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
       % spec
-      {<<"autocomplete">>,case Record#color.autocomplete of true -> "on"; false -> "off"; _ -> [] end},
-      {<<"autofocus">>,if Record#color.autofocus == true -> "autofocus"; true -> [] end},
-      {<<"disabled">>, if Record#color.disabled == true -> "disabled"; true -> [] end},
+      {<<"autocomplete">>,case Record#color.autocomplete of true -> "on"; false -> "off"; _ -> undefined end},
+      {<<"autofocus">>,if Record#color.autofocus == true -> "autofocus"; true -> undefined end},
+      {<<"disabled">>, if Record#color.disabled == true -> "disabled"; true -> undefined end},
       {<<"form">>,Record#color.form},
       {<<"list">>,Record#color.list},      
       {<<"name">>,Record#color.name},

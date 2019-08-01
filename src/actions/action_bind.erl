@@ -1,7 +1,6 @@
 -module(action_bind).
 -author('Maxim Sokhatsky').
 -include_lib("nitro/include/nitro.hrl").
--include_lib("nitro/include/event.hrl").
 -compile(export_all).
 
 -define(B(E), nitro:to_binary(E)).

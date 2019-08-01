@@ -2,17 +2,17 @@
 -author('Maxim Sokhatsky').
 -author('Andrey Martemyanov').
 -include_lib("nitro/include/nitro.hrl").
--include_lib("nitro/include/event.hrl").
 -compile(export_all).
 -define(B(E), nitro:to_binary(E)).
 
 render_action(#event{source=undefined}) -> [];
-render_action(#event{postback=Postback,actions=_A,source=Source,target=Control,type=Type,delegate=D,validation=V}) ->
+render_action(#event{bubble=Bubble,postback=Postback,actions=_A,source=Source,target=Control,type=Type,delegate=D,validation=V}) ->
     E = ?B(Control),
     ValidationSource = [ S || S <- Source, not is_tuple(S) ],
     PostbackBin = wf_event:new(Postback, E, D, event, data(E,Source), ValidationSource, V),
+    StopPropagation = case Bubble of false -> "event.stopPropagation(); "; _ -> "" end,
     ["{var x=qi('",E,"'); x && x.addEventListener('",?B(Type),
-     "',function (event){ event.preventDefault(); ",PostbackBin,"});};"].
+     "',function (event){ event.preventDefault(); ",StopPropagation,PostbackBin,"});};"].
 
 data(E,SourceList) ->
     Type=fun(A) when is_atom(A) -> [ "atom('",atom_to_list(A),"')" ];

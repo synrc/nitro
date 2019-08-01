@@ -1,13 +1,11 @@
 -module(element_select).
 -include_lib("nitro/include/nitro.hrl").
--include_lib("nitro/include/event.hrl").
 -compile(export_all).
 
-render_element(Record) when Record#select.show_if==false -> [<<>>];
 render_element(Record = #select{}) ->
-  ID = case Record#select.id of [] -> nitro:temp_id(); I->I end,
+  ID = case Record#select.id of undefined -> nitro:temp_id(); I->I end,
   case Record#select.postback of
-    [] -> skip;
+    undefined -> skip;
     Postback -> nitro:wire(#event{ type=change,
                                 target=ID,
                                 postback=Postback,
@@ -20,22 +18,22 @@ render_element(Record = #select{}) ->
     {<<"name">>, Record#select.name},
     {<<"onchange">>, Record#select.onchange},
     {<<"title">>, Record#select.title},
-    {<<"required">>, case Record#select.required of true -> <<"required">>; _-> [] end},
-    {<<"disabled">>, case Record#select.disabled of true -> <<"disabled">>; _-> [] end},
-    {<<"multiple">>, case Record#select.multiple of true -> <<"multiple">>; _-> [] end} | Record#select.data_fields
+    {<<"required">>, case Record#select.required of true -> <<"required">>; _-> undefined end},
+    {<<"disabled">>, case Record#select.disabled of true -> <<"disabled">>; _-> undefined end},
+    {<<"multiple">>, case Record#select.multiple of true -> <<"multiple">>; _-> undefined end} | Record#select.data_fields
   ],
   wf_tags:emit_tag(<<"select">>, nitro:render(Record#select.body),
                                   Props);
 render_element(Group = #optgroup{}) ->
   wf_tags:emit_tag(<<"optgroup">>, nitro:render(Group#optgroup.body), [
-    {<<"disabled">>, case Group#optgroup.disabled of true-> <<"disabled">>; _-> [] end},
+    {<<"disabled">>, case Group#optgroup.disabled of true-> <<"disabled">>; _-> undefined end},
     {<<"label">>, Group#optgroup.label}
   ]);
 render_element(O = #option{}) ->
   wf_tags:emit_tag(<<"option">>, nitro:render(O#option.body), [
     {<<"id">>, O#option.id},
-    {<<"disabled">>, case O#option.disabled of true -> <<"disabled">>; _-> [] end},
+    {<<"disabled">>, case O#option.disabled of true -> <<"disabled">>; _-> undefined end},
     {<<"label">>, O#option.label},
     {<<"title">>, O#option.title},
-    {<<"selected">>, case O#option.selected of true -> <<"selected">>; _-> [] end},
+    {<<"selected">>, case O#option.selected of true -> <<"selected">>; _-> undefined end},
     {<<"value">>, O#option.value} | O#option.data_fields]).

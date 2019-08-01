@@ -3,7 +3,6 @@
 -include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
-render_element(Record) when Record#radiogroup.show_if==false -> [<<>>];
 render_element(Record) -> 
     ID = Record#radiogroup.id,
     Body = apply_name(ID, Record#radiogroup.body),

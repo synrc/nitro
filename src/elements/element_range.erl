@@ -1,16 +1,14 @@
 -module(element_range).
 -author('Vladimir Galunshchikov').
 -include_lib("nitro/include/nitro.hrl").
--include_lib("nitro/include/event.hrl").
 -compile(export_all).
 
-render_element(Record) when Record#range.show_if==false -> [<<>>];
 render_element(Record) ->
     Id = case Record#range.postback of
-        [] -> Record#range.id;
+        undefined -> Record#range.id;
         Postback ->
           ID = case Record#range.id of
-            [] -> nitro:temp_id();
+            undefined -> nitro:temp_id();
             I -> I end,
           nitro:wire(#event{type=click, postback=Postback, target=ID,
                   source=Record#range.source, delegate=Record#range.delegate }),
@@ -19,23 +17,23 @@ render_element(Record) ->
       %global
       {<<"accesskey">>, Record#range.accesskey},
       {<<"class">>, Record#range.class},
-      {<<"contenteditable">>, case Record#range.contenteditable of true -> "true"; false -> "false"; _ -> [] end},
+      {<<"contenteditable">>, case Record#range.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
       {<<"contextmenu">>, Record#range.contextmenu},
-      {<<"dir">>, case Record#range.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> [] end},
-      {<<"draggable">>, case Record#range.draggable of true -> "true"; false -> "false"; _ -> [] end},
+      {<<"dir">>, case Record#range.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
+      {<<"draggable">>, case Record#range.draggable of true -> "true"; false -> "false"; _ -> undefined end},
       {<<"dropzone">>, Record#range.dropzone},
-      {<<"hidden">>, case Record#range.hidden of "hidden" -> "hidden"; _ -> [] end},
+      {<<"hidden">>, case Record#range.hidden of "hidden" -> "hidden"; _ -> undefined end},
       {<<"id">>, Id},
       {<<"lang">>, Record#range.lang},
-      {<<"spellcheck">>, case Record#range.spellcheck of true -> "true"; false -> "false"; _ -> [] end},
+      {<<"spellcheck">>, case Record#range.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
       {<<"style">>, Record#range.style},
       {<<"tabindex">>, Record#range.tabindex},
       {<<"title">>, Record#range.title},
-      {<<"translate">>, case Record#range.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> [] end},      
+      {<<"translate">>, case Record#range.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
       % spec
-      {<<"autocomplete">>, case Record#range.autocomplete of true -> "on"; false -> "off"; _ -> [] end},
-      {<<"autofocus">>,if Record#range.autofocus == true -> "autofocus"; true -> [] end},
-      {<<"disabled">>, if Record#range.disabled == true -> "disabled"; true -> [] end},
+      {<<"autocomplete">>, case Record#range.autocomplete of true -> "on"; false -> "off"; _ -> undefined end},
+      {<<"autofocus">>,if Record#range.autofocus == true -> "autofocus"; true -> undefined end},
+      {<<"disabled">>, if Record#range.disabled == true -> "disabled"; true -> undefined end},
       {<<"form">>,Record#range.form},
       {<<"list">>,Record#range.list},
       {<<"max">>,Record#range.max},

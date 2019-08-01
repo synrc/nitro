@@ -1,16 +1,14 @@
 -module(element_week).
 -author('Vladimir Galunshchikov').
 -include_lib("nitro/include/nitro.hrl").
--include_lib("nitro/include/event.hrl").
 -compile(export_all).
 
-render_element(Record) when Record#week.show_if==false -> [<<>>];
 render_element(Record) ->
     Id = case Record#week.postback of
-        [] -> Record#week.id;
+        undefined -> Record#week.id;
         Postback ->
           ID = case Record#week.id of
-            [] -> nitro:temp_id();
+            undefined -> nitro:temp_id();
             I -> I end,
           nitro:wire(#event{type=click, postback=Postback, target=ID,
                   source=Record#week.source, delegate=Record#week.delegate }),
@@ -19,30 +17,30 @@ render_element(Record) ->
       %global
       {<<"accesskey">>, Record#week.accesskey},
       {<<"class">>, Record#week.class},
-      {<<"contenteditable">>, case Record#week.contenteditable of true -> "true"; false -> "false"; _ -> [] end},
+      {<<"contenteditable">>, case Record#week.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
       {<<"contextmenu">>, Record#week.contextmenu},
-      {<<"dir">>, case Record#week.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> [] end},
-      {<<"draggable">>, case Record#week.draggable of true -> "true"; false -> "false"; _ -> [] end},
+      {<<"dir">>, case Record#week.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
+      {<<"draggable">>, case Record#week.draggable of true -> "true"; false -> "false"; _ -> undefined end},
       {<<"dropzone">>, Record#week.dropzone},
-      {<<"hidden">>, case Record#week.hidden of "hidden" -> "hidden"; _ -> [] end},
+      {<<"hidden">>, case Record#week.hidden of "hidden" -> "hidden"; _ -> undefined end},
       {<<"id">>, Id},
       {<<"lang">>, Record#week.lang},
-      {<<"spellcheck">>, case Record#week.spellcheck of true -> "true"; false -> "false"; _ -> [] end},
+      {<<"spellcheck">>, case Record#week.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
       {<<"style">>, Record#week.style},
       {<<"tabindex">>, Record#week.tabindex},
       {<<"title">>, Record#week.title},
-      {<<"translate">>, case Record#week.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> [] end},      
+      {<<"translate">>, case Record#week.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},      
       % spec
-      {<<"autocomplete">>, case Record#week.autocomplete of true -> "on"; false -> "off"; _ -> [] end},
-      {<<"autofocus">>,if Record#week.autofocus == true -> "autofocus"; true -> [] end},
-      {<<"disabled">>, if Record#week.disabled == true -> "disabled"; true -> [] end},
+      {<<"autocomplete">>, case Record#week.autocomplete of true -> "on"; false -> "off"; _ -> undefined end},
+      {<<"autofocus">>,if Record#week.autofocus == true -> "autofocus"; true -> undefined end},
+      {<<"disabled">>, if Record#week.disabled == true -> "disabled"; true -> undefined end},
       {<<"form">>,Record#week.form},
       {<<"list">>,Record#week.list},
       {<<"max">>,Record#week.max},
       {<<"min">>,Record#week.min},
       {<<"name">>,Record#week.name},
-      {<<"readonly">>,if Record#week.readonly == true -> "readonly"; true -> [] end},
-      {<<"required">>,if Record#week.required == true -> "required"; true -> [] end},      
+      {<<"readonly">>,if Record#week.readonly == true -> "readonly"; true -> undefined end},
+      {<<"required">>,if Record#week.required == true -> "required"; true -> undefined end},      
       {<<"step">>,Record#week.step},
       {<<"type">>, <<"week">>},
       {<<"value">>, Record#week.value} | Record#week.data_fields

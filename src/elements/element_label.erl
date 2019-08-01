@@ -3,7 +3,6 @@
 -include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
-render_element(Record) when Record#label.show_if==false -> [<<>>];
 render_element(Record) -> 
   wf_tags:emit_tag(<<"label">>, nitro:render(Record#label.body), [
     {<<"id">>, Record#label.id},

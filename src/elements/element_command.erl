@@ -3,30 +3,29 @@
 -include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
-render_element(Record) when Record#command.show_if==false -> [<<>>];
 render_element(Record) ->
     List = [
       %global
       {<<"accesskey">>, Record#command.accesskey},
       {<<"class">>, Record#command.class},
-      {<<"contenteditable">>, case Record#command.contenteditable of true -> "true"; false -> "false"; _ -> [] end},
+      {<<"contenteditable">>, case Record#command.contenteditable of true -> "true"; false -> "false"; _ -> undefined end},
       {<<"contextmenu">>, Record#command.contextmenu},
-      {<<"dir">>, case Record#command.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> [] end},
-      {<<"draggable">>, case Record#command.draggable of true -> "true"; false -> "false"; _ -> [] end},
+      {<<"dir">>, case Record#command.dir of "ltr" -> "ltr"; "rtl" -> "rtl"; "auto" -> "auto"; _ -> undefined end},
+      {<<"draggable">>, case Record#command.draggable of true -> "true"; false -> "false"; _ -> undefined end},
       {<<"dropzone">>, Record#command.dropzone},
-      {<<"hidden">>, case Record#command.hidden of "hidden" -> "hidden"; _ -> [] end},
+      {<<"hidden">>, case Record#command.hidden of "hidden" -> "hidden"; _ -> undefined end},
       {<<"id">>, Record#command.id},
       {<<"lang">>, Record#command.lang},
-      {<<"spellcheck">>, case Record#command.spellcheck of true -> "true"; false -> "false"; _ -> [] end},
+      {<<"spellcheck">>, case Record#command.spellcheck of true -> "true"; false -> "false"; _ -> undefined end},
       {<<"style">>, Record#command.style},
       {<<"tabindex">>, Record#command.tabindex},
       {<<"title">>, Record#command.title},
-      {<<"translate">>, case Record#command.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> [] end},
+      {<<"translate">>, case Record#command.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},
       % spec
-      {<<"disabled">>, if Record#command.disabled == true -> "disabled"; true -> [] end},
+      {<<"disabled">>, if Record#command.disabled == true -> "disabled"; true -> undefined end},
       {<<"icon">>, Record#command.icon},
       {<<"label">>, Record#command.label},
       {<<"radiogroup">>, Record#command.radiogroup},
-      {<<"type">>, case Record#command.type of "command" -> "command"; "radio" -> "radio"; "checkbox" -> "checkbox"; _ -> [] end} | Record#command.data_fields
+      {<<"type">>, case Record#command.type of "command" -> "command"; "radio" -> "radio"; "checkbox" -> "checkbox"; _ -> undefined end} | Record#command.data_fields
     ],
     wf_tags:emit_tag(<<"command">>, List).

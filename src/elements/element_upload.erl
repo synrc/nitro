@@ -1,11 +1,9 @@
 -module(element_upload).
 -compile(export_all).
 -include_lib("nitro/include/nitro.hrl").
--include_lib("nitro/include/event.hrl").
 
-render_element(Record) when Record#upload.show_if==false -> [<<>>];
 render_element(#upload{id=Id}) ->
-    Uid = case Id of [] -> nitro:temp_id(); I -> I end,
+    Uid = case Id of undefined -> nitro:temp_id(); I -> I end,
     nitro:wire("ftp_file=undefined;"),
     bind(ftp_open,  click,  nitro:f("qi('~s').click(); event.preventDefault();", [nitro:to_list(Uid)])),
     bind(ftp_start, click,  "ftp.start(ftp_file);"),

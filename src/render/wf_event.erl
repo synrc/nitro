@@ -15,7 +15,6 @@ target(Id)     -> ["qi('",nitro:js_escape(?L(Id)),"')"].
 new(P,E,D,N,Data,Source) -> new(P,E,D,N,Data,Source,<<>>).
 
 new(bin,Data) -> <<"ws.send(enc(tuple(atom('bin'),bin('",(nitro:pickle(Data))/binary,"'))));">>.
-new([], _, _, _, _, _, _) -> <<>>;
 new(undefined, _, _, _, _, _, _) -> <<>>;
 new(Postback, Element, Delegate, Name, Data, Source, Validation) ->
     Module = nitro:coalesce([Delegate, ?CTX#cx.module]),

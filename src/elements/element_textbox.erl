@@ -3,7 +3,6 @@
 -include_lib("nitro/include/nitro.hrl").
 -compile(export_all).
 
-render_element(Record) when Record#textbox.show_if==false -> [<<>>];
 render_element(Record) -> 
     List = [
       {<<"id">>, Record#textbox.id},
@@ -15,9 +14,9 @@ render_element(Record) ->
       {<<"value">>, Record#textbox.value},
       {<<"disabled">>,Record#textbox.disabled},
       {<<"autofocus">>,Record#textbox.autofocus},
-      {<<"readonly">>,if Record#textbox.readonly == true -> "readonly"; true -> [] end},
-      {<<"required">>,if Record#textbox.required == true -> "required"; true -> [] end}, 
+      {<<"readonly">>,if Record#textbox.readonly == true -> "readonly"; true -> undefined end},
+      {<<"required">>,if Record#textbox.required == true -> "required"; true -> undefined end}, 
       {<<"class">>,Record#textbox.class} | Record#textbox.data_fields
-  ] ++ case Record#textbox.disabled of [] -> []; _ -> [{<<"disabled">>,<<"disabled">>}] end,
+  ] ++ case Record#textbox.disabled of undefined -> []; _ -> [{<<"disabled">>,<<"disabled">>}] end,
   wf_tags:emit_tag(<<"input">>, nitro:render(Record#textbox.body), List).
 

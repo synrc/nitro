@@ -1,16 +1,13 @@
 -module(nitro).
 -include_lib("nitro/include/cx.hrl").
 -include_lib("nitro/include/nitro.hrl").
--include_lib("nitro/include/event.hrl").
 -compile(export_all).
 -behaviour(application).
 -export([start/2, stop/1, init/1]).
 
-q(Key) -> q(Key, []).
-q(Key, Def) -> case get(Key) of undefined -> Def; Val -> Val end.
-
-qc(Key) -> CX = get(context), qc(Key,CX#cx.req).
-qc(Key,Req) -> proplists:get_value(nitro:to_binary(Key),cowboy_req:parse_qs(Req)).
+q(Key) -> Val = get(Key), case Val of undefined -> qc(Key); A -> A end.
+qc(Key) -> CX = get(context), qc(Key,CX).
+qc(Key,Ctx) -> proplists:get_value(nitro:to_binary([Key]),Ctx#cx.params).
 
 start(_StartType, _StartArgs) -> supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 stop(_State) -> ok.
@@ -178,7 +175,7 @@ state(Key,Value) -> erlang:put(Key,Value).
 
 redirect({http,Url}) -> n2o:header(<<"Location">>,nitro_conv:to_binary(Url)), nitro:state(status,302), [];
 redirect(Url) -> nitro:wire(#jq{target='window.top',property=location,args=simple,right=Url}).
-%header(K,V) -> nitro:context((?CTX)#cx{req=cowboy_req:set_resp_header(K,V,?CTX#cx.req)}).
+header(K,V) -> nitro:context((?CTX)#cx{req=cowboy_req:set_resp_header(K,V,?CTX#cx.req)}).
 
 % Convert and Utils API
 
@@ -188,33 +185,3 @@ display(Element,Status) ->
 
 show(Element) -> display(Element,block).
 hide(Element) -> display(Element,none).
-
-compact([]) -> "[]";
-compact("\n") -> "[]";
-compact([X|_]=Y) when is_tuple(X) -> [ compact(F) || F <- Y ];
-compact(Tuple) when is_tuple(Tuple) ->
-     Min = erlang:min(9,size(Tuple)),
-     Fields = lists:zip(lists:seq(1,Min),lists:sublist(tuple_to_list(Tuple),1,Min)),
-     "{" ++ string:join([ io_lib:format("~s",[compact(F)]) || {_,F}<- Fields ],",") ++ "}";
-compact(Tuple) -> nitro:to_list(Tuple).
-
-meg(X) -> integer_to_list(X div 1000000) ++ "M".
-rev(X) -> lists:reverse(X).
-num(S) -> case rev(S) of
-               [$K|K] -> list_to_integer(rev(K)) * 1000;
-               [$M|M] -> list_to_integer(rev(M)) * 1000 * 1000;
-               [$G|G] -> list_to_integer(rev(G)) * 1000 * 1000 * 1000;
-               [$T|T] -> list_to_integer(rev(T)) * 1000 * 1000 * 1000 * 1000 end.
-
-cookie_expire(SecondsToLive) ->
-    Seconds = calendar:datetime_to_gregorian_seconds(calendar:local_time()),
-    DateTime = calendar:gregorian_seconds_to_datetime(Seconds + SecondsToLive),
-    cow_date:rfc2109(DateTime).
-
-cookie(Id, Value) -> cookie(Id, Value, 2147483647). % expire never
-cookie(Id, Value, Expire) ->
-    Format = "document.cookie='~s=~s; path=/; expires=~s';",
-    nitro:wire(nitro:f(Format,[nitro:to_list(Id),nitro:to_list(Value), cookie_expire(Expire)])).
-
-cookies() -> cowboy_req:parse_cookies((get(context))#cx.req).
-cookie(Key) -> case lists:keyfind(Key, 1, cowboy_req:parse_cookies((get(context))#cx.req)) of false -> undefined; {_, Value} -> Value end.
