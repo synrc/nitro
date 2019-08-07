@@ -16,7 +16,7 @@ render_action(#event{postback=Postback,actions=_A,source=Source,target=Control,t
 
 data(E,SourceList) ->
     Type=fun(A) when is_atom(A)   -> [ "atom('",atom_to_list(A),"')" ];
-            (A) when is_binary(A) -> [ "atom('",binary_to_list(A),"')" ];
+            (A) when is_binary(A) -> [ "bin('",binary_to_list(A),"')" ];
                               (A) -> [ "string('",A,"')" ] end,
     list_to_binary(["[tuple(tuple(string('",E,"'),bin('detail')),[])",
         [ case S of {Id,Code} -> [ ",tuple(",Type(Id),",",Code,")" ];
