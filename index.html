@@ -1,28 +1,17 @@
-<html>
-
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="" />
-    <meta name="author" content="Maxim Sokhatsky" />
-    <title>NITRO</title>
-    <link rel="stylesheet" href="https://synrc.space/synrc.css" />
-</head>
-
-<body>
-
-<nav>
-    <a href='https://n2o.dev'>DEV</a>
-    <a href='https://nitro.n2o.space' style="background:#ededed;">NITRO</a>
-</nav>
-
-<header>
-    <a href="https://github.com/synrc/nitro"><img src="https://synrc.space/images/Synrc Neo.svg?v=1"></a>
+<html><head><meta charset="utf-8" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="Maxim Sokhatsky" />
+<title>NITRO</title>
+<link rel="stylesheet" href="https://n2o.dev/blank.css?x=14" />
+<link rel="stylesheet" href="https://n2o.dev/zima.css?x=14" />
+</head><body><nav>
+    <a href="https://n2o.dev">DEV</a>
+    <a href="https://nitro.n2o.space" style="background:#ededed;">NITRO</a>
+</nav><header>
+    <a href="https://github.com/synrc/nitro"><img src="https://synrc.space/images/Synrc Neo.svg?v=1" /></a>
     <h1>NITRO</h1>
-</header>
-
-<aside>
+</header><aside>
     <article>
         <section>
             <h3>SYNOPSIS</h3>
@@ -33,7 +22,7 @@
         </section>
 
         <section>
-            <a name=plugin><h3>USAGE</h3></a>
+            <a name="plugin"></a><h3>USAGE</h3>
             <div>You can get rebar dependency and compile it:</div>
         <figure>
         <code>
@@ -43,22 +32,21 @@
         </code>
         </figure>
             <div>
-                Nov 2018 &copy; Namdak Tonpa <a href="https://5ht.co/license.htm">ISC</a>
+                Nov 2018 © Namdak Tonpa <a href="https://5ht.co/license.htm">ISC</a>
             </div>
 
         </section>
     </article>
-</aside>
-<main>
+</aside><main>
     <section>
-        <a name=endpoint><h3>ELEMENTS</h3></a>
+        <a name="endpoint"></a><h3>ELEMENTS</h3>
         <p> Nitrogen Elements is an HTML template engine for Erlang language where
             all HTML tags are being rendered from Erlang records.
         </p>
         <p>With N2O you don’t need to use HTML at all. Instead you define your page in the form of Erlang records so that the page is type checked at the compile time. This is a classic CGI approach for compiled pages and it gives us all the benefits of compile time error checking and provides DSL for client and server-side rendering.</p>
         <p>Nitrogen elements, by their nature, are UI control primitives that can be used to construct Nitrogen pages with Erlang internal DSL. They are compiled into HTML and JavaScript. Behavior of all elements is controlled on server-side and all the communication between browser and server-side is performed over WebSocket channels. Hence there is no need to use POST requests or HTML forms. I.e.</p>
         <figure><code>
- #textbox { id=userName, body= <<"Anonymous">> },
+ #textbox { id=userName, body= &lt;&lt;"Anonymous">> },
  #panel { id=chatHistory, class=chat_history }
         </code></figure>
         <p>will produce</p>
@@ -67,28 +55,11 @@
  &lt;div id="chatHistory" class="chat_history"&gt;&lt;/div&gt;
         </code></figure>
 
-        <ul>
-            <li><b><a href="man/element_textbox.htm">element_textbox</a></b> &mdash; HTML Text Box</div></li>
-            <li><b><a href="man/element_input.htm">element_input</a></b> &mdash; HTML Input</div></li>
-            <li><b><a href="man/element_textarea.htm">element_textarea</a></b> &mdash; HTML Text Area</div></li>
-            <li><b><a href="man/element_th.htm">element_th</a></b> &mdash; HTML Table Header</div></li>
-            <li><b><a href="man/element_tr.htm">element_tr</a></b> &mdash; HTML Table Row</div></li>
-            <li><b><a href="man/element_table.htm">element_table</a></b> &mdash; HTML Table</div></li>
-            <li><b><a href="man/element_select.htm">element_select</a></b> &mdash; HTML Select</div></li>
-            <li><b><a href="man/element_button.htm">element_button</a></b> &mdash; HTML Button</div></li>
-            <li><b><a href="man/element_fieldset.htm">element_fieldset</a></b> &mdash; HTML Fieldset</div></li>
-            <li><b><a href="man/element_image.htm">element_image</a></b> &mdash; HTML Image</div></li>
-            <li><b><a href="man/element_label.htm">element_label</a></b> &mdash; HTML Label</div></li>
-            <li><b><a href="man/element_radio.htm">element_radio</a></b> &mdash; HTML Radiobutton</div></li>
-            <li><b><a href="man/element_password.htm">element_password</a></b> &mdash; NITRO Password Element</div></li>
-            <li><b><a href="man/element_upload.htm">element_upload</a></b> &mdash; NITRO Upload Element</div></li>
-            <li><b><a href="man/element_calendar.htm">element_calendar</a></b> &mdash; NITRO Calendar Element</div></li>
-            <li><b><a href="man/element_dtl.htm">element_dtl</a></b> &mdash; Django DTL Element</div></li>
-        </ul>
+        <ul><li><b><a href="man/element_textbox.htm">element_textbox</a></b> — HTML Text Box</li><li><b><a href="man/element_input.htm">element_input</a></b> — HTML Input</li><li><b><a href="man/element_textarea.htm">element_textarea</a></b> — HTML Text Area</li><li><b><a href="man/element_th.htm">element_th</a></b> — HTML Table Header</li><li><b><a href="man/element_tr.htm">element_tr</a></b> — HTML Table Row</li><li><b><a href="man/element_table.htm">element_table</a></b> — HTML Table</li><li><b><a href="man/element_select.htm">element_select</a></b> — HTML Select</li><li><b><a href="man/element_button.htm">element_button</a></b> — HTML Button</li><li><b><a href="man/element_fieldset.htm">element_fieldset</a></b> — HTML Fieldset</li><li><b><a href="man/element_image.htm">element_image</a></b> — HTML Image</li><li><b><a href="man/element_label.htm">element_label</a></b> — HTML Label</li><li><b><a href="man/element_radio.htm">element_radio</a></b> — HTML Radiobutton</li><li><b><a href="man/element_password.htm">element_password</a></b> — NITRO Password Element</li><li><b><a href="man/element_upload.htm">element_upload</a></b> — NITRO Upload Element</li><li><b><a href="man/element_calendar.htm">element_calendar</a></b> — NITRO Calendar Element</li><li><b><a href="man/element_dtl.htm">element_dtl</a></b> — Django DTL Element</li></ul>
 
     </section>
     <section>
-        <a name=endpoint><h3>ACTIONS</h3></a>
+        <a name="endpoint"></a><h3>ACTIONS</h3>
         <p> Nitrogen Ations is an JavaScript template engine for Erlang language where
             all events and button reactions are being rendered from Erlang language.
         </p>
@@ -99,14 +70,14 @@
               body="Login",postback=login,source=[user,pass]});
         </code></figure>
         <p>This will produce the following HTML:
-        <figure><code>
+        </p><figure><code>
  &lt;input value="Login" id="loginButton" type="button"/&gt;
         </code></figure>
-       <p>and JavaScript code:</P>
+       <p>and JavaScript code:</p>
         <figure><code>
    qi('loginButton').outerHTML='&lt;button id=\"loginButton\"
      type=\"button\"&gt;Login&lt;/button&gt;';{var x=qi('loginButton');
-     x && x.addEventListener('click',function (event){
+     x &#38;&#38; x.addEventListener('click',function (event){
       event.preventDefault(); { if (validateSources(['user','pass'])) {
         ws.send(enc(tuple(atom('pickle'),bin('loginButton'),
            bin('b840bca20b3295619d1157105e355880f850bf0223f2f081549dc
@@ -118,23 +89,15 @@
             tuple(atom('pass'),querySource('pass'))]))); }
        else console.log('Validation Error'); }});};
         </code></figure>
-        <ul>
-            <li><b><a href="man/action_bind.htm">action_bind</a></b> &mdash; JavaScript Bind</div></li>
-            <li><b><a href="man/action_confirm.htm">action_confirm</a></b> &mdash; JavaScript Confirm</div></li>
-            <li><b><a href="man/action_event.htm">action_event</a></b> &mdash; JavaScript Postback Event</div></li>
-        </ul>
+        <ul><li><b><a href="man/action_bind.htm">action_bind</a></b> — JavaScript Bind</li><li><b><a href="man/action_confirm.htm">action_confirm</a></b> — JavaScript Confirm</li><li><b><a href="man/action_event.htm">action_event</a></b> — JavaScript Postback Event</li></ul>
 
     </section>
     <section>
-        <a name=mqtt><h3>RENDER</h3></a>
-        <ul>
-            <li><b><a href="man/wf_render.htm">wf_render</a></b> &mdash; Render Engine for Elements and Actions</div></li>
-            <li><b><a href="man/wf_event.htm">wf_event</a></b> &mdash; Event JavaScript postback renderer</div></li>
-            <li><b><a href="man/wf_tags.htm">wf_tags</a></b> &mdash; HTML5 XML renderer</div></li>
-        </ul>
+        <a name="mqtt"></a><h3>RENDER</h3>
+        <ul><li><b><a href="man/wf_render.htm">wf_render</a></b> — Render Engine for Elements and Actions</li><li><b><a href="man/wf_event.htm">wf_event</a></b> — Event JavaScript postback renderer</li><li><b><a href="man/wf_tags.htm">wf_tags</a></b> — HTML5 XML renderer</li></ul>
     </section>
     <section>
-        <a name=mqtt><h3>SPEC</h3></a>
+        <a name="mqtt"></a><h3>SPEC</h3>
          <p>NITRO supports streaming of
             prerendered forms over WebSocket and MQTT
             and provides tiny JavaScript library to work with document model.
@@ -160,13 +123,6 @@
         <p>
         </p>
     </section>
-</main>
-
-<footer>
+</main><footer>
     Made with <span class="heart">❤</span> to N2O
-</footer>
-
-</body>
-</html>
-
-
+</footer></body></html>
