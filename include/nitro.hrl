@@ -51,7 +51,7 @@
 
 % HTML Form
 -record(button,       {?ELEMENT_BASE(element_button), autofocus, disabled, form, formaction, formenctype, formmethod, formtarget, formnovalidate, name, type= <<"button">>, value}).
--record(datalist,       ?DEFAULT_BASE).
+-record(datalist, {?ELEMENT_BASE(element_datalist),list = [],value = [],options = [],required = false}).
 -record(fieldset,       {?ELEMENT_BASE(element_fieldset), disabled, form, name, legend}).
 -record(form,       {?ELEMENT_BASE(element_form), accept_charset, action, autocomplete, enctype, method, name, novalidate, target}).
 -record(keygen,       {?ELEMENT_BASE(element_keygen), autofocus, challenge, disabled, form, keytype, name}).
@@ -66,7 +66,7 @@
 -record(textarea,       {?ELEMENT_BASE(element_textarea), autofocus, cols, dirname, disabled, form, maxlength, name, placeholder, readonly, required, rows, wrap, value}).
 
 % HTML Form inputs
--record(input,       {?ELEMENT_BASE(element_input), required, autofocus, disabled, form, name, value, type=[], step = [], placeholder, multiple, min, max, pattern, accept}).
+-record(input,       {?ELEMENT_BASE(element_input), required, autofocus, disabled, form, name, value, type=[], step = [], placeholder, multiple, min, max, pattern, accept, list}).
 -record(input_button,       {?ELEMENT_BASE(element_input_button),  autofocus, disabled, form, name, value}).
 -record(checkbox,           {?ELEMENT_BASE(element_checkbox),  autofocus, checked=false, disabled, form, name, required, value}).
 -record(color,           {?ELEMENT_BASE(element_color),  autocomplete, autofocus, disabled, form, list, name, value}).

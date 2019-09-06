@@ -31,6 +31,7 @@ render_element(Record) ->
       {<<"title">>, Record#input.title},
       {<<"translate">>, case Record#input.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> undefined end},
       % spec
+      {<<"list">>,Record#input.list},
       {<<"autofocus">>,Record#input.autofocus},
       {<<"disabled">>, if Record#input.disabled == true -> "disabled"; true -> undefined end},
       {<<"name">>,Record#input.name},
