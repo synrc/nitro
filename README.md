@@ -2,6 +2,7 @@ NITRO: Nitrogen Web Framework
 =============================
 
 [![Build Status](https://travis-ci.org/synrc/nitro.svg?branch=master)](https://travis-ci.org/synrc/nitro)
+[![Hex pm](http://img.shields.io/hexpm/v/nitro.svg?style=flat)](https://hex.pm/packages/nitro)
 
 Features
 --------
