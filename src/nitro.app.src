@@ -1,6 +1,6 @@
 {application, nitro, [
     {description,  "NITRO Web Framework"},
-    {vsn,          "4.7.7"},
+    {vsn,          "4.10.0"},
     {applications, [kernel, stdlib]},
     {modules, []},
     {registered,   []},
