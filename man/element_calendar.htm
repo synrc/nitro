@@ -61,10 +61,10 @@
     <section>
         <h3>OUTPUT</h3>
         <figure><code>
- > IO.inspect :erlang.iolist_to_binary(:nitro.render(NITRO.calendar(id: :cal)))
+ > :erlang.iolist_to_binary(:nitro.render(NITRO.calendar(id: :cal)))
  "&lt;input type=\"calendar\"/&gt;"
 
- > IO.inspect :erlang.iolist_to_binary(:nitro.render(:nitro.actions))
+ > :erlang.iolist_to_binary(:nitro.render(:nitro.actions))
  "pickers['cal'] = new Pikaday({
    field: document.getElementById(''),
    firstDay: 0,
