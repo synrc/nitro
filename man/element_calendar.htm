@@ -33,7 +33,7 @@
            JavaScript Datapicker <a href="https://github.com/Pikaday/Pikaday">Pikaday</a>.</p>
     </section>
     <section>
-        <h3>USAGE</h3>
+        <h3>INPUT</h3>
         <figure><code>
  -record(calendar, { ?ELEMENT_BASE(element_calendar2),
                      autocomplete=true,
@@ -57,11 +57,29 @@
                      reposition=[],
                      yearRange=100}).
         </code></figure>
+    </section>
+    <section>
+        <h3>OUTPUT</h3>
         <figure><img src="img/calendar.png" width="320"/></figure>
         <figure><code>
- iex(1)> require NITRO
- iex(2)> :nitro.render NITRO.calendar()
+ > IO.inspect :erlang.iolist_to_binary(:nitro.render(NITRO.calendar()))
  "&lt;input type=\"calendar\"/&gt;"
+
+ > IO.inspect :erlang.iolist_to_binary(:nitro.render(:nitro.actions))
+ "pickers[''] = new Pikaday({
+   field: document.getElementById(''),
+   firstDay: 0,
+   i18n: clLangs.ua,
+   defaultDate: new Date(2019, 10, 7),
+   setDefaultDate: false,
+   minDate: null,
+   maxDate: new Date(2020,10,10),
+   format: 'YYYY-MM-DD',
+   onSelect: null,
+   disableDayFn: null,
+   position: 'bottom left',
+   reposition: true,
+   yearRange: 100});
         </code></figure>
     </section>
     <section>
