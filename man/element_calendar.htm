@@ -29,7 +29,42 @@
 <main>
     <section>
         <h3>INTRO</h3>
-        <p>The CALENDAR module.</p>
+        <p>The CALENDAR module provides a refreshing zero-dependency
+           JavaScript Datapicker <a href="https://github.com/Pikaday/Pikaday">Pikaday</a>.</p>
+    </section>
+    <section>
+        <h3>USAGE</h3>
+        <figure><code>
+ -record(calendar, { ?ELEMENT_BASE(element_calendar2),
+                     autocomplete=true,
+                     autofocus=false,
+                     disabled=false,
+                     form=[],
+                     list=[],
+                     maxDate={2019,2,2},
+                     minDate,
+                     format="YYYY-MM-DD",
+                     pattern=[],
+                     name=[],
+                     step=[],
+                     readonly=[],
+                     required=[],
+                     value={2020,2,2},
+                     placeholder=[],
+                     onSelect=[],
+                     disableDayFn=[],
+                     position=[],
+                     reposition=[],
+                     yearRange=100}).
+        </code></figure>
+        <figure><img src="img/calendar.png" width="320"/></figure>
+        <figure><code>
+ iex(1)> require NITRO
+ iex(2)> :nitro.render NITRO.calendar()
+ "&lt;input type=\"calendar\"/&gt;"
+        </code></figure>
+    </section>
+    <section>
     </section>
     <section>
         <p>This module may refer to: MAN_MODULES</p>
