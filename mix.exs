@@ -4,7 +4,7 @@ defmodule NITRO.Mixfile do
   def project do
     [
       app: :nitro,
-      version: "4.10.0",
+      version: "4.10.2",
       description: "NITRO Web Framework",
       package: package(),
       deps: deps()
@@ -26,6 +26,6 @@ defmodule NITRO.Mixfile do
   end
 
   def deps do
-    [{:ex_doc, ">= 0.0.0", only: :dev}]
+    [{:ex_doc, "~> 0.11", only: :dev}]
   end
 end
