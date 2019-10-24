@@ -8,6 +8,7 @@ render_element(Record) ->
     {<<"id">>, Record#td.id},
     {<<"class">>, Record#td.class},
     {<<"style">>, Record#td.style},
+    {<<"onclick">>, Record#td.onclick},
     {<<"rowspan">>, Record#td.rowspan},
     {<<"bgcolor">>, Record#td.bgcolor},
     {<<"colspan">>, Record#td.colspan},

@@ -11,6 +11,7 @@ render_element(Record = #tr{postback= Postback}) ->
   end,
   wf_tags:emit_tag(<<"tr">>, nitro:render(Record#tr.cells), [
     {<<"id">>, Id},
+    {<<"onclick">>, Record#tr.onclick},
     {<<"class">>, Record#tr.class},
     {<<"style">>, [Record#tr.style, Cursor]} | Record#tr.data_fields
   ]).

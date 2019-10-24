@@ -1,4 +1,16 @@
-<html><head><meta charset="utf-8" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="" /><meta name="author" content="Maxim Sokhatsky" /><title>NITRO</title><link rel="stylesheet" href="https://n2o.dev/blank.css" /><link rel="stylesheet" href="https://n2o.dev/zima.css" /></head><body><nav>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="Maxim Sokhatsky" />
+<title>NITRO</title>
+<link rel="stylesheet" href="https://n2o.dev/blank.css" />
+<link rel="stylesheet" href="https://n2o.dev/zima.css" />
+</head>
+<body>
+<nav>
     <a href="https://n2o.dev">DEV</a>
     <a href="https://nitro.n2o.space">NITRO</a>
     <a href="#" style="background:#ededed;">NITRO</a>
@@ -9,23 +21,88 @@
       <a href="#">EN</a>
     </div>
   </div>
-</nav><header>
+</nav>
+<header>
     <a href="../index.html"><img src="https://n2o.space/img/Synrc Neo.svg" /></a>
     <h1>NITRO</h1>
-</header><main>
+</header>
+<main>
     <section>
-
-<h3>INTRO</h3>
-
-<p>The NITRO module.</p>
+        <h3>INTRO</h3>
+        <p>The refined SYNRC API of the Nitrogen Web Framework brought to us by Rusty Klophaus.</p>
     </section>
     <section>
-<p>This module may refer to:
-MAN_MODULES
-</p>
+        <h3>API</h3>
+        <h4>q(atom()) -> term().</h4>
+        <p>Retrieves from process dictionary by atom-key the value of client DOM element
+           passed by over the network as <b>#ev</b> parameter</p>
+        <figure><code> event(click) -> io:format("~p~n",[nitro:q(:name)]);</code></figure>
+        <h4>jse([] | binary()) -> [] | binary().</h4>
+        <p>Performs JavaScript escaping for eval compatibility.</p>
+        <figure><code> > nitro:jse(&lt;&lt;"Ім'я"/utf8&gt;&gt;).
+ &lt;&lt;"Ім\\'я"/utf8&gt;&gt;</code></figure>
+        <h4>wire(list(#action{})) -> [].</h4>
+        <p>Updates the process dictionary <b>actions</b> variable with the new list of records inhereted from <b>#action</b>.
+           This process dictionary variable is a way data is passed from your <b>event</b> handlers into the output rendering pipeline.
+           This is fixed by Nitrogen Web Framework API.</p>
+        <figure><code> > nitro:wire([#alert{text="hello"}]).
+ []
+ > get(actions).
+ [#wire{ancestor = action,
+        trigger = [],
+        target = [],
+        module = action_wire,
+        actions = [#alert{ancestor = action,
+                          trigger = [],
+                          target = [],
+                          module = action_alert,
+                          actions = [],
+                          source = [],
+                          text = "hello"}],
+        source = []}]</code></figure>
+        <h4>render(list(#action{} | #element{})) -> binary().</h4>
+        <p>Renders HTML5 binary string by the record inhereted from <b>#element</b>.</p>
+        <figure><code> > rr(nitro).
+ [abbr,action,address,alert,api,area,article,aside,audio,
+  author,b,base,bdi,bdo,bind,blockquote,body,br,button,
+  calendar,canvas,caption,checkbox,cite,code,col,colgroup,
+  color,command|...]
+ &gt; #element{}.
+ #element{ancestor = element,id = [],module = undefined,
+          delegate = [],validation = [],validate = [],actions = [],
+          class = [],style = [],source = [],onmouseover = [],
+          onkeypress = [],onchange = [],onkeyup = [],onkeydown = [],
+          onclick = [],data_fields = [],aria_states = [],body = [],
+          role = [],tabindex = [],show_if = true,html_tag = [],
+          title = [],postback = [],accesskey = [],
+          contenteditable = [],contextmenu = [],...}
+ &lt; nitro:render(#alert{text="hello"}).
+ ["alert(\"","hello","\");"]
+ &gt; nitro:render(#element{}).
+ [&lt;&lt;"&lt;"&gt;&gt;,&lt;&lt;"element"&gt;&gt;,
+  [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
+  &lt;&lt;"&gt;"&gt;&gt;,&lt;&lt;&gt;&gt;,&lt;&lt;"&lt;/"&gt;&gt;,&lt;&lt;"element"&gt;&gt;,&lt;&lt;"&gt;"&gt;&gt;]
+ &gt; iolist_to_binary(nitro:render(#element{})).
+ &lt;&lt;"&lt;element&gt;&lt;/element&gt;"&gt;&gt;
+ &gt; iolist_to_binary(nitro:render(setelement(1,#element{},tag))).
+ &lt;&lt;"&lt;tag&gt;&lt;/tag&gt;"&gt;&gt;</code></figure>
+        <h4>insert_top(atom(), list(#element{})) -> [].</h4>
+        <h4>insert_bottom(atom(), list(#element{})) -> [].</h4>
+        <h4>update(atom(), list(#element{})) -> [].</h4>
+        <h4>clear(atom()) -> [].</h4>
+        <h4>remove(atom()) -> [].</h4>
+         <p>Wires a JavaScript to the process dictionary that manipulate
+            DOM elements tree directly on a client side.</p>
+        <h4>display(atom(),atom()) -> [].</h4>
+         <p>Wires a JavaScript that manipulate <b>style</b> field of a given DOM element.</p>
+        <h4>compact(term()) -> binary().</h4>
+         <p>Pretty-prints the term into more compact format to display by a recursive cut
+            the tuples with no more that 9 elements width.</p>
+        <figure><code> &gt; iolist_to_binary(nitro:compact({1,2,3,4,5,{1,2,3,4},7,8,9,10,11})).
+ &lt;&lt;"{1,2,3,4,5,{1,2,3,4},7,8,9}"&gt;&gt;</code></section>
     </section>
-</main><footer>
-    2005—2019 © Synrc Research Center
-</footer>
+</main>
+<footer> 2005—2019 © Synrc Research Center </footer>
 <script>function drop(){document.getElementById("dropdown").classList.toggle("show");}</script>
-</body></html>
+</body>
+</html>
