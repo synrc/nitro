@@ -33,27 +33,28 @@
     </section>
     <section>
         <h3>API</h3>
+        <a name="q"></a>
         <p>The basic Rusty's idea was to stream small pieces of JavaScript
            to the thin client that performs simple <b>eval</b>. This is
            server side rendering framework with SDK for creating rich and complex
            control elements such as virtual grid or file upload element.</p>
-        <a name="q"></a>
+        <a name="jse"></a>
         <h4>q(atom()) -> term().</h4>
         <p>Retrieves from process dictionary by atom-key the value of client DOM element
            passed by over the network in <b>#ev</b> record as a part of <b>#pickle</b> message.</p>
         <figure><code> event(click) -> io:format("~p~n",[nitro:q(:name)]);</code></figure>
-        <a name="jse"></a>
+        <a name="hte"></a>
         <h4>jse([] | binary()) -> [] | binary().</h4>
         <p>Performs JavaScript escaping that is safe to eval and <b>&lt;script&gt;</b> injection. See more about
            <a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html">XSS</a>.</p>
         <figure><code> > nitro:jse(&lt;&lt;"Ім'я"/utf8&gt;&gt;).
  &lt;&lt;"Ім\\'я"/utf8&gt;&gt;</code></figure>
-        <a name="hte"></a>
+        <a name="wire"></a>
         <h4>hte([] | binary()) -> [] | binary().</h4>
         <p>Performs HTML escaping that is safe to display as a text on a page.</p>
         <figure><code> > nitro:hte(&lt;&lt;"<a></a>"&gt;&gt;).
 "&#38;lt;a&#38;gt;&lt;/a&#38;gt;"</code></figure>
-        <a name="wire"></a>
+        <a name="render"></a>
         <h4>wire(list(#action{})) -> [].</h4>
         <p>Updates the process dictionary <b>actions</b> variable with the new list of records inhereted from <b>#action</b>.
            This process dictionary variable is a way data is passed from your <b>event</b> handlers into the output rendering pipeline.
@@ -73,7 +74,7 @@
                           source = [],
                           text = "hello"}],
         source = []}]</code></figure>
-        <a name="render"></a>
+        <a name="insert_top"></a>
         <h4>render(list(#action{} | #element{})) -> binary().</h4>
         <p>Renders HTML5 binary string by the record inhereted from <b>#element</b>.</p>
         <figure><code> > rr(nitro).
@@ -100,7 +101,7 @@
  &lt;&lt;"&lt;element&gt;&lt;/element&gt;"&gt;&gt;
  &gt; iolist_to_binary(nitro:render(setelement(1,#element{},tag))).
  &lt;&lt;"&lt;tag&gt;&lt;/tag&gt;"&gt;&gt;</code></figure>
-        <a name="insert_top"></a>
+        <a name="insert_bottom"></a>
         <h4>insert_top(atom(), list(#element{})) -> [].</h4>
         <p>Wires a JavaScript for adding the NITRO element as a first child of a given DOM id at the client.</p>
         <figure><code> > nitro:insert_top(panel,#button{}).
@@ -117,7 +118,7 @@
  = qn('div'); div.innerHTML = '&lt;button type=\"button\"&gt;&lt;/button&gt;';
  return div.firstChild; })(),qi('panel').firstChild);"&gt;&gt;
  ok</code></figure>
-        <a name="insert_bottom"></a>
+        <a name="insert_adjustment"></a>
         <h4>insert_bottom(atom(), list(#element{})) -> [].</h4>
         <p>Wires a JavaScript for adding the NITRO element as a last child of a given DOM id at the client.</p>
         <figure><code> > nitro:insert_bottom(panel,#button{}).
@@ -126,7 +127,7 @@
  '&lt;button type=\"button\"&gt;&lt;/button&gt;';qi('panel')
  .appendChild(div.firstChild); })();"&gt;&gt;
  ok</code></figure>
-        <a name="insert_adjustment"></a>
+        <a name="update"></a>
         <h4>insert_adjustment(beforebegin | afterbegin
                | beforeend | afterend, atom(), list(#element{})) -> [].</h4>
         <p>Wires a JavaScript for different
@@ -137,7 +138,7 @@
  &lt;&lt;"qi('panel').insertAdjacentHTML('beforebegin',
  '&lt;button type=\"button\"&gt;&lt;/button&gt;');"&gt;&gt;
  ok</code></figure>
-        <a name="update"></a>
+        <a name="clear"></a>
         <h4>update(atom(), list(#element{})) -> [].</h4>
         <p>Wires a JavaScript for updating the DOM element at the client by the render of a given NITRO element.</p>
         <figure><code> > nitro:update(panel,#button{}).
@@ -145,7 +146,7 @@
  > rp(iolist_to_binary(nitro:render(nitro:actions()))).
  &lt;&lt;"qi('panel').outerHTML='&lt;button type=\"button\"&lt;&gt;/button>';"&gt;&gt;
  ok</code></figure>
-        <a name="clear"></a>
+        <h4>remove(atom()) -> [].</h4>
         <h4>clear(atom()) -> [].</h4>
         <p>Wires a JavaScript that clear at the client all the children of a given DOM element id.</p>
         <figure><code> > nitro:clear(panel).
@@ -153,15 +154,15 @@
  > rp(iolist_to_binary(nitro:render(nitro:actions()))).
  &lt;&lt;"var x = qi('panel'); while (x.firstChild) x.removeChild(x.firstChild);""&gt;&gt;
  ok</code></figure>
+        <a name="display"></a>
         <a name="remove"></a>
-        <h4>remove(atom()) -> [].</h4>
         <p>Wires a JavaScript that remove particular DOM element from the tree at the client.</p>
         <figure><code> > nitro:remove(panel).
  []
  > rp(iolist_to_binary(nitro:render(nitro:actions()))).
  &lt;&lt;"var x=qi('panel'); x && x.parentNode.removeChild(x);"&gt;&gt;
  ok</code></figure>
-        <a name="display"></a>
+        <a name="compact"></a>
         <h4>display(atom(),atom()) -> [].</h4>
         <p>Wires a JavaScript that remove particular DOM element from the tree at the client.</p>
         <figure><code> > nitro:display(panel,none).
@@ -170,7 +171,6 @@
  &lt;&lt;"{ var x = qi('panel'); if (x) x.style.display = 'none'; }"&gt;&gt;
  ok</code></figure>
          <p>Wires a JavaScript that manipulate <b>style</b> field of a given DOM element.</p>
-        <a name="compact"></a>
         <h4>compact(term()) -> binary().</h4>
          <p>Pretty-prints the term into more compact format to display by a recursive cut
             the tuples with no more that 9 elements width.</p>
