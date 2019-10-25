@@ -38,9 +38,14 @@
            passed by over the network in <b>#ev</b> record as a part of <b>#pickle</b> message.</p>
         <figure><code> event(click) -> io:format("~p~n",[nitro:q(:name)]);</code></figure>
         <h4>jse([] | binary()) -> [] | binary().</h4>
-        <p>Performs JavaScript escaping for eval compatibility.</p>
+        <p>Performs JavaScript escaping that is safe to eval and <b>&lt;script&gt;</b> injection. See more about
+           <a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html">XSS</a>.</p>
         <figure><code> > nitro:jse(&lt;&lt;"Ім'я"/utf8&gt;&gt;).
  &lt;&lt;"Ім\\'я"/utf8&gt;&gt;</code></figure>
+        <h4>hte([] | binary()) -> [] | binary().</h4>
+        <p>Performs HTML escaping that is safe to display as a text on a page.</p>
+        <figure><code> > nitro:hte(&lt;&lt;"<a></a>"&gt;&gt;).
+"&#38;lt;a&#38;gt;&lt;/a&#38;gt;"</code></figure>
         <h4>wire(list(#action{})) -> [].</h4>
         <p>Updates the process dictionary <b>actions</b> variable with the new list of records inhereted from <b>#action</b>.
            This process dictionary variable is a way data is passed from your <b>event</b> handlers into the output rendering pipeline.

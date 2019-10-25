@@ -52,8 +52,9 @@ html_encode(L,EncType) when is_float(L) -> html_encode(float_to_list(L,[{decimal
 html_encode(L, false) -> L;
 html_encode(L, true) -> L;
 html_encode(L, whites) -> html_encode_whites(nitro:to_list(lists:flatten([L]))).
-html_encode(<<>>) -> [];
+html_encode(<<>>) -> <<>>;
 html_encode([]) -> [];
+html_encode(B) when is_binary(B) -> html_encode(binary_to_list(B));
 html_encode([$\n|T]) -> "<br>" ++ html_encode(T);
 html_encode([H|T]) ->
 	case H of
