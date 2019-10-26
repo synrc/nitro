@@ -21,7 +21,7 @@
 -define(ACTION_BASE(Module), ancestor=action, trigger=[], target=[], module=Module, actions=[], source=[]).
 -define(CTRL_BASE(Module), ?ELEMENT_BASE(Module,[],Module)).
 
--record(element, {?ELEMENT_BASE(undefined)}).
+-record(element, {?ELEMENT_BASE([])}).
 -record(literal, {?ELEMENT_BASE(element_literal), html_encode=true }).
 -record(dtl, {?ELEMENT_BASE(element_dtl), file="index", bindings=[], app=web, folder="priv/templates", ext="html", bind_script=true, js_escape=false }).
 -record(list, {?ELEMENT_BASE(element_list), numbered=false }).
