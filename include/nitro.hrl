@@ -158,6 +158,12 @@
 -record(thead,       	?DEFAULT_BASE).
 -record(tr, 			{?ELEMENT_BASE(element_tr), cells}).
 
+% Text
+-record(link,           {?ELEMENT_BASE(element_link),  href, hreflang, media, rel, target, type, url="javascript:void(0);", download, name}).
+-record(mark,           ?DEFAULT_BASE).
+-record(code,           ?DEFAULT_BASE).
+-record(span,           ?DEFAULT_BASE).
+
 % Extras
 -record(upload,         {?CTRL_BASE(element_upload), name, value}).
 
