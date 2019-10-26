@@ -160,7 +160,7 @@
         <figure><code> > nitro:remove(panel).
  []
  > rp(iolist_to_binary(nitro:render(nitro:actions()))).
- &lt;&lt;"var x=qi('panel'); x && x.parentNode.removeChild(x);"&gt;&gt;
+ &lt;&lt;"var x=qi('panel'); x &#38;&#38; x.parentNode.removeChild(x);"&gt;&gt;
  ok</code></figure>
         <a name="compact"></a>
         <h4>display(atom(),atom()) -> [].</h4>
@@ -175,7 +175,7 @@
          <p>Pretty-prints the term into more compact format to display by a recursive cut
             the tuples with no more that 9 elements width.</p>
         <figure><code> &gt; iolist_to_binary(nitro:compact({1,2,3,4,5,{1,2,3,4},7,8,9,10,11})).
- &lt;&lt;"{1,2,3,4,5,{1,2,3,4},7,8,9}"&gt;&gt;</code>
+ &lt;&lt;"{1,2,3,4,5,{1,2,3,4},7,8,9}"&gt;&gt;</code></figure>
  <br/>
  <br/>
     </section>
