@@ -158,34 +158,6 @@
 -record(thead,       	?DEFAULT_BASE).
 -record(tr, 			{?ELEMENT_BASE(element_tr), cells}).
 
-% HTML Text-level semantics
--record(link,           {?ELEMENT_BASE(element_link),  href, hreflang, media, rel, target, type, url="javascript:void(0);", download, name}).
--record(abbr,       	?DEFAULT_BASE).
--record(b,       		?DEFAULT_BASE).
--record(bdi,       		?DEFAULT_BASE).
--record(bdo,       		?DEFAULT_BASE).
--record(cite,       	?DEFAULT_BASE).
--record(code,       	?DEFAULT_BASE).
--record(dfn,       		?DEFAULT_BASE).
--record(em,       		?DEFAULT_BASE).
--record(i,       		?DEFAULT_BASE).
--record(kbd,       		?DEFAULT_BASE).
--record(mark,       	?DEFAULT_BASE).
--record(q,              {?ELEMENT_BASE(element_q),  cite}).
--record(rt,       		?DEFAULT_BASE).
--record(rp,       		?DEFAULT_BASE).
--record(ruby,       	?DEFAULT_BASE).
--record(s,       		?DEFAULT_BASE).
--record(samp,       	?DEFAULT_BASE).
--record(small,       	?DEFAULT_BASE).
--record(span,       	?DEFAULT_BASE).
--record(strong,       	?DEFAULT_BASE).
--record(sub,       		?DEFAULT_BASE).
--record(sup,       		?DEFAULT_BASE).
--record(time,           {?ELEMENT_BASE(element_time),  datetime}).
--record(u,       		?DEFAULT_BASE).
--record(var,       		?DEFAULT_BASE).
-
 % Extras
 -record(upload,         {?CTRL_BASE(element_upload), name, value}).
 
