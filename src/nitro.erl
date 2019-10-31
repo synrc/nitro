@@ -193,6 +193,7 @@ hide(Element) -> display(Element,none).
 compact([]) -> "[]";
 compact("\n") -> "[]";
 compact([X|_]=Y) when is_tuple(X) -> [ compact(F) || F <- Y ];
+compact(Tuple) when is_binary(Tuple) -> unicode:characters_to_binary(Tuple);
 compact(Tuple) when is_tuple(Tuple) ->
      Min = erlang:min(9,size(Tuple)),
      Fields = lists:zip(lists:seq(1,Min),lists:sublist(tuple_to_list(Tuple),1,Min)),

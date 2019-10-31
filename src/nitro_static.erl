@@ -61,7 +61,7 @@ get_file(Req, State={P, {ok, #file_info{size=_Size}}, _}) ->
               case mad_repl:load_file(StringPath) of
                    {ok,ETSFile} -> ETSFile;
                    {error,_} ->
-                        case file:read_file(filename:join([code:lib_dir(Name)|RestPath])) of
+                        case file:read_file(filename:join([ code:lib_dir(list_to_atom(Name))|RestPath])) of
                              {ok,ReleaseFile} -> ReleaseFile;
                              {error,_} -> <<>> end end end,
     Sendfile = fun (Socket, Transport) -> Transport:send(Socket, Raw) end,

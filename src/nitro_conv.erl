@@ -197,17 +197,3 @@ config(App, Key, Default) -> application:get_env(App,Key,Default).
 os_env(Key) -> os_env(Key, "").
 os_env(Key, Default) -> case os:getenv(Key) of false -> Default; V -> V end.
 
-stack(Error, Reason) ->
-    Stacktrace = [case A of
-         { Module,Function,Arity,Location} ->
-             { Module,Function,Arity,proplists:get_value(line, Location) };
-         Else -> Else end
-    || A <- erlang:get_stacktrace()],
-    [Error, Reason, Stacktrace].
-
-error_page(Class,Error) ->
-    io_lib:format("ERROR:  ~w:~w~n~n",[Class,Error]) ++
-    "STACK: " ++
-    [ wf_render:render([io_lib:format("\t~w:~w/~w:~w",
-        [ Module,Function,Arity,proplists:get_value(line, Location) ]),"\n"])
-    ||  { Module,Function,Arity,Location} <- erlang:get_stacktrace() ].
