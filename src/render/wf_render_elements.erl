@@ -43,6 +43,8 @@ default_render(Tag, Record) ->
             {<<"spellcheck">>,      element(#element.spellcheck, Record)},
             {<<"translate">>,       element(#element.translate, Record)},
             {<<"tabindex">>,        element(#element.tabindex, Record)},
+            {<<"onmouseout">>,      element(#element.onmouseout, Record)},
+            {<<"onmouseover">>,     element(#element.onmouseover, Record)},
             {<<"role">>,            element(#element.role, Record)}],
         element(#element.data_fields, Record),
         element(#element.aria_states, Record)])).
