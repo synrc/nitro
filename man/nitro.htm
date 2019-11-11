@@ -146,7 +146,7 @@
  > rp(iolist_to_binary(nitro:render(nitro:actions()))).
  &lt;&lt;"qi('panel').outerHTML='&lt;button type=\"button\"&lt;&gt;/button>';"&gt;&gt;
  ok</code></figure>
-        <h4>remove(atom()) -> [].</h4>
+        <a name="remove"></a>
         <h4>clear(atom()) -> [].</h4>
         <p>Wires a JavaScript that clear at the client all the children of a given DOM element id.</p>
         <figure><code> > nitro:clear(panel).
@@ -155,7 +155,7 @@
  &lt;&lt;"var x = qi('panel'); while (x.firstChild) x.removeChild(x.firstChild);""&gt;&gt;
  ok</code></figure>
         <a name="display"></a>
-        <a name="remove"></a>
+        <h4>remove(atom()) -> [].</h4>
         <p>Wires a JavaScript that remove particular DOM element from the tree at the client.</p>
         <figure><code> > nitro:remove(panel).
  []
