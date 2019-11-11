@@ -164,13 +164,12 @@
  ok</code></figure>
         <a name="compact"></a>
         <h4>display(atom(),atom()) -> [].</h4>
-        <p>Wires a JavaScript that remove particular DOM element from the tree at the client.</p>
+        <p>Wires a JavaScript that manipulate <b>style</b> field of a given DOM element.</p>
         <figure><code> > nitro:display(panel,none).
  []
  > rp(iolist_to_binary(nitro:render(nitro:actions()))).
  &lt;&lt;"{ var x = qi('panel'); if (x) x.style.display = 'none'; }"&gt;&gt;
  ok</code></figure>
-         <p>Wires a JavaScript that manipulate <b>style</b> field of a given DOM element.</p>
         <h4>compact(term()) -> binary().</h4>
          <p>Pretty-prints the term into more compact format to display by a recursive cut
             the tuples with no more that 9 elements width.</p>
