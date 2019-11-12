@@ -1,5 +1,5 @@
 -module(element_checkbox).
--author('Rusty Klophaus, Vladimir Galunshchikov').
+-author('Rusty Klophaus').
 -include_lib("nitro/include/nitro.hrl").
 -include_lib("nitro/include/event.hrl").
 -compile(export_all).
