@@ -40,6 +40,7 @@ default_render(Tag, Record) ->
             {<<"dropzone">>,        element(#element.dropzone, Record)},
             {<<"hidden">>,          element(#element.hidden, Record)},
             {<<"lang">>,            element(#element.lang, Record)},
+            {<<"onclick">>,         element(#element.onclick, Record)},
             {<<"spellcheck">>,      element(#element.spellcheck, Record)},
             {<<"translate">>,       element(#element.translate, Record)},
             {<<"tabindex">>,        element(#element.tabindex, Record)},

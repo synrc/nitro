@@ -77,7 +77,6 @@
 -record(checkbox,           {?ELEMENT_BASE(element_checkbox),  autofocus, checked=false, disabled, form, name, required, value}).
 -record(color,           {?ELEMENT_BASE(element_color),  autocomplete, autofocus, disabled, form, list, name, value}).
 -record(date,           {?ELEMENT_BASE(element_date),  autocomplete, autofocus, disabled, form, list, max, min, name, step, readonly, required, value}).
--record(calendar,       {?ELEMENT_BASE(element_calendar),  autocomplete, autofocus, disabled, form, list, maxDate, minDate, format, pattern, name, step, readonly, required, value, placeholder, onSelect, disableDayFn, position,reposition,yearRange=100}).
 -record(datetime,           {?ELEMENT_BASE(element_datetime),  autocomplete, autofocus, disabled, form, list, max, min, name, step, readonly, required, value}).
 -record(datetime_local,           {?ELEMENT_BASE(element_datetime_local),  autocomplete, autofocus, disabled, form, list, max, min, name, step, readonly, required, value}).
 -record(email,           {?ELEMENT_BASE(element_email),  autocomplete, autofocus, disabled, form, list, maxlength, multiple, name, pattern, placeholder, readonly, required, size, value}).
