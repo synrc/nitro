@@ -482,6 +482,7 @@ function parseDateFromInput(value) {
             }
             e = e || window.event;
             var target = e.target || e.srcElement;
+            console.log(target);
             if (!target) {
                 return;
             }

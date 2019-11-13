@@ -45,7 +45,7 @@ render_element(Record) ->
       {<<"required">>,if Record#calendar.required == true -> "required"; true -> [] end},
       {<<"step">>,Record#calendar.step},
       {<<"type">>, <<"calendar">>},
-      {<<"value">>, case Record#calendar.value of {Yv,Mv,Dv} -> io_lib:format("~p-~p-~p",[Yv,Mv,Dv]); [] -> []; _ -> "2019, 10, 7" end},
+      {<<"value">>, case Record#calendar.value of {Yv,Mv,Dv} -> io_lib:format("~p-~p-~p",[Yv,Mv,Dv]); [] -> []; _ -> [] end},
       {<<"pattern">>,Record#calendar.pattern},
       {<<"placeholder">>,Record#calendar.placeholder},
       {<<"onkeypress">>, Record#calendar.onkeypress} | Record#calendar.data_fields
@@ -55,14 +55,14 @@ render_element(Record) ->
 init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form,
         value=Value,onSelect=SelectFn,disableDayFn=DisDayFn,
         position=Pos,reposition=Repos,yearRange=YearRange} = Calendar) ->
-%    io:format("Calendar: ~p~n",[Calendar]),
     ID = nitro:to_list(Id),
     I18n =        "clLangs.ua",
     Format =      "YYYY-MM-DD",
-    DefaultDate = case Value of {Yv,Mv,Dv} -> nitro:f("new Date(~s,~s,~s)",[nitro:to_list(Yv),nitro:to_list(Mv-1),nitro:to_list(Dv)]);  _ -> "new Date(2019, 10, 7)" end,
- %   io:format("Default Date: ~p~n",[DefaultDate]),
-    MinDate =     "null", % case Min   of {Y,M,D}    -> nitro:f("new Date(~s,~s,~s)",[nitro:to_list(Y), nitro:to_list(M-1), nitro:to_list(D)]);   _ -> "new Date(2009, 3, 4)" end,
-    MaxDate =     "new Date(2020,10,10)", %case Max   of {Y1,M1,D1} -> nitro:f("new Date(~s,~s,~s)",[nitro:to_list(Y1),nitro:to_list(M1-1),nitro:to_list(D1)]);  _ -> "new Date(2089, 4, 1)" end,
+    DefaultDate = case Value of
+       {Yv,Mv,Dv} -> nitro:f("new Date(~s,~s,~s)",[nitro:to_list(Yv),nitro:to_list(Mv-1),nitro:to_list(Dv)]);
+        _ -> "new Date(2019, 11, 26)" end,
+    MinDate =     case Min   of {Y,M,D}    -> nitro:f("new Date(~s,~s,~s)",[nitro:to_list(Y), nitro:to_list(M-1), nitro:to_list(D)]);   _ -> "new Date(2009, 3, 4)" end,
+    MaxDate =     case Max   of {Y1,M1,D1} -> nitro:f("new Date(~s,~s,~s)",[nitro:to_list(Y1),nitro:to_list(M1-1),nitro:to_list(D1)]);  _ -> "new Date(2189, 4, 1)" end,
     OnSelect =    "null",
     DisDay =      "null",
     Position =    "bottom left",
