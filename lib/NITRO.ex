@@ -1,7 +1,7 @@
 defmodule NITRO do
   require Record
 
-  files = Path.wildcard("include/**/*")
+  files = ["calendar.hrl", "nitro.hrl", "comboLookup.hrl"]
 
   hrl_files =
     Enum.filter(files, fn f ->
@@ -12,7 +12,7 @@ defmodule NITRO do
     hrl_files,
     fn t ->
       Enum.each(
-        Record.extract_all(from_lib: "nitro/" <> t),
+        Record.extract_all(from_lib: "nitro/include/" <> t),
         fn {name, definition} ->
           IO.inspect({name, definition, t})
           prev = :application.get_env(:kernel, :nitro_tables, [])

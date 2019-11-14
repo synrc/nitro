@@ -6,6 +6,7 @@
 -record(comboKeyup,  { value=[], dom=[], feed=[]}).
 -record(comboNext,   { pos=[],  count=[], feed=[]}).
 -record(comboLookup, { ?ELEMENT_BASE(element_comboLookup),
+    value=[],
     disabled=false,
     feed=[],
     reader=[],
