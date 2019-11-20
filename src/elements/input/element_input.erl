@@ -31,7 +31,7 @@ render_element(Record) ->
       {<<"style">>, Record#input.style},
       {<<"tabindex">>, Record#input.tabindex},
       {<<"title">>, Record#input.title},
-      {<<"translate">>, case Record#input.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> [] end},      
+      {<<"translate">>, case Record#input.contenteditable of "yes" -> "yes"; "no" -> "no"; _ -> [] end},
       % spec
       {<<"autofocus">>,Record#input.autofocus},
       {<<"disabled">>, if Record#input.disabled == true -> "disabled"; true -> [] end},
@@ -39,6 +39,8 @@ render_element(Record) ->
       {<<"type">>, Record#input.type},
       {<<"accept">>, Record#input.accept},
       {<<"max">>, Record#input.max},
+      {<<"checked">>, if Record#input.checked == true -> true; true -> [] end},
+      {<<"aria-states">>, Record#input.aria_states},
       {<<"placeholder">>,Record#input.placeholder},
       {<<"min">>, Record#input.min},
       {<<"multiple">>, Record#input.multiple},
