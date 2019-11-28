@@ -183,6 +183,9 @@ redirect(Url) -> nitro:wire(#jq{target='window.top',property=location,args=simpl
 %header(K,V) -> nitro:context((?CTX)#cx{req=cowboy_req:set_resp_header(K,V,?CTX#cx.req)}).
 
 % Convert and Utils API
+style(Element, Style) ->
+    nitro:wire("{ var x = qi('"++ 
+        nitro:to_list(Element)++"'); if (x) x.setAttribute('style', '"++nitro:to_list(Style)++"'); }").
 
 display(Element,Status) ->
    nitro:wire("{ var x = qi('"++
