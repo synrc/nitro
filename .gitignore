@@ -1,2 +1,26 @@
-ebin
-.DS_Store
+.eunit
+deps
+*.o
+*.beam
+*.plt
+erl_crash.dump
+ebin/*.beam
+rel/example_project
+.concrete/DEV_MODE
+.rebar
+
+# elixir
+_build
+cover
+doc
+.fetch
+*.ez
+*.beam
+config/*.secret.exs
+.elixir_ls/
+
+# other
+rocksdb
+log
+Mnesia*
+out
