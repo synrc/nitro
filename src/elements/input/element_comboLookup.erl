@@ -5,7 +5,10 @@
 -export([render_element/1,proto/1]).
 
 proto(#comboKeyup{delegate=Module}=Msg) ->
+  Module:proto(Msg);
+proto(#comboSelect{delegate=Module}=Msg) ->
   Module:proto(Msg).
+
 
 render_element(#comboLookup{id=Id, style=Style, value = Val, feed = Feed, disabled = Disabled, delegate = Module} = Data) ->
   nitro:render(
