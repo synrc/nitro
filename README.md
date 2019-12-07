@@ -15,6 +15,7 @@ Features
 * Polymorphic Tuples
 * Compact size (2500 LOC)
 * As fast as DTL and EEX
+* Elixir, MIX and HEX support
 
 Credits
 -------
