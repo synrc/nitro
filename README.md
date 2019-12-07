@@ -19,7 +19,8 @@ Features
 Credits
 -------
 
-* Maxim Sokhatsky -- adaptation
-* Rusty Klophaus -- original author
+* Maxim Sokhatsky — adaptation
+* Rusty Klophaus — original author
+* Jesse Gumm — author of http://nitrogenproject.com/
 
 OM A HUM
