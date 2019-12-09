@@ -182,7 +182,6 @@ redirect({http,Url}) -> n2o:header(<<"Location">>,nitro_conv:to_binary(Url)), ni
 redirect(Url) -> nitro:wire(#jq{target='window.top',property=location,args=simple,right=Url}).
 %header(K,V) -> nitro:context((?CTX)#cx{req=cowboy_req:set_resp_header(K,V,?CTX#cx.req)}).
 
-% Convert and Utils API
 setAttr(Element, Attr, Value) -> 
     nitro:wire("{ var x = qi('"++ 
     nitro:to_list(Element)++"'); if (x) x.setAttribute('"++nitro:to_list(Attr)++"', '"++nitro:to_list(Value)++"'); }").
