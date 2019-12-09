@@ -183,13 +183,16 @@ redirect(Url) -> nitro:wire(#jq{target='window.top',property=location,args=simpl
 %header(K,V) -> nitro:context((?CTX)#cx{req=cowboy_req:set_resp_header(K,V,?CTX#cx.req)}).
 
 % Convert and Utils API
-style(Element, Style) ->
+setAttr(Element, Attr, Value) -> 
     nitro:wire("{ var x = qi('"++ 
-        nitro:to_list(Element)++"'); if (x) x.setAttribute('style', '"++nitro:to_list(Style)++"'); }").
+    nitro:to_list(Element)++"'); if (x) x.setAttribute('"++nitro:to_list(Attr)++"', '"++nitro:to_list(Value)++"'); }").
 
-display(Element,Status) ->
-   nitro:wire("{ var x = qi('"++
-   nitro:to_list(Element)++"'); if (x) x.style.display = '"++nitro:to_list(Status)++"'; }").
+style(Element, Style) -> setAttr(Element, "style", Style).
+style(Element, Style, Value) -> 
+            nitro:wire("{ var x = qi('"++ 
+                nitro:to_list(Element)++"'); if (x) x.style."++nitro:to_list(Style)++" = '"++nitro:to_list(Value)++"'; }").
+
+display(Element,Status) -> style(Element, "display", Status).
 
 show(Element) -> display(Element,block).
 hide(Element) -> display(Element,none).
