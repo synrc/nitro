@@ -45,7 +45,6 @@ render_element(Record) ->
       {<<"required">>,if Record#calendar.required == true -> "required"; true -> [] end},
       {<<"step">>,Record#calendar.step},
       {<<"type">>, <<"calendar">>},
-      {<<"value">>, case Record#calendar.value of {Yv,Mv,Dv} -> io_lib:format("~4..0B-~2..0B-~2..0B",[Yv,Mv,Dv]); [] -> []; _ -> [] end},
       {<<"pattern">>,Record#calendar.pattern},
       {<<"placeholder">>,Record#calendar.placeholder},
       {<<"onkeypress">>, Record#calendar.onkeypress} | Record#calendar.data_fields
