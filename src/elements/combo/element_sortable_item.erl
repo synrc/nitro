@@ -22,7 +22,7 @@ render_element(#sortable_item{list_id = ListId, value = Value, closeable = Close
                       true -> 
                         #panel{
                           class = <<"list__item-close">>,
-                          onclick = nitro:jse("removeSortableItem('#" ++ ListId ++ "', this.parentNode);"),
+                          onclick = nitro:jse("removeSortableItem('#" ++ ListId ++ "', this.parentNode);")};
                       _ -> [] end,
                     #panel{
                       class = <<"list__item-content">>,
