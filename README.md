@@ -10,7 +10,7 @@ Features
 
 * Full HTML5 and SVG Support
 * Support for N2O Erlang WebSocket Application Server
-* Native Erlang way for HTML Templating
+* Native Erlang way for UI/UX controls as HTML/JS/CSS components
 * Tag Inheritance
 * Polymorphic Tuples
 * Compact size (2500 LOC)
