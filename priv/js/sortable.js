@@ -38,12 +38,10 @@ function () {
       if (e.type === 'mousedown' && e.which !== 1) return;
       if (e.type === 'touchstart' && e.touches.length > 1) return;
       this.handle = null;
-      this.close = null;
       var el = e.target;
 
       while (el) {
         if (el.hasAttribute('data-sortable-handle')) this.handle = el;
-        if (el.hasAttribute('data-sortable-close')) this.close = el;
         if (el.hasAttribute('data-sortable-item')) this.item = el;
         if (el.hasAttribute('data-sortable-list')) break;
         el = el.parentElement;
@@ -167,7 +165,7 @@ function () {
       var template = document.createElement('template');
       template.innerHTML =
       '<div class="list__item" data-sortable-item="data-sortable-item" style="">'+
-        '<div class="list__item-close" onclick="removeSortableItem(\'#' + this.list.id + '\', this.parentNode);" data-sortable-close="data-sortable-close"></div>'+
+        '<div class="list__item-close" onclick="removeSortableItem(\'#' + this.list.id + '\', this.parentNode);"></div>'+
         '<div class="list__item-content">'+
           '<div class="list__item-title">' + value + '</div>'+
         '</div>'+
