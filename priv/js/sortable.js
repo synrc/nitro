@@ -162,6 +162,8 @@ function () {
     key: "addItemFrom",
     value: function addItemFrom(input) {
       var value = querySourceRaw(input);
+      var inputElement = document.getElementById(input);
+      if (inputElement) inputElement.value = '';
       var template = document.createElement('template');
       template.innerHTML =
       '<div class="list__item" data-sortable-item="data-sortable-item" style="">'+
