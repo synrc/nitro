@@ -4,7 +4,7 @@ defmodule NITRO.Mixfile do
   def project do
     [
       app: :nitro,
-      version: "4.11.13",
+      version: "4.12.6",
       description: "NITRO Nitrogen Web Framework",
       package: package(),
       deps: deps()
@@ -17,7 +17,7 @@ defmodule NITRO.Mixfile do
 
   def package do
     [
-      files: ~w(doc include lib src mix.exs rebar.config LICENSE),
+      files: ~w(doc include priv lib src mix.exs rebar.config LICENSE),
       licenses: ["ISC"],
       maintainers: ["Namdak Tonpa"],
       name: :nitro,

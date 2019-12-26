@@ -4,6 +4,7 @@
 -include_lib("nitro/include/nitro.hrl").
 
 -record(comboKeyup,  { value=[], dom=[], feed=[], delegate=[]}).
+-record(comboSelect,  { value=[], dom=[], feed=[], delegate=[] }).
 -record(comboNext,   { pos=[],  count=[], feed=[]}).
 -record(comboLookup, { ?ELEMENT_BASE(element_comboLookup),
     value=[],

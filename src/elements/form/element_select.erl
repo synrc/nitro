@@ -11,7 +11,7 @@ render_element(Record = #select{}) ->
     Postback -> nitro:wire(#event{ type=change,
                                 target=ID,
                                 postback=Postback,
-                                source=[nitro:to_atom(ID)],
+                                source=[nitro:to_atom(ID)|Record#select.source],
                                 delegate=Record#select.delegate }) end,
   Props = [
     {<<"id">>, ID},
@@ -32,10 +32,17 @@ render_element(Group = #optgroup{}) ->
     {<<"label">>, Group#optgroup.label}
   ]);
 render_element(O = #option{}) ->
-  wf_tags:emit_tag(<<"option">>, nitro:render(O#option.body), [
-    {<<"id">>, O#option.id},
-    {<<"disabled">>, case O#option.disabled of true -> <<"disabled">>; _-> [] end},
+  wf_tags:emit_tag(<<"option">>, nitro:render(O#option.body), lists:flatten([get_attrs(O) | O#option.data_fields])).
+
+get_attrs(O) ->
+  ValueAttr = case {O#option.selected, O#option.disabled} of
+                {true, _} -> <<"selected value">>;
+                {true, true} -> <<"selected disabled value">>;
+                {_, true} -> <<"disabled value">>;
+                _ -> <<"value">>
+              end,
+  [{<<"id">>, O#option.id},
     {<<"label">>, O#option.label},
     {<<"title">>, O#option.title},
-    {<<"selected">>, case O#option.selected of true -> <<"selected">>; _-> [] end},
-    {<<"value">>, O#option.value} | O#option.data_fields]).
+    {ValueAttr, O#option.value}
+  ].
