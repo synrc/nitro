@@ -8,7 +8,6 @@
 render_element(#input_vec{id=Id, input=Input, disabled=Disabled, validation=Validation, values=Values}) ->
   ListId = form:atom([Id, "list"]),
   InputId = element(#element.id, Input),
-  io:format("render_element(#input_vec{~p})~n", [Id]),
   nitro:render(
     #panel{
       id = Id,
