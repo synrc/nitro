@@ -21,19 +21,16 @@ function querySourceRaw(Id) {
             break;
         default:
             if (el.getAttribute('data-vector-input')) {
-                res = getSortableValues('#' + el.children[1].id);
-                console.log('data-vector-input:res =', res);
-                return res;
+                val = querySourceRaw(el.children[1].id);
+            } else if (el.getAttribute('data-sortable-list')) {
+                val = getSortableValues('#' + el.id);
+            } else if (el.contentEditable === 'true') {
+                val = el.innerHTML;
             } else {
-                var edit = el.contentEditable;
-                if (edit && edit === 'true') {
-                    val = el.innerHTML;
-                } else {
-                    val = el.value;
-                    switch (val) {
-                        case "true": val = new Boolean(true); break;
-                        case "false": val = new Boolean(false); break;
-                    }
+                val = el.value;
+                switch (val) {
+                    case "true": val = new Boolean(true); break;
+                    case "false": val = new Boolean(false); break;
                 }
             }
     }
@@ -50,7 +47,6 @@ function querySource(Id) {
     else if (qs instanceof Boolean) {
         return atom(qs.valueOf()); }
     else if (qs instanceof Array) {
-
         return list.apply(null, qs.map(bin)); }
     else { return bin(qs); }
 }
