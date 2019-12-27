@@ -1,5 +1,5 @@
 -module(element_input_vec).
--include_lib("crm/include/erp/catalogs/input_vec.hrl").
+-include_lib("nitro/include/input_vec.hrl").
 -include_lib("nitro/include/sortable_list.hrl").
 -include_lib("nitro/include/nitro.hrl").
 -include_lib("nitro/include/event.hrl").
