@@ -15,6 +15,10 @@ render_element(#comboLookup{id=Id, style=Style, value = Val,
                                ++ nitro:to_list(Id) ++ "','"
                                ++ nitro:to_list(Feed) ++ "','"
                                ++ nitro:to_list(Module) ++ "')"),
+                        onkeydown= nitro:jse("comboLookupKeydown('"
+                               ++ nitro:to_list(Id) ++ "','"
+                               ++ nitro:to_list(Feed) ++ "','"
+                               ++ nitro:to_list(Module) ++ "')"),
                         value = Val, style = Style, class = column},
                  #panel{id=form:atom([comboContainer, Id]),
                         class = ['dropdown-content']}]}).
