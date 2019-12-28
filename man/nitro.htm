@@ -42,7 +42,7 @@
            passed by over the network in <b>#ev</b> record as a part of <b>#pickle</b> message.</p>
         <figure><code> event(click) -> io:format("~p~n",[nitro:q(:name)]);</code></figure>
         <h4 id="qc">qc(atom()) -> term().</h4>
-        <p>Retrieves from URL query string list the particular value by its key.</p>
+        <p>Retrieves from URL query string the particular value by its key.</p>
         <figure><code> event(init) -> io:format("~p~n",[nitro:qc(:name)]);</code></figure>
         <h4 id="jse">jse([] | binary()) -> [] | binary().</h4>
         <p>Performs JavaScript escaping that is safe to eval and <b>&lt;script&gt;</b> injection. See more about
