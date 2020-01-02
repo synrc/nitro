@@ -1,55 +1,58 @@
-function comboClear(dom) { qi('comboContainer_' + dom).style.display = 'none'; activeCombo = undefined; currentItem = undefined };
-function comboSelect(dom, row, feed, mod) {
+function comboClear(dom) {
+  let elem = qi('comboContainer_' + dom)
+  if (elem) {elem.style.display = 'none'}
+  activeCombo = undefined; currentItem = undefined;
+}
+
+function comboSelect(dom, row, feed, mod, id) {
   let elem = qi(dom); comboClear(dom);
-  //  elem.value = event.currentTarget.innerHTML; 
+  elem.setAttribute("data-bind", qi(id).getAttribute('data-bind'));
   elem.value = row;
-  elem.scrollIntoView();
   elem.style.backgroundColor = 'white';
   direct(tuple(atom('comboSelect'), string(dom), string(row), string(feed), atom(mod)));
 }
+
 function comboLostFocus(e) { }
 function comboOnFocus(e) { }
-function comboLookupKeydown(dom, feed, mod) { 
+function comboLookupKeydown(dom, feed, mod) {
   var char = event.which || event.keyCode;
-  if (activeCombo && currentItem && [37, 38, 39, 40, 13, 32].includes(char)) { event.preventDefault() } 
+  if (char == 40 && !activeCombo && qi(dom).value == '') {
+    activeCombo = dom;
+    currentItem = undefined;
+    direct(tuple(atom('comboKey'), atom('all'), string(dom), string(feed), atom(mod)));
+    return
+  }
+  if (activeCombo && [38, 40].includes(char)) {
+     event.preventDefault();
+     console.log('Keycode: ' + char + ", DOM: " + dom);
+     if (char == 40) { set_focus( currentItem && ( !cycleEnabled || currentItem.nextSibling) ? currentItem.nextSibling : qi('comboContainer_' + dom).firstChild, true) }
+     if (char == 38) { set_focus( currentItem && ( !cycleEnabled || currentItem.previousSibling) ? currentItem.previousSibling : qi('comboContainer_' + dom).lastChild, true) }
+  }
 }
 
 function comboLookupKeyup(dom, feed, mod) {
   var char = event.which || event.keyCode;
-  if (char == 27) { qi(dom).value = ''; comboClear(dom); return}
-  if (!activeCombo && char == 40) {
-     activeCombo = dom;
-     direct(tuple(atom('comboKeyup'), atom('all'), string(dom), string(feed), atom(mod)));
-    return
-  }
-  if ([13, 32].includes(char) && currentItem) { currentItem.click(); return }
-  
-  if (activeCombo && [37, 38, 39, 40].includes(char)) {
-    if (char == 37) { set_focus(qi('comboContainer_' + dom).firstChild) }
-    if (char == 39) { set_focus(qi('comboContainer_' + dom).lastChild) }
-    if (char == 40) { set_focus( currentItem ? currentItem.nextSibling : qi('comboContainer_' + dom).firstChild) }
-    if (char == 38) { set_focus( currentItem ? currentItem.previousSibling : qi('comboContainer_' + dom).lastChild) }
-    
-    console.log('keyboard working with dropdown: ' + char);
-  }
+  if (char == 27 || (char == 8 || char == 46) && qi(dom).value == '') { qi(dom).value = ''; comboClear(dom); return}
+  if (char == 13 && currentItem) { currentItem.click(); return }
+  if ([33, 34, 35, 36, 37, 39].includes(char)) { return }
+  if (activeCombo && [38, 40].includes(char)) { return }
   else {
     activeCombo = dom;
-    direct(tuple(atom('comboKeyup'), querySource(dom), string(dom), string(feed), atom(mod)));
+    currentItem = undefined;
+    direct(tuple(atom('comboKey'), bin(qi(dom).value), string(dom), string(feed), atom(mod)));
   }
 }
 
-function set_focus(elem) {
-  
+function comboLookupMouseMove(dom) { set_focus(event.target.closest('.dropdown-item'), false) }
+function comboLookupMouseOut(dom) { }
+function set_focus(elem, scroll) {
   if (elem) {
-    if(currentItem) {currentItem.style.backgroundColor = "white"}
-    // elem.style.backgroundColor = "cornflowerblue"
-    elem.style.backgroundColor = "pink"
-    elem.scrollIntoView()
+    if(currentItem) {currentItem.className = "dropdown-item"}
+    elem.className = "dropdown-item focus"
+    if (scroll==true) {elem.scrollIntoView({block: "center", inline: "nearest"})}
     currentItem = elem
   }
-  
 }
-
 
 document.addEventListener("click", () => {
   if (activeCombo && !event.target.closest('#comboContainer_' + activeCombo)) {
@@ -57,5 +60,7 @@ document.addEventListener("click", () => {
     comboClear(activeCombo);
   }
 })
+
 var activeCombo = undefined
 var currentItem = undefined
+var cycleEnabled = false
