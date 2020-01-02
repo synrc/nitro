@@ -28,7 +28,7 @@ default_render(Tag, Record) ->
     wf_tags:emit_tag(Tag, nitro:render(lists:flatten([element(#element.body,Record)])),
         lists:append([
            [{<<"id">>,              element(#element.id, Record)},
-            {<<"bind">>,            element(#element.bind, Record)},
+            {<<"data-bind">>,       element(#element.bind, Record)},
             {<<"class">>,           element(#element.class, Record)},
             {<<"style">>,           element(#element.style, Record)},
             {<<"title">>,           element(#element.title, Record)},
