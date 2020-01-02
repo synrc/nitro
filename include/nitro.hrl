@@ -16,7 +16,7 @@
         html_tag=Tag, title=[], postback=[], accesskey=[], contenteditable=[],
         contextmenu=[], dir=[], draggable=[], dropzone=[], hidden=[], lang=[],
         spellcheck=[], translate=[], onblur=[], onerror=[], onfocus=[],
-        onmessage=[], onresize=[]).
+        onmessage=[], onresize=[], bind=[]).
 
 -define(ACTION_BASE(Module), ancestor=action, trigger=[], target=[], module=Module, actions=[], source=[]).
 -define(CTRL_BASE(Module), ?ELEMENT_BASE(Module,[],Module)).
