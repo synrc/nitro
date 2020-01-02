@@ -3,7 +3,8 @@
 -include_lib("nitro/include/nitro.hrl").
 -export([render_element/1,proto/1]).
 
-proto(#comboKeyup{delegate=Module}=Msg) -> Module:proto(Msg);
+proto(#comboKey{delegate=Module}=Msg)    -> Module:proto(Msg);
+proto(#comboKeyup{delegate=Module}=Msg)  -> Module:proto(Msg);
 proto(#comboSelect{delegate=Module}=Msg) -> Module:proto(Msg).
 
 render_element(#comboLookup{id=Id, style=Style, value = Val,
