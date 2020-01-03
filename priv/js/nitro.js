@@ -8,25 +8,26 @@ function unbase64(base64) {
     return bytes.buffer;
 }
 
+// Nitrogen Compatibility Layer
+
 function direct(term) { ws.send(enc(tuple(atom('direct'),term))); }
 function validateSources() { return true; }
 function querySourceRaw(Id) {
     var val, el = document.getElementById(Id);
     if (!el) {
-       val = qs('input[name='+Id+']:checked'); val = val ? bin(val.value) : bin("");
+       val = qs('input[name='+Id+']:checked'); val = val ? val.value : "";
     } else switch (el.tagName) {
         case 'FIELDSET':
-            val = qs('[id="'+Id+'"]:checked'); val = val ? bin(val.value) : bin(""); break;
+            val = qs('[id="'+Id+'"]:checked'); val = val ? val.value : ""; break;
         case 'INPUT':
             switch (el.getAttribute("type")) {
                 case 'radio': case 'checkbox': val = qs('input[name='+Id+']:checked'); val = val ? val.value : ""; break;
-                case 'date': val = Date.parse(el.value); val = val && new Date(val) || ""; break;
+                case 'date': val = Date.parse(el.value);  val = val && new Date(val) || ""; break;
+                case 'calendar': val = pickers[el.id]._d || ""; break;
                 case 'text': var x = el.getAttribute('data-bind'); if (x) val=dec(unbase64(x)); break;
-                case 'calendar': var x = pickers[el.id]._d; val = tuple(number(x.getFullYear()),number(x.getMonth()+1),number(x.getDate())); break;
-                default:
-                    var edit = el.contentEditable;
-                    if (edit && edit === 'true') val = bin(el.innerHTML);
-                    else val = bin(el.value);
+                default: var edit = el.contentEditable;
+                    if (edit && edit === 'true') val = el.innerHTML;
+                    else val = el.value;
             }
             break;
         default:
@@ -39,18 +40,27 @@ function querySourceRaw(Id) {
             } else {
                 val = el.value;
                 switch (val) {
-                    case "true": val = atom('true'); break;
-                    case "false": val = atom('false'); break;
+                    case "true": val = new Boolean(true); break;
+                    case "false": val = new Boolean(false); break;
                 }
             }
     }
+    console.log("querySourceRaw:val:", val)
     return val;
 }
 
 function querySource(Id) {
     var qs = querySourceRaw(Id);
     if (qs && qs.t && qs.v) return qs;
-    else if (qs instanceof Array) { return list.apply(null, qs.map(bin)); }
+    else if (qs instanceof Date) {
+        return tuple(number(qs.getFullYear()),
+                     number(qs.getMonth() + 1),
+                     number(qs.getDate())); }
+    else if (qs instanceof Boolean) {
+        return atom(qs.valueOf()); }
+    else if (qs instanceof Array) {
+        return list.apply(null, qs.map(bin)); }
     else { return bin(qs); }
 }
+
 

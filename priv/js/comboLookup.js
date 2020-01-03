@@ -6,7 +6,7 @@ function comboClear(dom) {
 
 function comboSelect(dom, row, feed, mod, id) {
   let elem = qi(dom); comboClear(dom);
-  elem.setAttribute("data-bind", qi(id).getAttribute('data-bind'));
+  if (qi(id)) elem.setAttribute("data-bind", qi(id).getAttribute('data-bind'));
   elem.value = row;
   elem.style.backgroundColor = 'white';
   direct(tuple(atom('comboSelect'), string(dom), string(row), string(feed), atom(mod)));

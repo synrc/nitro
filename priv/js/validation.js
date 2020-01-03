@@ -8,7 +8,7 @@ function validateSources(list) {
         var el = qi(x),
             listener = el && el.validation,
             res = !listener || listener && el.dispatchEvent(event);
-        console.log(res);
+        if (!res) { console.log("Validation failed:" + x); }
         if (el) el.style.background = res ? '' : 'pink';
         return res && acc; },true); }
 
