@@ -73,7 +73,7 @@ function formatter(date, format) {
 function parseDateFromInput(value) {
     if(isNaN(Date.parse(value))) {
         var res = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec(value);
-        if(res.length == 4) { return new Date(res[3],(res[2]-1),res[1]); }
+        if(res && res.length == 4) { return new Date(res[3],(res[2]-1),res[1]); }
         else { return null; }
     }else{ return new Date(Date.parse(value)); }
 }
