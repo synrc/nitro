@@ -1,6 +1,4 @@
 
-// N2O Validation
-
 function validateSources(list) {
     return list.reduce(function(acc,x) {
         var event = new CustomEvent('validation');
