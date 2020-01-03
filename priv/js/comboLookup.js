@@ -31,12 +31,10 @@ function comboLookupKeydown(dom, feed, mod) {
     if (activeCombo && [38, 40].includes(char)) {
         event.preventDefault();
         console.log('Keycode: ' + char + ", DOM: " + dom);
-        if (char == 40) { var next = currentItem.nextSibling;
-                          set_focus( currentItem && ( !cycleEnabled || next)
-                        ? next : qi('comboContainer_' + dom).firstChild, true) }
-        if (char == 38) { var prev = currentItem.previousSibling;
-                          set_focus( currentItem && ( !cycleEnabled || prev)
-                        ? prev : qi('comboContainer_' + dom).lastChild, true) }
+        if (char == 40) { set_focus( currentItem && ( !cycleEnabled || currentItem.nextSibling)
+                        ? currentItem.nextSibling : qi('comboContainer_' + dom).firstChild, true) }
+        if (char == 38) { set_focus( currentItem && ( !cycleEnabled || currentItem.previousSibling)
+                        ? currentItem.previousSibling : qi('comboContainer_' + dom).lastChild, true) }
     }
 }
 
