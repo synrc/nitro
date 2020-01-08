@@ -11,7 +11,7 @@ render_element(#comboLookup{id=Id, style=Style, value = Val,
   feed = Feed, disabled = Disabled, delegate = Module} = Data) ->
   nitro:render(
     #panel{id=form:atom([lookup, Id]), class=[dropdown],
-           body=[#input{id=Id, disabled = Disabled, type="text",
+           body=[#input{id=Id, disabled = Disabled, type="comboLookup",
                         onkeyup = nitro:jse("comboLookupKeyup('"
                                ++ nitro:to_list(Id) ++ "','"
                                ++ nitro:to_list(Feed) ++ "','"

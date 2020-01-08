@@ -1,11 +1,11 @@
--module(element_input_vec).
--include_lib("nitro/include/input_vec.hrl").
+-module(element_comboLookupVec).
+-include_lib("nitro/include/comboLookupVec.hrl").
 -include_lib("nitro/include/sortable_list.hrl").
 -include_lib("nitro/include/nitro.hrl").
 -include_lib("nitro/include/event.hrl").
 -export([render_element/1]).
 
-render_element(#input_vec{id=Id, input=Input, disabled=Disabled, validation=Validation, values=Values}) ->
+render_element(#comboLookupVec{id=Id, input=Input, disabled=Disabled, validation=Validation, values=Values}) ->
   ListId = form:atom([Id, "list"]),
   InputId = element(#element.id, Input),
   nitro:render(

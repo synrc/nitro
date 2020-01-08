@@ -24,7 +24,7 @@ function querySourceRaw(Id) {
                 case 'radio': case 'checkbox': val = qs('input[name='+Id+']:checked'); val = val ? val.value : ""; break;
                 case 'date': val = Date.parse(el.value);  val = val && new Date(val) || ""; break;
                 case 'calendar': val = pickers[el.id]._d || ""; break;
-                case 'text': var x = el.getAttribute('data-bind'); if (x) val=dec(unbase64(x)); break;
+                case 'comboLookup': var x = el.getAttribute('data-bind'); if (x) val=dec(unbase64(x)); break;
                 default: var edit = el.contentEditable;
                     if (edit && edit === 'true') val = el.innerHTML;
                     else val = el.value;
@@ -45,7 +45,6 @@ function querySourceRaw(Id) {
                 }
             }
     }
-    console.log("querySourceRaw:val:", val)
     return val;
 }
 
