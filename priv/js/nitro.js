@@ -25,7 +25,14 @@ function querySourceRaw(Id) {
                 case 'checkbox': val = qs('input[id='+Id+']:checked'); val = val ? val.value : ""; break;
                 case 'date': val = Date.parse(el.value);  val = val && new Date(val) || ""; break;
                 case 'calendar': val = pickers[el.id]._d || ""; break;
-                case 'comboLookup': var x = el.getAttribute('data-bind'); if (x) val=dec(unbase64(x)); break;
+                case 'comboLookup':
+                    var x = el.getAttribute('data-bind');
+                    if (x) {
+                        val = { 'text' : el.value, 'bind' : x};
+                    } else {
+                        val = el.value;
+                    }
+                    break;
                 default: var edit = el.contentEditable;
                     if (edit && edit === 'true') val = el.innerHTML;
                     else val = el.value;
@@ -49,9 +56,9 @@ function querySourceRaw(Id) {
     return val;
 }
 
-function querySource(Id) {
-    var qs = querySourceRaw(Id);
-    if (qs && qs.t && qs.v) return qs;
+function querySourceConvert(qs) {
+    if (qs && qs.text && qs.bind) {
+        return dec(unbase64(qs.bind)); }
     else if (qs instanceof Date) {
         return tuple(number(qs.getFullYear()),
                      number(qs.getMonth() + 1),
@@ -59,8 +66,11 @@ function querySource(Id) {
     else if (qs instanceof Boolean) {
         return atom(qs.valueOf()); }
     else if (qs instanceof Array) {
-        return list.apply(null, qs.map(bin)); }
+        return list.apply(null, qs.map(querySourceConvert)); }
     else { return bin(qs); }
 }
 
-
+function querySource(Id) {
+    var qs = querySourceRaw(Id);
+    return querySourceConvert(qs);
+}
