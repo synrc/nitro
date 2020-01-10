@@ -21,7 +21,8 @@ function querySourceRaw(Id) {
             val = qs('[id="'+Id+'"]:checked'); val = val ? val.value : ""; break;
         case 'INPUT':
             switch (el.getAttribute("type")) {
-                case 'radio': case 'checkbox': val = qs('input[name='+Id+']:checked'); val = val ? val.value : ""; break;
+                case 'radio': val = qs('input[name='+Id+']:checked'); val = val ? val.value : ""; break;
+                case 'checkbox': val = qs('input[id='+Id+']:checked'); val = val ? val.value : ""; break;
                 case 'date': val = Date.parse(el.value);  val = val && new Date(val) || ""; break;
                 case 'calendar': val = pickers[el.id]._d || ""; break;
                 case 'comboLookup': var x = el.getAttribute('data-bind'); if (x) val=dec(unbase64(x)); break;
