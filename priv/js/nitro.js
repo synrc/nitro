@@ -15,13 +15,13 @@ function validateSources() { return true; }
 function querySourceRaw(Id) {
     var val, el = document.getElementById(Id);
     if (!el) {
-       val = qs('input[name='+Id+']:checked'); val = val ? val.value : "";
+       val = qs('input[id='+Id+']:checked'); val = val ? val.value : "";
     } else switch (el.tagName) {
         case 'FIELDSET':
             val = qs('[id="'+Id+'"]:checked'); val = val ? val.value : ""; break;
         case 'INPUT':
             switch (el.getAttribute("type")) {
-                case 'radio': val = qs('input[name='+Id+']:checked'); val = val ? val.value : ""; break;
+                case 'radio': val = qs('input[id='+Id+']:checked'); val = val ? val.value : ""; break;
                 case 'checkbox': val = qs('input[id='+Id+']:checked'); val = val ? val.value : ""; break;
                 case 'date': val = Date.parse(el.value);  val = val && new Date(val) || ""; break;
                 case 'calendar': val = pickers[el.id]._d || ""; break;
