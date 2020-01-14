@@ -162,16 +162,24 @@ function () {
     key: "addItemFrom",
     value: function addItemFrom(input) {
       var value = querySourceRaw(input);
+      var bind = '';
+      if (value && value.text && value.bind) {
+        bind = ' data-bind="' + value.bind + '"';
+        value = value.text;
+      }
       var inputElement = document.getElementById(input);
-      if (inputElement) inputElement.value = '';
+      if (inputElement) {
+        inputElement.value = '';
+        inputElement.removeAttribute("data-bind")
+      }
       var template = document.createElement('template');
       template.innerHTML =
-      '<div class="list__item" data-sortable-item="data-sortable-item" style="">'+
-        '<div class="list__item-close" onclick="removeSortableItem(\'#' + this.list.id + '\', this.parentNode);"></div>'+
-        '<div class="list__item-content">'+
-          '<div class="list__item-title">' + value + '</div>'+
-        '</div>'+
-        '<div class="list__item-handle" data-sortable-handle="data-sortable-handle"></div>'+
+      '<div class="list__item" data-sortable-item="data-sortable-item" style=""' + bind + '>' +
+        '<div class="list__item-close" onclick="removeSortableItem(\'#' + this.list.id + '\', this.parentNode);"></div>' +
+        '<div class="list__item-content">' +
+          '<div class="list__item-title">' + value + '</div>' +
+        '</div>' +
+        '<div class="list__item-handle" data-sortable-handle="data-sortable-handle"></div>' +
       '</div>'
       var new_item = template.content.firstChild;
       this.list.appendChild(new_item);
@@ -180,7 +188,12 @@ function () {
   }, {
     key: "getValues",
     value: function getValues() {
-      return Array.from(this.items.map(function(item) { return item.children[1].firstChild.innerHTML; }));
+      return Array.from(this.items.map(function(item) {
+        let text = item.children[1].firstChild.innerHTML;
+        let bind = item.getAttribute('data-bind');
+        if (bind) return { 'text': text, 'bind': bind };
+        return text;
+      }));
     }
   }]);
 
