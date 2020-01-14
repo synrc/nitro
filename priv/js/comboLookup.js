@@ -16,6 +16,13 @@ function comboSelect(dom, row, feed, mod, id) {
                  atom(mod)));
 }
 
+function comboLookupChange(dom) {
+  let elem = qi(dom);
+  if (elem && elem.value == "" && elem.getAttribute("data-bind")) {
+    elem.removeAttribute("data-bind");
+  }
+}
+
 function comboLookupKeydown(dom, feed, mod) {
     var char = event.which || event.keyCode;
     if (char == 40 && !activeCombo && qi(dom).value == '') {
