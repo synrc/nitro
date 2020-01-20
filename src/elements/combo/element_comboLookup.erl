@@ -27,7 +27,7 @@ render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object0,
                         onchange= nitro:jse("comboLookupChange('"
                                ++ nitro:to_list(Id) ++ "')"),
                         bind = Object,
-                        value = Val, style = Style, class = column},
+                        value = nitro:jse(Val), style = Style, class = column},
                  #panel{id=form:atom([comboContainer, Id]),
                         class = ['dropdown-content']}]}).
 
