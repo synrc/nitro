@@ -9,7 +9,7 @@ render_element(Record) ->
     Id = case Record#checkbox.id of [] -> nitro:temp_id(); I->I end,
     case Record#checkbox.postback of
         [] -> ignore;
-        Postback -> nitro:wire(#event { type=change, postback=Postback, target=Id, source=Record#checkbox.source, delegate=Record#checkbox.delegate })
+        Postback -> nitro:wire(#event { type=change, postback=Postback, target=Id, source=[Id|Record#checkbox.source], delegate=Record#checkbox.delegate })
     end,
    Label = [ wf_tags:emit_tag(<<"input">>, [], [
       % global
