@@ -42,7 +42,8 @@
     <h3>API</h3>
     <h4>direct(term)</h4>
     <p>Sends DIRECT message from JavaScript. Use <b>enc</b> from <a href="https://github.com/synrc/n2o/blob/master/priv/bert.js">bert.js</a></p>
-    <figure><code> > direct(tuple(atom('direct'),atom('test')));</code></figure>
+    <figure><code> > direct(atom('test'));</code></figure>
+    <p>which will cause calling <b>event(:test)</b> clause in Nitrogen page controller. </p>
     <h4>qi(id)</h4>
     <p>Returns DOM element by existing <b>id</b>.</p>
     <h4>qs(id)</h4>
