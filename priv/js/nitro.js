@@ -25,7 +25,7 @@ function querySourceRaw(Id) {
                 case 'checkbox': val = qs('input[id='+Id+']:checked'); val = val ? val.value : ""; break;
                 case 'date': val = Date.parse(el.value);  val = val && new Date(val) || ""; break;
                 case 'calendar': val = pickers[el.id]._d || ""; break;
-                case 'comboLookup':
+                case 'comboLookup': case 'hidden':
                     var x = el.getAttribute('data-bind');
                     if (x) {
                         val = { 'text' : el.value, 'bind' : x};

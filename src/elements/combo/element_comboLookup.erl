@@ -7,12 +7,8 @@ proto(#comboKey{delegate=Module}=Msg)    -> Module:proto(Msg);
 proto(#comboKeyup{delegate=Module}=Msg)  -> Module:proto(Msg);
 proto(#comboSelect{delegate=Module}=Msg) -> Module:proto(Msg).
 
-render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object0,
+render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object,
   feed = Feed, disabled = Disabled, delegate = Module} = Data) ->
-  Object = case Object0 of 
-              [] -> [];
-              _ -> base64:encode(term_to_binary(Object0))
-         end,
   nitro:render(
     #panel{id=form:atom([lookup, Id]), class=[dropdown],
            body=[#input{id=Id, disabled = Disabled, type="comboLookup",
