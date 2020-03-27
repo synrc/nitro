@@ -46,7 +46,7 @@ render_element(Record) ->
       {<<"multiple">>, Record#input.multiple},
       {<<"pattern">>, Record#input.pattern},
       {<<"value">>, Record#input.value},
-      {<<"data-bind">>, Record#input.bind},
+      {<<"data-bind">>, case Record#input.bind of [] -> []; X -> base64:encode(term_to_binary(X)) end},
       {<<"onkeypress">>, Record#input.onkeypress},
       {<<"onkeyup">>, Record#input.onkeyup},
       {<<"onkeydown">>, Record#input.onkeydown},
