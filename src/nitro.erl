@@ -26,6 +26,7 @@ coalesce([[]|T]) -> coalesce(T);
 coalesce([H|_]) -> H.
 
 jse(X) -> js_escape(X).
+hte(X) when is_binary(X) -> nitro:to_binary(nitro_conv:html_encode(X));
 hte(X) -> nitro_conv:html_encode(X).
 
 js_escape(undefined) -> [];
