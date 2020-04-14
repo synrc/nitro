@@ -52,7 +52,7 @@ function getDateParamBySign(date,sign) {
 
 function formatter(date, format) {
     date = date || new Date();
-    format = format || "YYYY-MM-DD";
+    format = format || "YYYYMM.DD";
     var signs = format.match(/(Y{2,4})|(M{2})|(D{2})/g);
     var params = [];
     var reStr = '';
@@ -266,7 +266,7 @@ function parseDateFromInput(value) {
         reposition: true,
 
         // the default output format for `.toString()` and `field` value
-        format: 'YYYY-MM-DD',
+        format: 'YYYY.MM.DD',
 
         // the initial date to view when first opened
         defaultDate: null,
