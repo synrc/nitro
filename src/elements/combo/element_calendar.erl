@@ -56,7 +56,7 @@ init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form,
         position=Pos,reposition=Repos,yearRange=YearRange} = Calendar) ->
     ID = nitro:to_list(Id),
     I18n =        "clLangs.ua",
-    Format =      "YYYY-MM-DD",
+    Format =      "YYYY.MM.DD",
     DefaultDate = case Value of
        {Yv,Mv,Dv} -> nitro:f("new Date(~s,~s,~s)",[nitro:to_list(Yv),nitro:to_list(Mv-1),nitro:to_list(Dv)]);
         _ -> "''" end,
