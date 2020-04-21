@@ -57,7 +57,7 @@ function querySourceRaw(Id) {
 }
 
 function querySourceConvert(qs) {
-    if (qs && qs.text && qs.bind) {
+    if (qs && qs.hasOwnProperty('text') && qs.hasOwnProperty('bind')) {
         return dec(unbase64(qs.bind)); }
     else if (qs instanceof Date) {
         return tuple(number(qs.getFullYear()),
