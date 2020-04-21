@@ -1,6 +1,7 @@
 -module(n2o_nitro).
 -description('N2O Nitrogen Web Framework Protocol').
 -include_lib("nitro/include/n2o.hrl").
+-include_lib("nitro/include/nitro.hrl").
 -export([info/3,render_actions/1,io/1,io/2,event/1]).
 
 % Nitrogen pickle handler
@@ -26,9 +27,14 @@ info(#pickle{}=Event, Req, State) ->
     nitro:actions([]),
     {reply,{bert,html_events(Event,State)},Req,State};
 
+info(#flush{data=#wire{actions=Actions}}, Req, State) ->
+        io:format("flush ~p~n", [length(Actions)]),
+        {reply,{bert,{io, Actions, <<>>}},Req,State};
+
 info(#flush{data=Actions}, Req, State) ->
     nitro:actions(Actions),
     {reply,{bert,io(<<>>)},Req,State};
+
 
 info(#direct{data=Message}, Req, State) ->
     nitro:actions([]),
