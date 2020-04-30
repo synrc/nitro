@@ -54,6 +54,7 @@ function formatter(date, format) {
     date = date || new Date();
     format = format || "DD.MM.YYYY";
     var signs = format.match(/(Y{2,4})|(M{2})|(D{2})/g);
+    console.log(signs)
     var params = [];
     var reStr = '';
     for(var i=0; i<signs.length; ++i) {
@@ -70,13 +71,41 @@ function formatter(date, format) {
     return value;
 }
 
-function parseDateFromInput(value) {
-    if(isNaN(Date.parse(value))) {
-        var res = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec(value);
-        if(res && res.length == 4) { return new Date(res[3],(res[2]-1),res[1]); }
-        else { return null; }
-    }else{ return new Date(Date.parse(value)); }
+function parser(str, format) {
+    format = format || "DD.MM.YYYY";
+    var signs = format.match(/(Y{2,4})|(M{2})|(D{2})/g);
+    var reStr = "(";
+    for(var i=0; i<signs.length; ++i) {
+        console.log(signs[i].length);
+        console.log(".".repeat(signs[i].length));
+        reStr += ".".repeat(signs[i].length) + (((i+1) != signs.length) ? ").(" : ")");
+    }
+    var re = new RegExp(reStr,'g');
+    var values = re.exec(str);
+    var year, month, day;
+    if (signs.length+1 == values.length) {
+        values = values.slice(1);
+        for(var i=0; i<signs.length; ++i) {
+            switch(signs[i].slice(0,1)){
+                case "Y": year = values[i]; break;
+                case "M": month = values[i]; break;
+                case "D": day = values[i]; break;
+            }
+        }
+        const res = new Date(year, month-1, day);
+        console.log(res)
+        return res;
+    }
+    return null;
 }
+
+// function parseDateFromInput(value) {
+//     if(isNaN(Date.parse(value))) {
+//         var res = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec(value);
+//         if(res && res.length == 4) { return new Date(res[3],(res[2]-1),res[1]); }
+//         else { return null; }
+//     }else{ return new Date(Date.parse(value)); }
+// }
 
 
 (function (root, factory)
@@ -546,7 +575,8 @@ function parseDateFromInput(value) {
                 date = (date && date.isValid()) ? date.toDate() : null;
             }
             else {
-                date = parseDateFromInput(opts.field.value);
+                // date = parseDateFromInput(opts.field.value);
+                date = parser(opts.field.value, opts.format);
             }
             if (isDate(date)) {
                 self.setDate(date);
