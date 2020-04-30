@@ -54,7 +54,6 @@ function formatter(date, format) {
     date = date || new Date();
     format = format || "DD.MM.YYYY";
     var signs = format.match(/(Y{2,4})|(M{2})|(D{2})/g);
-    console.log(signs)
     var params = [];
     var reStr = '';
     for(var i=0; i<signs.length; ++i) {
@@ -76,8 +75,6 @@ function parser(str, format) {
     var signs = format.match(/(Y{2,4})|(M{2})|(D{2})/g);
     var reStr = "(";
     for(var i=0; i<signs.length; ++i) {
-        console.log(signs[i].length);
-        console.log(".".repeat(signs[i].length));
         reStr += ".".repeat(signs[i].length) + (((i+1) != signs.length) ? ").(" : ")");
     }
     var re = new RegExp(reStr,'g');
@@ -93,7 +90,6 @@ function parser(str, format) {
             }
         }
         const res = new Date(year, month-1, day);
-        console.log(res)
         return res;
     }
     return null;
