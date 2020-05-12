@@ -52,11 +52,10 @@ render_element(Record) ->
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#calendar.body), List).
 
 init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form,
-        value=Value,onSelect=SelectFn,disableDayFn=DisDayFn,
+        value=Value,onSelect=SelectFn,disableDayFn=DisDayFn,firstDay=FirstDay,
         position=Pos,reposition=Repos,yearRange=YearRange} = Calendar) ->
     ID = nitro:to_list(Id),
     I18n =        "clLangs.ua",
-    Format =      "DD.MM.YYYY",
     DefaultDate = case Value of
        {Yv,Mv,Dv} -> nitro:f("new Date(~s,~s,~s)",[nitro:to_list(Yv),nitro:to_list(Mv-1),nitro:to_list(Dv)]);
         _ -> "''" end,
@@ -66,13 +65,14 @@ init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form,
     DisDay =      "null",
     Position =    "bottom left",
     Reposition =  "true",
+    WeekFirstDay = nitro:to_list(FirstDay),
     nitro:wire(nitro:f(
         "pickers['~s'] = new Pikaday({
             field: document.getElementById('~s'),
-            firstDay: 0,
             i18n: ~s,
             defaultDate: ~s,
             setDefaultDate: true,
+            firstDay: ~s,
             minDate: ~s,
             maxDate: ~s,
             format: '~s',
@@ -82,7 +82,7 @@ init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form,
             reposition: ~s,
             yearRange: ~s
         });",
-        [ID,ID,I18n,DefaultDate,MinDate,MaxDate,Format,OnSelect,DisDay,
+        [ID,ID,I18n,DefaultDate,WeekFirstDay,MinDate,MaxDate,Form,OnSelect,DisDay,
          Position,Reposition,nitro:to_list(YearRange)]
     )).
 
