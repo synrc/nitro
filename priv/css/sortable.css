@@ -97,3 +97,10 @@ body {
   background-color: #f44336;
   color: white;
 }
+
+.triangle{
+  position: absolute;
+  top: 1px;
+  right: 5px;
+  cursor: default;
+}

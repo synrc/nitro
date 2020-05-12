@@ -23,6 +23,20 @@ function comboLookupChange(dom) {
   }
 }
 
+function comboLookupClick(dom, feed, mod) {
+  var char = event.which || event.keyCode;
+  if (char ==  1 && !activeCombo && qi(dom).value == '') {
+    activeCombo = dom;
+    currentItem = undefined;
+    direct(tuple(atom('comboKey'),
+                atom('all'),
+                string(dom),
+                string(feed),
+                atom(mod)));
+    return
+  } else if(char ==  1 && activeCombo == dom){comboClear(dom);}
+}
+
 function comboLookupKeydown(dom, feed, mod) {
     var char = event.which || event.keyCode;
     if (char == 40 && !activeCombo && qi(dom).value == '') {
@@ -80,7 +94,8 @@ function set_focus(elem, scroll) {
 }
 
 document.addEventListener("click", () => {
-  if (activeCombo && !event.target.closest('#comboContainer_' + activeCombo)) {
+  if (activeCombo && event.target.className != 'triangle' &&
+    !event.target.closest('#comboContainer_' + activeCombo)) {
     qi(activeCombo).value = '';
     comboClear(activeCombo);
   }
