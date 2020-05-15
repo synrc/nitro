@@ -80,7 +80,7 @@ function parser(str, format) {
     var re = new RegExp(reStr,'g');
     var values = re.exec(str);
     var year, month, day;
-    if (signs.length+1 == values.length) {
+    if (values && signs.length+1 == values.length) {
         values = values.slice(1);
         for(var i=0; i<signs.length; ++i) {
             switch(signs[i].slice(0,1)){
