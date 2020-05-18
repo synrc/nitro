@@ -163,7 +163,7 @@ function () {
     value: function addItemFrom(input) {
       var value = querySourceRaw(input);
       var bind = '';
-      if (value && value.text && value.bind) {
+      if (value && value.hasOwnProperty('text') && value.hasOwnProperty('bind')) {
         bind = ' data-bind="' + value.bind + '"';
         value = value.text;
       }

@@ -26,9 +26,8 @@ function querySourceRaw(Id) {
                 case 'date': val = Date.parse(el.value);  val = val && new Date(val) || ""; break;
                 case 'calendar': val = pickers[el.id]._d || ""; break;
                 case 'comboLookup': case 'hidden':
-                    var x = el.getAttribute('data-bind');
-                    if (x) {
-                        val = { 'text' : el.value, 'bind' : x};
+                    if (el.hasAttribute('data-bind')) {
+                        val = { 'text' : el.value, 'bind' : el.getAttribute('data-bind')};
                     } else {
                         val = el.value;
                     }
