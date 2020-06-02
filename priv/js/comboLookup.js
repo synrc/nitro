@@ -88,7 +88,7 @@ function set_focus(elem, scroll) {
   if (elem) {
     if(currentItem) {currentItem.className = "dropdown-item"}
     elem.className = "dropdown-item focus"
-    if (scroll==true) {elem.scrollIntoView({block: "center", inline: "nearest"})}
+    if (scroll==true) {elem.scrollIntoView({block: "nearest", inline: "nearest"})}
     currentItem = elem
   }
 }
