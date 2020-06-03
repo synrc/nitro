@@ -12,6 +12,7 @@ render_element(Record) ->
          Postback -> nitro:wire(#event { type=submit,
                                          target=ID,
                                          postback=Postback,
+                                         delegate=Record#form.delegate,
                                          source=Record#form.source }) end,
     List = [
       %global
