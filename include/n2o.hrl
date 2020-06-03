@@ -43,12 +43,6 @@
 
 % Nitrogen Protocol
 
--record(client,  { data=[] }).
--record(server,  { data=[] }).
--record(init,    { token=[] }).
--record(pickle,  { source=[], pickled=[], args=[] }).
--record(flush,   { data=[] }).
--record(direct,  { data=[] }).
--record(ev,      { module=[], msg=[], trigger=[], name=[] }).
+-include_lib("nitro/include/proto.hrl").
 
 -endif.
