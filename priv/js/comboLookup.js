@@ -5,22 +5,15 @@ function comboClear(dom) {
 }
 
 function comboSelect(dom, row, feed, mod, id) {
-  let elem = qi(dom); comboClear(dom);
-  let selected_value = string(row);
-
-  if (qi(id)) {
-    let bind = qi(id).getAttribute('data-bind')
-    elem.setAttribute("data-bind", bind);
-    selected_value = dec(unbase64(bind));
-  }
-
-  elem.value = row;
-  elem.style.backgroundColor = 'white';
-  direct(tuple(atom('comboSelect'),
-               selected_value,
-               string(dom),
-               string(feed),
-               atom(mod)));
+    let elem = qi(dom); comboClear(dom);
+    if (qi(id)) elem.setAttribute("data-bind", qi(id).getAttribute('data-bind'));
+    elem.value = row;
+    elem.style.backgroundColor = 'white';
+    direct(tuple(atom('comboSelect'),
+                 string(dom),
+                 string(row),
+                 string(feed),
+                 atom(mod)));
 }
 
 function comboLookupChange(dom) {
