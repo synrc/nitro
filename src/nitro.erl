@@ -29,18 +29,7 @@ jse(X) -> js_escape(X).
 hte(X) when is_binary(X) -> nitro:to_binary(nitro_conv:html_encode(X));
 hte(X) -> nitro_conv:html_encode(X).
 
-js_escape(undefined) -> [];
-js_escape(Value) when is_list(Value) -> binary_to_list(js_escape(iolist_to_binary(Value)));
-js_escape(Value) -> js_escape(Value, <<>>).
-js_escape(<<"\\", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "\\\\">>);
-js_escape(<<"\r", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "\\r">>);
-js_escape(<<"\n", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "\\n">>);
-js_escape(<<"\"", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "\\\"">>);
-js_escape(<<"'",Rest/binary>>,Acc) -> js_escape(Rest, <<Acc/binary, "\\'">>);
-js_escape(<<"<script", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "<scr\" + \"ipt">>);
-js_escape(<<"script>", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "scr\" + \"ipt>">>);
-js_escape(<<C, Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, C>>);
-js_escape(<<>>, Acc) -> Acc.
+js_escape(Value) -> nitro_conv:js_escape(Value).
 
 -define(IS_STRING(Term), (is_list(Term) andalso Term /= [] andalso is_integer(hd(Term)))).
 
@@ -123,13 +112,13 @@ script(Script) -> put(script,Script).
 % Update DOM nitro:update
 
 update(Target, Elements) ->
-    nitro:wire(#jq{target=Target,property=outerHTML,right=Elements,format="'~s'"}).
+    nitro:wire(#jq{target=Target,property=outerHTML,right=Elements,format="`~s`"}).
 
 insert_top(Tag,Target, Elements) ->
     {Render, _Ref, Actions} = render_html(Elements),
     nitro:wire(nitro:f(
         "qi('~s').insertBefore("
-        "(function(){var div = qn('~s'); div.innerHTML = '~s'; return div.firstChild; })(),"
+        "(function(){var div = qn('~s'); div.innerHTML = `~s`; return div.firstChild; })(),"
         "qi('~s').firstChild);",
         [Target,Tag,Render,Target])),
     nitro:wire(nitro:render(Actions)).
@@ -137,7 +126,7 @@ insert_top(Tag,Target, Elements) ->
 insert_bottom(Tag, Target, Elements) ->
     {Render, _Ref, Actions} = render_html(Elements),
     nitro:wire(nitro:f(
-        "(function(){ var div = qn('~s'); div.innerHTML = '~s';"
+        "(function(){ var div = qn('~s'); div.innerHTML = `~s`;"
                      "qi('~s').appendChild(div.firstChild); })();",
         [Tag,Render,Target])),
     nitro:wire(nitro:render(Actions)).
@@ -148,7 +137,7 @@ insert_after(Target, Elements) -> insert_adjacent(afterend, Target, Elements).
 insert_adjacent(Command, Target, Elements) -> insert_adjacent(Command, Target, Elements, "qi").
 insert_adjacent(Command, Target, Elements, Q) ->
     {Render, _Ref, Actions} = render_html(Elements),
-    nitro:wire(nitro:f("~s('~s').insertAdjacentHTML('~s', '~s');",[Q,Target,Command,Render])),
+    nitro:wire(nitro:f("~s('~s').insertAdjacentHTML('~s', `~s`);",[Q,Target,Command,Render])),
     nitro:wire(nitro:render(Actions)).
 
 
