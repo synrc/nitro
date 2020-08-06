@@ -40,6 +40,8 @@ function querySourceRaw(Id) {
         default:
             if (el.getAttribute('data-vector-input')) {
                 val = querySourceRaw(el.children[1].id);
+            } else if (el.getAttribute('data-edit-input')) {
+                val = querySourceRaw(el.children[0].children[0].children[0].id);
             } else if (el.getAttribute('data-sortable-list')) {
                 val = getSortableValues('#' + el.id);
             } else if (el.contentEditable === 'true') {

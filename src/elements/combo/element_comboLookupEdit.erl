@@ -10,17 +10,18 @@ render_element(#comboLookupEdit{id=Id, input=Input, disabled=Disabled, validatio
   nitro:render(
     #panel{
       id = Id,
+      data_fields = [{<<"data-edit-input">>,<<"data-edit-input">>}],
       body = [
         #panel{
           style = "display: flex; position: relative; width: 100%; justify-content: center;",
           body =
-            case Disabled of
-              true -> [];
-              _ ->
-                [ Input,
+            [ Input,
+              case Disabled of
+                true -> [];
+                _ ->
                   #panel{
                     id = form:atom([InputId, "form"]),
                     class = ['dropdown-content'],
                     body = #panel{class = ['dropdown-item'], body = Form}
-                  }] end }
+                  } end ]}
         ]}).
