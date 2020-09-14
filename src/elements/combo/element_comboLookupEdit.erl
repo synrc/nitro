@@ -10,6 +10,7 @@ render_element(#comboLookupEdit{id=Id, input=Input, disabled=Disabled, validatio
   nitro:render(
     #panel{
       id = Id,
+      validation = Validation,
       data_fields = [{<<"data-edit-input">>,<<"data-edit-input">>}],
       body = [
         #panel{
