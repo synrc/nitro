@@ -12,6 +12,7 @@ render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object,
   nitro:render(
     #panel{id=form:atom([lookup, Id]), class=[dropdown],
            body=[#input{id=Id, disabled = Disabled, type="comboLookup",
+                        autocomplete = "off",
                         onkeyup = nitro:jse("comboLookupKeyup('"
                                ++ nitro:to_list(Id) ++ "','"
                                ++ nitro:to_list(Feed) ++ "','"
