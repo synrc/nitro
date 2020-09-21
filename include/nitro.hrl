@@ -72,7 +72,7 @@
 -record(textarea,       {?ELEMENT_BASE(element_textarea), autofocus=[], cols=[], dirname=[], disabled=[], form=[], maxlength, name, placeholder, readonly=[], required=[], rows=[], wrap=[], value=[]}).
 
 % HTML Form inputs
--record(input,       {?ELEMENT_BASE(element_input), required, autofocus, disabled, form, name, value, type=[], checked=false, placeholder, multiple, min, max, pattern, accept}).
+-record(input,       {?ELEMENT_BASE(element_input), required, autocomplete, autofocus, disabled, form, name, value, type=[], checked=false, placeholder, multiple, min, max, pattern, accept}).
 -record(input_button,       {?ELEMENT_BASE(element_input_button),  autofocus, disabled, form, name, value}).
 -record(checkbox,           {?ELEMENT_BASE(element_checkbox),  autofocus, checked=false, disabled, form, name, required, value}).
 -record(color,           {?ELEMENT_BASE(element_color),  autocomplete, autofocus, disabled, form, list, name, value}).
