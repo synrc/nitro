@@ -1,11 +1,13 @@
 -module(element_comboLookupEdit).
 -include_lib("nitro/include/comboLookupEdit.hrl").
 -include_lib("nitro/include/comboLookup.hrl").
+-include_lib("nitro/include/sortable_list.hrl").
 -include_lib("nitro/include/nitro.hrl").
 -include_lib("nitro/include/event.hrl").
 -export([render_element/1]).
 
-render_element(#comboLookupEdit{id=Id, input=Input, disabled=Disabled, validation=Validation, form=Form}) ->
+render_element(#comboLookupEdit{id=Id, input=Input, disabled=Disabled, validation=Validation, form=Form, values=Values, multiple=Multiple}) ->
+  ListId = form:atom([Id, "list"]),
   InputId = element(#element.id, Input),
   nitro:render(
     #panel{
@@ -17,6 +19,15 @@ render_element(#comboLookupEdit{id=Id, input=Input, disabled=Disabled, validatio
           style = "display: flex; position: relative; width: 100%; justify-content: center;",
           body =
             [ Input,
+              case Multiple of
+                true ->
+                  #link{
+                    class = [button, sgreen],
+                    style = "min-width: 40px; text-align: center; height: fit-content; margin-left: 5px;",
+                    onclick = nitro:jse("addSortableItemFrom('#" ++ ListId ++ "', '" ++ InputId ++ "')"),
+                    body = <<"+">>};
+                false -> []
+              end,
               case Disabled of
                 true -> [];
                 _ ->
@@ -24,5 +35,8 @@ render_element(#comboLookupEdit{id=Id, input=Input, disabled=Disabled, validatio
                     id = form:atom([InputId, "form"]),
                     class = ['dropdown-content'],
                     body = #panel{class = ['dropdown-item'], body = Form}
-                  } end ]}
-        ]}).
+                  } end ]},
+            case Multiple of
+              true -> #sortable_list{id = ListId, values = Values, closeable = true, disabled = Disabled};
+              false -> []
+            end ]}).
