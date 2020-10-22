@@ -57,12 +57,17 @@ to_binary(L) when is_list(L) ->  iolist_to_binary(L);
 to_binary(X) when is_tuple(X) ->  term_to_binary(X).
 
 -ifndef(PICKLER).
--define(PICKLER, (application:get_env(n2o,pickler,nitro_pickle))).
+-define(PICKLER, (application:get_env(n2o,pickler,nitro_conv))).
 -endif.
 
 pickle(Data) -> ?PICKLER:pickle(Data).
 depickle(SerializedData) -> ?PICKLER:depickle(SerializedData).
-depickle(SerializedData, TTLSeconds) -> ?PICKLER:depickle(SerializedData, TTLSeconds).
+
+prolongate() -> case application:get_env(n2o,session) of {ok, M} -> M:prolongate(); undefined -> false end.
+authenticate(I, Auth) -> case application:get_env(n2o,session) of 
+    {ok, M} -> M:authenticate(I, Auth);
+    undefined -> {'Token', <<>>}
+end.
 
 render(X) -> wf_render:render(X).
 wire(Actions) -> action_wire:wire(Actions).

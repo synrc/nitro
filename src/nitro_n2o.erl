@@ -9,8 +9,8 @@ info({text,<<"N2O,",Auth/binary>>}, Req, State) ->
     info(#init{token=Auth},Req,State);
 
 info(#init{token=Auth}, Req, State) ->
-    {'Token', Token} = n2o_session:authenticate([], Auth),
-    Sid = case n2o:depickle(Token) of {{S,_},_} -> S; X -> X end,
+    {'Token', Token} = nitro:authenticate([], Auth),
+    Sid = case nitro:depickle(Token) of {{S,_},_} -> S; X -> X end,
     New = State#cx{session = Sid, token = Auth},
     put(context,New),
     {reply,{bert,case io(init, State) of
@@ -51,11 +51,11 @@ render_actions(Actions) ->
 % n2o events
 
 html_events(#pickle{source=Source,pickled=Pickled,args=Linked}, State=#cx{token = Token}) ->
-    Ev  = nitro_pickle:depickle(Pickled),
-    L   = n2o_session:prolongate(),
+    Ev  = nitro:depickle(Pickled),
+    L   = nitro:prolongate(),
     Res = case Ev of
           #ev{} when L =:= false -> render_ev(Ev,Source,Linked,State), <<>>;
-          #ev{} -> render_ev(Ev,Source,Linked,State), n2o_session:authenticate([], Token);
+          #ev{} -> render_ev(Ev,Source,Linked,State), nitro:authenticate([], Token);
           _CustomEnvelop -> %?LOG_ERROR("EV expected: ~p~n",[CustomEnvelop]),
                            {error,"EV expected"} end,
     io(Res).

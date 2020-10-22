@@ -9,7 +9,7 @@
 -define(IS_STRING(Term), (is_list(Term) andalso Term /= [] andalso is_integer(hd(Term)))).
 
 -ifndef(N2O_JSON).
--define(N2O_JSON, (application:get_env(neo,json,jsone))).
+-define(N2O_JSON, (application:get_env(n2o,json,jsone))).
 -endif.
 
 
@@ -198,3 +198,8 @@ config(App, Key, Default) -> application:get_env(App,Key,Default).
 os_env(Key) -> os_env(Key, "").
 os_env(Key, Default) -> case os:getenv(Key) of false -> Default; V -> V end.
 
+% base64 encode/decode
+pickle(Data) -> base64:encode(term_to_binary({Data, os:timestamp()}, [compressed])).
+depickle(PickledData) ->
+    try {Data, _PickleTime} = binary_to_term(base64:decode(nitro:to_binary(PickledData))), Data
+    catch _:_ -> undefined end.
