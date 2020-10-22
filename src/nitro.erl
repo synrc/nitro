@@ -176,7 +176,6 @@ state(Key,Value) -> erlang:put(Key,Value).
 
 % Redirect and purge connection nitro:redirect
 
-redirect({http,Url}) -> n2o:header(<<"Location">>,nitro_conv:to_binary(Url)), nitro:state(status,302), [];
 redirect(Url) -> nitro:wire(#jq{target='window.top',property=location,args=simple,right=Url}).
 %header(K,V) -> nitro:context((?CTX)#cx{req=cowboy_req:set_resp_header(K,V,?CTX#cx.req)}).
 
