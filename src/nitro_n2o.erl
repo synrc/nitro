@@ -51,7 +51,7 @@ render_actions(Actions) ->
 % n2o events
 
 html_events(#pickle{source=Source,pickled=Pickled,args=Linked}, State=#cx{token = Token}) ->
-    Ev  = n2o:depickle(Pickled),
+    Ev  = nitro_pickle:depickle(Pickled),
     L   = n2o_session:prolongate(),
     Res = case Ev of
           #ev{} when L =:= false -> render_ev(Ev,Source,Linked,State), <<>>;
