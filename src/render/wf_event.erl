@@ -9,10 +9,14 @@
 
 -define(B(E), nitro:to_binary(E)).
 -define(L(E), nitro:to_list(E)).
+target({ps, {qa, Id}, Ps}) ->
+  T = target({qa,Id}), P = nitro:js_escape(Ps),
+  ["var t=",T,";t.map(ts => '",P,"'.split('.').reduce((a,p)=>(a&&a[p]?a[p]:null),ts)).filter(o=>o)"];
 target({ps,Id,Ps}) ->
   T = target(Id), P = nitro:js_escape(Ps),
   ["var ts=",T,",ps = '",P,"'.split('.').reduce((a,p)=>(a&&a[p]?a[p]:null),ts);","ps&&ps"];
 target({qs,S}) -> ["qs('",nitro:js_escape(?L(S)), "')"];
+target({qa,S}) -> ["Array.from(qa('",nitro:js_escape(?L(S)), "'))"];
 target({g,T})  -> nitro:js_escape(?L(T));
 target(Id)     -> ["qi('",nitro:js_escape(?L(Id)),"')"].
 
