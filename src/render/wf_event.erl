@@ -13,6 +13,7 @@ target({ps,Id,Ps}) ->
   T = target(Id), P = nitro:js_escape(Ps),
   ["var ts=",T,",ps = '",P,"'.split('.').reduce((a,p)=>(a&&a[p]?a[p]:null),ts);","ps&&ps"];
 target({qs,S}) -> ["qs('",nitro:js_escape(?L(S)), "')"];
+target({g,T})  -> nitro:js_escape(?L(T));
 target(Id)     -> ["qi('",nitro:js_escape(?L(Id)),"')"].
 
 new(P,E,D,N,Data,Source) -> new(P,E,D,N,Data,Source,<<>>).
