@@ -15,5 +15,4 @@ render_action(#bind{postback=Code,target={g,_}=Control,type=Type,source=Src}) ->
         V,"={handleEvent:(event) => { if(event.type === '",E,"'){",?B(Code),"}}};",
         G,".addEventListener('",E,"',", V,");", G,".",V,"=",V,";}"];
 render_action(#bind{postback=Code,target=Control,type=Type}) ->
-    % check global action. unbind first
     ["{var x=",?T(Control),"; x && x.addEventListener('",?B(Type),"',function(event){",?B(Code),"});}"].
