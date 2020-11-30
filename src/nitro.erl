@@ -64,10 +64,7 @@ pickle(Data) -> ?PICKLER:pickle(Data).
 depickle(SerializedData) -> ?PICKLER:depickle(SerializedData).
 
 prolongate() -> case application:get_env(n2o,session) of {ok, M} -> M:prolongate(); undefined -> false end.
-authenticate(I, Auth) -> case application:get_env(n2o,session) of 
-    {ok, M} -> M:authenticate(I, Auth);
-    undefined -> {'Token', <<>>}
-end.
+authenticate(I, Auth) -> (application:get_env(n2o,session,n2o_session)):authenticate(I, Auth).
 
 render(X) -> wf_render:render(X).
 wire(Actions) -> action_wire:wire(Actions).
