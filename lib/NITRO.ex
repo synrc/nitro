@@ -1,7 +1,8 @@
 defmodule NITRO do
   require Record
 
-  files = ["calendar.hrl", "nitro.hrl", "comboLookup.hrl"]
+  files = ["calendar.hrl", "nitro.hrl", "comboLookup.hrl",
+           "comboLookupVec.hrl", "comboLookupEdit.hrl", "koatuuControl.hrl"]
 
   hrl_files =
     Enum.filter(files, fn f ->
