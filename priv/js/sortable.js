@@ -164,7 +164,7 @@ function () {
       var value = querySourceRaw(input);
       var bind = '';
       if (value && value.hasOwnProperty('text') && value.hasOwnProperty('bind')) {
-        bind = ' data-bind="' + value.bind + '"';
+        bind = value.bind;
         value = value.text;
       }
       var inputElement = document.getElementById(input);
@@ -172,18 +172,7 @@ function () {
         inputElement.value = '';
         inputElement.removeAttribute("data-bind")
       }
-      var template = document.createElement('template');
-      template.innerHTML =
-      '<div class="list__item" data-sortable-item="data-sortable-item" style=""' + bind + '>' +
-        '<div class="list__item-close" onclick="removeSortableItem(\'#' + this.list.id + '\', this.parentNode);"></div>' +
-        '<div class="list__item-content">' +
-          '<div class="list__item-title">' + value + '</div>' +
-        '</div>' +
-        '<div class="list__item-handle" data-sortable-handle="data-sortable-handle"></div>' +
-      '</div>'
-      var new_item = template.content.firstChild;
-      this.list.appendChild(new_item);
-      this.items.push(new_item);
+      appendItemFromBind(this.list.id,value,bind);
     }
   }, {
     key: "getValues",
@@ -211,15 +200,31 @@ function removeSortableItem(list, item) {
 }
 
 function addSortableItemFrom(list, input) {
-  SortableMap.get(list).addItemFrom(input);
+  var value = querySourceRaw(input);
+  var isAdded = SortableMap.get(list).items.map(el => el.textContent).includes(value.text || value);
+  if(qi(input).value != '' & !isAdded)
+    SortableMap.get(list).addItemFrom(input);
 }
 
 function getSortableValues(list) {
-  console.log('getSortableValues',list)
   let sortable = SortableMap.get(list)
   if(sortable) {
     return sortable.getValues();
   } else {
     return Array.from([]);
   }
+}
+
+function appendItemFromBind(dom,value,bind) {
+  var sortable = SortableMap.get('#'+dom);
+  var template = document.createElement('template');
+  template.innerHTML =
+    '<div class="list__item" data-sortable-item="data-sortable-item" style="" data-bind="'+ bind + '">' +
+       '<div class="list__item-close" onclick="removeSortableItem(\'#' + sortable.list.id + '\', this.parentNode);"></div>' +
+       '<div class="list__item-content"><div class="list__item-title">' + value + '</div></div>' +
+       '<div class="list__item-handle" data-sortable-handle="data-sortable-handle"></div>' +
+    '</div>'
+  var new_item = template.content.firstChild;
+  sortable.list.appendChild(new_item);
+  sortable.items.push(new_item);
 }
