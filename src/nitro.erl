@@ -6,6 +6,9 @@
 -behaviour(application).
 -export([start/2, stop/1, init/1]).
 
+atom(List) when is_list(List) -> string:join([ nitro:to_list(L) || L <- List], "_");
+atom(Scalar) -> nitro:to_list(Scalar).
+
 q(Key) -> q(Key, []).
 q(Key, Def) -> case get(Key) of undefined -> Def; Val -> Val end.
 
