@@ -82,6 +82,7 @@ html_encode_whites([H|T]) ->
 		$> -> "&gt;" ++ html_encode_whites(T);
 		$" -> "&quot;" ++ html_encode_whites(T);
 		$' -> "&#39;" ++ html_encode_whites(T);
+		$` -> "&#39;" ++ html_encode_whites(T);
 		$& -> "&amp;" ++ html_encode_whites(T);
 		$\n -> "<br>" ++ html_encode_whites(T);
 		_ -> [H|html_encode_whites(T)]
@@ -137,8 +138,8 @@ js_escape(<<"\n", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "\\n">>);
 js_escape(<<"\"", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "\\\"">>);
 js_escape(<<"'",Rest/binary>>,Acc) -> js_escape(Rest, <<Acc/binary, "\\'">>);
 js_escape(<<"`",Rest/binary>>,Acc) -> js_escape(Rest, <<Acc/binary, "\\`">>);
-js_escape(<<"<script", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "<scr\" + \"ipt">>);
-js_escape(<<"script>", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "scr\" + \"ipt>">>);
+js_escape(<<"<script", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "<script">>);
+js_escape(<<"script>", Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, "script>">>);
 js_escape(<<C, Rest/binary>>, Acc) -> js_escape(Rest, <<Acc/binary, C>>);
 js_escape(<<>>, Acc) -> Acc.
 
