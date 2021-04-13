@@ -41,6 +41,7 @@ defmodule NITRO.Combo do
     all = apply(:kvs,:all,[feed])
     index = index(module)
     :nitro.clear(:nitro.atom([:comboContainer, field]))
+    :nitro.wire("comboLookupChange('#{field0}');")
 
     filtered =
       Enum.filter(all, fn x ->
