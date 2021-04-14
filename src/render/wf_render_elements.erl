@@ -29,18 +29,18 @@ render_element(Element) when is_tuple(Element) ->
           case element(#element.validation, Input) of
             [] -> skip;
             InputCode ->
-              nitro:wire(nitro:f("{var name='~s'; qi(name).addEventListener('validation',"
+              nitro:wire(nitro:f("{var name='~s'; qi(name) && qi(name).addEventListener('validation',"
                                 "function(e) { if (!(~s)) e.preventDefault(); });"
-                                "qi(name).validation = true;}",[InputId,InputCode]))
+                                "if(qi(name)) qi(name).validation = true;}",[InputId,InputCode]))
           end
         end, lists:flatten(tl(element(#element.body, element(#comboLookupEdit.form, Element)))));
       _ ->
         case element(#element.validation,Element) of
          [] -> skip;
          Code ->
-         nitro:wire(nitro:f("{var name='~s'; qi(name).addEventListener('validation',"
+         nitro:wire(nitro:f("{var name='~s'; qi(name) && qi(name).addEventListener('validation',"
                                 "function(e) { if (!(~s)) e.preventDefault(); });"
-                                "qi(name).validation = true;}",[Id,Code])) end
+                                "if(qi(name)) qi(name).validation = true;}",[Id,Code])) end
     end,
     case element(#element.module,Element) of
         [] -> default_render(Tag, Element);
