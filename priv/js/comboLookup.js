@@ -16,6 +16,27 @@ function comboSelect(dom, row, feed, mod, id) {
                  atom(mod)));
 }
 
+function displayTextarea(parent, input, textarea) {
+  const value = querySourceRaw(input);
+  let parentDom = qi(parent);
+  let textareaDom = qi(textarea);
+  if (parentDom && textareaDom) {
+    parentDom.style.display = 'none';
+    textareaDom.style.display = 'flex';
+    textareaDom.children[0].innerHTML = value.text ? value.text : "";
+  }
+}
+
+function hideTextarea(parent, textarea) {
+  let parentDom = qi(parent);
+  let textareaDom = qi(textarea);
+  if (parentDom && textareaDom) {
+    parentDom.style.display = 'flex';
+    textareaDom.style.display = 'none';
+    textareaDom.children[0].innerHTML = '';
+  }
+}
+
 function comboLookupChange(dom) {
   let elem = qi(dom);
   if (elem && elem.value == "" && elem.getAttribute("data-bind")) {
