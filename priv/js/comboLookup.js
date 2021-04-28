@@ -23,17 +23,20 @@ function displayTextarea(parent, input, textarea) {
   if (parentDom && textareaDom) {
     parentDom.style.display = 'none';
     textareaDom.style.display = 'flex';
-    textareaDom.children[0].innerHTML = value.text ? value.text : "";
+    textareaDom.children[0].value = value.text ? value.text :
+                                    typeof value === 'string' ? value : "";
   }
 }
 
-function hideTextarea(parent, textarea) {
+function hideTextarea(parent, input, textarea) {
   let parentDom = qi(parent);
+  let inputDom = qi(input)
   let textareaDom = qi(textarea);
-  if (parentDom && textareaDom) {
+  if (parentDom && textareaDom && inputDom) {
     parentDom.style.display = 'flex';
+    const value = textareaDom.children[0].value;
+    inputDom.value = value ? value : "";
     textareaDom.style.display = 'none';
-    textareaDom.children[0].innerHTML = '';
   }
 }
 

@@ -43,5 +43,5 @@ render_element(#comboLookupText{id=Id, input=Input, disabled=Disabled, validatio
                     [#link{
                       class = [button, sgreen, back],
                       style = "min-width: 40px; text-align: center; height: fit-content; margin-left: 5px;",
-                      onclick = nitro:jse("hideTextarea('" ++ LookupId ++ "', '" ++ TextareaId ++ "')"),
+                      onclick = nitro:jse("hideTextarea('" ++ LookupId ++ "', '" ++ InputId ++ "', '" ++ TextareaId ++ "')"),
                       body = <<"+">>}] end]}]}).
