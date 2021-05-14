@@ -27,10 +27,13 @@ render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object,
                         value = Val, style = Style, class = column},
                  #panel{class=['triangle'],
                         body="&blacktriangledown;",
-                        onclick = nitro:jse("comboLookupClick('"
-                               ++ nitro:to_list(Id) ++ "','"
-                               ++ nitro:to_list(Feed) ++ "','"
-                               ++ nitro:to_list(Module) ++ "')")},
+                        onclick =
+                          case Disabled of
+                            true -> [];
+                            _ -> nitro:jse("comboLookupClick('"
+                              ++ nitro:to_list(Id) ++ "','"
+                              ++ nitro:to_list(Feed) ++ "','"
+                              ++ nitro:to_list(Module) ++ "')")
+                          end},
                  #panel{id=form:atom([comboContainer, Id]),
                         class = ['dropdown-content']}]}).
-
