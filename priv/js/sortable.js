@@ -168,11 +168,13 @@ function () {
         value = value.text;
       }
       var inputElement = document.getElementById(input);
-      if (inputElement) {
-        inputElement.value = '';
-        inputElement.removeAttribute("data-bind")
+      if (bind !== '' && bind !== 'null') {
+        if (inputElement) {
+          inputElement.value = '';
+          inputElement.removeAttribute("data-bind")
+        }
+        appendItemFromBind(this.list.id,value,bind);
       }
-      appendItemFromBind(this.list.id,value,bind);
     }
   }, {
     key: "getValues",
