@@ -171,7 +171,7 @@ function () {
       if (bind !== '' && bind !== 'null') {
         if (inputElement) {
           inputElement.value = '';
-          inputElement.removeAttribute("data-bind")
+          inputElement.removeAttribute("data-bind");
         }
         appendItemFromBind(this.list.id,value,bind);
       }
