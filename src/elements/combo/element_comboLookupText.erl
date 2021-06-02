@@ -8,11 +8,6 @@ render_element(#comboLookupText{id=Id, input=Input, disabled=Disabled, validatio
   LookupId = "wrap_" ++ Id ++ "_lookup",
   TextareaId = "wrap_" ++ Id ++ "_textarea",
   WrapId = "wrap_" ++ Id ++ "_comboLookupText",
-  TextAreaDisplay =
-    case Disabled of
-      true -> "flex";
-      _ -> "none"
-    end,
   nitro:render(
         #panel{
           id = WrapId,
@@ -25,23 +20,9 @@ render_element(#comboLookupText{id=Id, input=Input, disabled=Disabled, validatio
               body =
                 case Disabled of
                   true -> [];
-                  _ -> [
-                    Input,
-                    #link{
-                      class = [button, sgreen],
-                      style = "min-width: 40px; text-align: center; height: fit-content; margin-left: 5px;",
-                      onclick = nitro:jse("displayTextarea('" ++ LookupId ++ "', '" ++ InputId ++ "', '" ++ TextareaId ++ "')"),
-                      body = <<"+">>} ] end },
+                  _ -> [Input]
+                end},
             #panel{
               id = TextareaId,
-              style = "width: 100%; justify-content: center; display: " ++ TextAreaDisplay ++ ";",
-              body = [
-                Textarea |
-                case Disabled of
-                  true -> [];
-                  false ->
-                    [#link{
-                      class = [button, sgreen, back],
-                      style = "min-width: 40px; text-align: center; height: fit-content; margin-left: 5px;",
-                      onclick = nitro:jse("hideTextarea('" ++ LookupId ++ "', '" ++ InputId ++ "', '" ++ TextareaId ++ "')"),
-                      body = <<"+">>}] end]}]}).
+              style = "display: flex; width: 100%; justify-content: center;",
+              body = [Textarea]}]}).

@@ -16,30 +16,6 @@ function comboSelect(dom, row, feed, mod, id) {
                  atom(mod)));
 }
 
-function displayTextarea(parent, input, textarea) {
-  const value = querySourceRaw(input);
-  let parentDom = qi(parent);
-  let textareaDom = qi(textarea);
-  if (parentDom && textareaDom) {
-    parentDom.style.display = 'none';
-    textareaDom.style.display = 'flex';
-    textareaDom.children[0].value = value.text ? value.text :
-                                    typeof value === 'string' ? value : "";
-  }
-}
-
-function hideTextarea(parent, input, textarea) {
-  let parentDom = qi(parent);
-  let inputDom = qi(input)
-  let textareaDom = qi(textarea);
-  if (parentDom && textareaDom && inputDom) {
-    parentDom.style.display = 'flex';
-    const value = textareaDom.children[0].value;
-    inputDom.value = value ? value : "";
-    textareaDom.style.display = 'none';
-  }
-}
-
 function comboLookupChange(dom) {
   let elem = qi(dom);
   if (elem && elem.value == "" && elem.getAttribute("data-bind")) {
