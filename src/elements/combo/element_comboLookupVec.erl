@@ -22,8 +22,7 @@ render_element(#comboLookupVec{id=Id, input=Input, disabled=Disabled, validation
               _ ->
                 [ Input,
                   #link{
-                    class = [button, sgreen],
-                    style = "min-width: 40px; text-align: center; height: fit-content; margin-left: 5px;",
+                    class = ['add-btn'],
                     onclick = nitro:jse("addSortableItemFrom('#" ++ ListId ++ "', '" ++ InputId ++ "')"),
                     body = <<"+">>} ] end },
         % TODO: Add validation for each list_item and/or "+" button
