@@ -104,3 +104,17 @@ body {
   right: 5px;
   cursor: default;
 }
+
+.add-btn {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M7.99992 1.33325C4.31992 1.33325 1.33325 4.31992 1.33325 7.99992C1.33325 11.6799 4.31992 14.6666 7.99992 14.6666C11.6799 14.6666 14.6666 11.6799 14.6666 7.99992C14.6666 4.31992 11.6799 1.33325 7.99992 1.33325ZM7.33325 4.66658V7.33325H4.66658V8.66658H7.33325V11.3333H8.66658V8.66658H11.3333V7.33325H8.66658V4.66658H7.33325ZM2.66659 7.99992C2.66659 10.9399 5.05992 13.3333 7.99992 13.3333C10.9399 13.3333 13.3333 10.9399 13.3333 7.99992C13.3333 5.05992 10.9399 2.66659 7.99992 2.66659C5.05992 2.66659 2.66659 5.05992 2.66659 7.99992Z' fill='%23757575'/%3E%3C/svg%3E%0A");
+  background-repeat: no-repeat;
+  cursor: pointer;
+  color: transparent;
+  min-width: 16px;
+  max-width: 16px;
+  height: 16px;
+  background-color: #ffffff;
+}
