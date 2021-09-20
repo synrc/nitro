@@ -1,7 +1,7 @@
 -module(wf_tags).
 -author('Maxim Sokhatsky').
 -include_lib("nitro/include/nitro.hrl").
--compile(export_all).
+-export([emit_tag/2, write_props/1, prop/1, display_property/1]).
 -define(VOID(Tag),  (Tag == <<"br">>     orelse Tag == <<"hr">>
               orelse Tag == <<"link">>   orelse Tag == <<"img">>
               orelse Tag == <<"input">>  orelse Tag == <<"link">>
