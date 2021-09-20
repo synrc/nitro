@@ -2,7 +2,7 @@
 -author('Andrew Zadorozhny').
 -include_lib("nitro/include/nitro.hrl").
 -include_lib("nitro/include/event.hrl").
--compile(export_all).
+-export([render_action/1]).
 
 render_action(Action) ->
     Module = element(#action.module,Action),
