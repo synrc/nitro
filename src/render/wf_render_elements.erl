@@ -2,7 +2,7 @@
 -author('Maxim Sokhatsky').
 -include_lib ("nitro/include/nitro.hrl").
 -include_lib ("nitro/include/comboLookupEdit.hrl").
--compile(export_all).
+-export([render_element/1].
 
 render_element(E) when is_list(E) -> E;
 render_element(Element) when is_tuple(Element) ->
