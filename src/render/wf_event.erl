@@ -3,7 +3,7 @@
 -author('Andrey Martemyanov').
 -include_lib("nitro/include/cx.hrl").
 -include_lib("nitro/include/nitro.hrl").
--compile(export_all).
+-export([target/1, new/2, new/6, new/7]).
 
 -record(ev,      { module, msg, trigger, name }).
 
