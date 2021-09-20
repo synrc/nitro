@@ -1,6 +1,6 @@
 -module(wf_render).
 -include_lib("nitro/include/nitro.hrl").
--compile(export_all).
+-export([render_item/1, render/1]).
 
 render_item([]) -> <<>>;
 render_item(undefined) -> <<>>;
