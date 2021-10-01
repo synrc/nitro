@@ -32,7 +32,7 @@ render_element(#comboLookupEdit{id=Id, input=Input, disabled=Disabled, validatio
                 _ ->
                   #panel{
                     id = form:atom([InputId, "form"]),
-                    class = ['dropdown-content'],
+                    class = ['dropdown-content', 'dropdown-content-form'],
                     body = #panel{class = ['dropdown-item'], body = Form}
                   } end ]},
             case Multiple of
