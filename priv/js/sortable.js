@@ -180,7 +180,8 @@ function () {
     key: "getValues",
     value: function getValues() {
       return Array.from(this.items.map(function(item) {
-        let text = item.children[1].firstChild.innerHTML;
+        let list = Array.from(item.children).find(x => x.getAttribute("list-item-content"));
+        let text = list.firstChild.innerHTML;
         let bind = item.getAttribute('data-bind');
         if (bind) return { 'text': text, 'bind': bind };
         return text;
@@ -223,7 +224,7 @@ function appendItemFromBind(dom,value,bind) {
   template.innerHTML =
     '<div class="list__item" data-sortable-item="data-sortable-item" style="" data-bind="'+ bind + '">' +
        '<div class="list__item-close" onclick="removeSortableItem(\'#' + sortable.list.id + '\', this.parentNode);"></div>' +
-       '<div class="list__item-content"><div class="list__item-title">' + value + '</div></div>' +
+       '<div class="list__item-content" list-item-content="list-item-content"><div class="list__item-title">' + value + '</div></div>' +
        '<div class="list__item-handle" data-sortable-handle="data-sortable-handle"></div>' +
     '</div>'
   var new_item = template.content.firstChild;
