@@ -22,7 +22,7 @@ render_element(#comboLookupEdit{id=Id, input=Input, disabled=Disabled, validatio
               case Multiple of
                 true ->
                   #link{
-                    class = [button, sgreen],
+                    class = [button, sgreen, 'add-btn'],
                     style = "min-width: 40px; text-align: center; height: fit-content; margin-left: 5px;",
                     onclick = nitro:jse("addSortableItemFrom('#" ++ ListId ++ "', '" ++ InputId ++ "')"),
                     body = <<"+">>};
