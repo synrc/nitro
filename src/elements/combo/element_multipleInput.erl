@@ -16,6 +16,7 @@ render_element(#multipleInput{id=Id, input=Input, disabled=Disabled, validation=
       body = [
         #panel{
           style = "display: flex; width: 100%; justify-content: center;",
+          class=['multi-input'],
           body =
             case Disabled of
               true -> [];
