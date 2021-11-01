@@ -10,7 +10,7 @@ proto(#comboSelect{delegate=Module}=Msg) -> Module:proto(Msg).
 render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object,
   feed = Feed, disabled = Disabled, delegate = Module} = Data) ->
   nitro:render(
-    #link{id=form:atom([lookup, Id]), class=[dropdown],
+    #link{id=form:atom([lookup, Id]), class=[dropdown], draggable=false,
            body=[#input{id=Id, disabled = Disabled, type="comboLookup",
                         autocomplete = "off",
                         onkeyup = nitro:jse("comboLookupKeyup('"
