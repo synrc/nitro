@@ -23,6 +23,15 @@ function comboLookupChange(dom) {
   }
 }
 
+function clearInput(dom) {
+  const input = qi(dom);
+  if (input) {
+    input.value = '';
+    input.removeAttribute('data-bind');
+  }
+  comboClear(dom);
+}
+
 function comboLookupClick(dom, feed, mod) {
   var char = event.which || event.keyCode;
   if (char ==  1 && !activeCombo && qi(dom).value == '') {
