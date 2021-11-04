@@ -8,9 +8,9 @@ proto(#comboKeyup{delegate=Module}=Msg)  -> Module:proto(Msg);
 proto(#comboSelect{delegate=Module}=Msg) -> Module:proto(Msg).
 
 render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object,
-  feed = Feed, disabled = Disabled, delegate = Module} = Data) ->
+  feed = Feed, disabled = Disabled, delegate = Module, class = Class} = Data) ->
   nitro:render(
-    #link{id=form:atom([lookup, Id]), class=[dropdown],
+    #link{id=form:atom([lookup, Id]), class=lists:flatten([dropdown, Class]), draggable=false,
            body=[#input{id=Id, disabled = Disabled, type="comboLookup",
                         autocomplete = "off",
                         onkeyup = nitro:jse("comboLookupKeyup('"
@@ -36,4 +36,10 @@ render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object,
                               ++ nitro:to_list(Module) ++ "')")
                           end},
                  #panel{id=form:atom([comboContainer, Id]),
-                        class = ['dropdown-content']}]}).
+                        class = ['dropdown-content']},
+                 case Disabled of
+                   true -> [];
+                   false -> #link{class = [button, sgreen, 'delete-btn'],
+                                  style = "min-width: 40px; text-align: center; height: fit-content; margin-left: 5px;",
+                                  onclick = nitro:jse("clearInput('" ++ Id ++ "')"),
+                                  body = <<"">>} end]}).

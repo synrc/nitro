@@ -8,6 +8,7 @@
 render_element(#sortable_list{id = Id, values = Values, closeable = Close, disabled = Disabled}) ->
   case Disabled of
     true ->
+      nitro:wire("createSortable('#" ++ Id ++ "');"),
       Closeable = false;
     _ ->
       nitro:wire("createSortable('#" ++ Id ++ "');"),

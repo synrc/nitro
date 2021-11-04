@@ -1,11 +1,11 @@
--module(element_comboLookupVec).
--include_lib("nitro/include/comboLookupVec.hrl").
+-module(element_multipleInput).
+-include_lib("nitro/include/multipleInput.hrl").
 -include_lib("nitro/include/sortable_list.hrl").
 -include_lib("nitro/include/nitro.hrl").
 -include_lib("nitro/include/event.hrl").
 -export([render_element/1]).
 
-render_element(#comboLookupVec{id=Id, input=Input, disabled=Disabled, validation=Validation, values=Values}) ->
+render_element(#multipleInput{id=Id, input=Input, disabled=Disabled, validation=Validation, values=Values}) ->
   ListId = form:atom([Id, "list"]),
   InputId = element(#element.id, Input),
   nitro:render(
@@ -16,6 +16,7 @@ render_element(#comboLookupVec{id=Id, input=Input, disabled=Disabled, validation
       body = [
         #panel{
           style = "display: flex; width: 100%; justify-content: center;",
+          class=['multi-input'],
           body =
             case Disabled of
               true -> [];
@@ -26,6 +27,4 @@ render_element(#comboLookupVec{id=Id, input=Input, disabled=Disabled, validation
                     style = "min-width: 40px; text-align: center; height: fit-content; margin-left: 5px;",
                     onclick = nitro:jse("addSortableItemFrom('#" ++ ListId ++ "', '" ++ InputId ++ "')"),
                     body = <<"+">>} ] end },
-        % TODO: Add validation for each list_item and/or "+" button
-        % TODO?: Maybe show message "Empty list" when Values == []
         #sortable_list{id = ListId, values = Values, closeable = true, disabled = Disabled}]}).

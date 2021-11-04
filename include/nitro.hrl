@@ -12,7 +12,7 @@
         ancestor=element, id=[], module=Module, delegate=Delegate, validation=[],
         validate=[], actions=[], class=[], style=[], source=[], onmouseover=[], onmouseout=[], onmousemove=[],
         onkeypress=[], onchange=[], onkeyup=[], onkeydown=[], onclick=[],
-        data_fields=[], aria_states=[], body=[], role=[], tabindex=[], show_if=true,
+        data_fields=[], aria_states=[], body=[], role=[], tabindex=[], show_if=true, multiple=false,
         html_tag=Tag, title=[], postback=[], accesskey=[], contenteditable=[],
         contextmenu=[], dir=[], draggable=[], dropzone=[], hidden=[], lang=[],
         spellcheck=[], translate=[], onblur=[], onerror=[], onfocus=[],
@@ -25,7 +25,7 @@
 -record(literal, {?ELEMENT_BASE(element_literal), html_encode=true }).
 -record(dtl, {?ELEMENT_BASE(element_dtl), file="index", bindings=[], app=web, folder="priv/templates", ext="html", bind_script=true, js_escape=false }).
 -record(list, {?ELEMENT_BASE(element_list), numbered=false }).
--record(dropdown, {?ELEMENT_BASE(element_dropdown), options, value, multiple=false, disabled=false, name}).
+-record(dropdown, {?ELEMENT_BASE(element_dropdown), options, value, disabled=false, name}).
 -record(radiogroup, {?ELEMENT_BASE(element_radiogroup)}).
 -record(spinner, {?ELEMENT_BASE(element_spinner), image="/priv/static/spinner.gif"}).
 
@@ -68,19 +68,19 @@
 -record(option,       {?ELEMENT_BASE(element_select), disabled=[], label=[], selected=false, value=[]}).
 -record(output,       {?ELEMENT_BASE(element_output), for, form, name}).
 -record(progress,       {?ELEMENT_BASE(element_progress), max=[], value=[]}).
--record(select,       {?ELEMENT_BASE(element_select), autofocus=[], disabled=[], form=[], multiple=[], name=[], required=[], size=[]}).
+-record(select,       {?ELEMENT_BASE(element_select), autofocus=[], disabled=[], form=[], name=[], required=[], size=[]}).
 -record(textarea,       {?ELEMENT_BASE(element_textarea), autofocus=[], cols=[], dirname=[], disabled=[], form=[], maxlength, name, placeholder, readonly=[], required=[], rows=[], wrap=[], value=[]}).
 
 % HTML Form inputs
--record(input,       {?ELEMENT_BASE(element_input), required, autocomplete, autofocus, disabled, form, name, value, type=[], checked=false, placeholder, multiple, min, max, pattern, accept}).
+-record(input,       {?ELEMENT_BASE(element_input), required, autocomplete, autofocus, disabled, form, name, value, type=[], checked=false, placeholder, min, max, pattern, accept}).
 -record(input_button,       {?ELEMENT_BASE(element_input_button),  autofocus, disabled, form, name, value}).
 -record(checkbox,           {?ELEMENT_BASE(element_checkbox),  autofocus, checked=false, disabled, form, name, required, value}).
 -record(color,           {?ELEMENT_BASE(element_color),  autocomplete, autofocus, disabled, form, list, name, value}).
 -record(date,           {?ELEMENT_BASE(element_date),  autocomplete, autofocus, disabled, form, list, max, min, name, step, readonly, required, value}).
 -record(datetime,           {?ELEMENT_BASE(element_datetime),  autocomplete, autofocus, disabled, form, list, max, min, name, step, readonly, required, value}).
 -record(datetime_local,           {?ELEMENT_BASE(element_datetime_local),  autocomplete, autofocus, disabled, form, list, max, min, name, step, readonly, required, value}).
--record(email,           {?ELEMENT_BASE(element_email),  autocomplete, autofocus, disabled, form, list, maxlength, multiple, name, pattern, placeholder, readonly, required, size, value}).
--record(file,           {?ELEMENT_BASE(element_file),  accept, autofocus, disabled, form, multiple, name, required}).
+-record(email,           {?ELEMENT_BASE(element_email),  autocomplete, autofocus, disabled, form, list, maxlength, name, pattern, placeholder, readonly, required, size, value}).
+-record(file,           {?ELEMENT_BASE(element_file),  accept, autofocus, disabled, form, name, required}).
 -record(hidden,           {?ELEMENT_BASE(element_hidden),  disabled, form, name, value, html_name}).
 -record(input_image,           {?ELEMENT_BASE(element_input_image),  alt, autofocus, disabled, form, formaction, formenctype, formmethod, formnovalue, formtarget, height, name, src, width}).
 -record(month,              {?ELEMENT_BASE(element_month),  alt, autocomplete, autofocus, disabled, form, list, min, max, name, readonly, required, step, value}).
