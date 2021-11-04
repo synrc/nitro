@@ -15,7 +15,6 @@ defmodule NITRO do
       Enum.each(
         Record.extract_all(from_lib: "nitro/include/" <> t),
         fn {name, definition} ->
-#          IO.inspect({name, definition, t})
           prev = :application.get_env(:kernel, :nitro_tables, [])
 
           case :lists.member(name, prev) do
