@@ -4,7 +4,7 @@ defmodule NITRO.Mixfile do
   def project do
     [
       app: :nitro,
-      version: "6.11.6",
+      version: "6.11.7",
       description: "NITRO Nitrogen Web Framework",
       package: package(),
       deps: deps()
