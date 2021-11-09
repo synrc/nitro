@@ -170,10 +170,18 @@ function () {
       var inputElement = document.getElementById(input);
       if (bind !== '' && bind !== 'null') {
         if (inputElement) {
+          const dropdown = inputElement.parentNode;
+          if (dropdown && dropdown.classList.contains('dropdown')) { dropdown.classList.remove('dropdown-bind'); }
           inputElement.value = '';
           inputElement.removeAttribute("data-bind");
         }
         appendItemFromBind(this.list.id,value,bind);
+      } else if(value && Date.prototype.isPrototypeOf(value)) {
+        appendItemFromBind(this.list.id,inputElement.value,pickers[input]._d || "");
+        if (inputElement) {
+          inputElement.value = '';
+          inputElement.removeAttribute("data-bind");
+        }
       }
     }
   }, {
@@ -183,6 +191,7 @@ function () {
         let list = Array.from(item.children).find(x => x.getAttribute("list-item-content"));
         let text = list.firstChild.innerHTML;
         let bind = item.getAttribute('data-bind');
+        if(item.getAttribute('date-bind')) return new Date(item.getAttribute('date-bind'));
         if (bind) return { 'text': text, 'bind': bind };
         return text;
       }));
@@ -205,7 +214,7 @@ function removeSortableItem(list, item) {
 function addSortableItemFrom(list, input) {
   var value = querySourceRaw(input);
   var isAdded = SortableMap.get(list).items.map(el => el.textContent).includes(value.text || value);
-  if(qi(input).value != '' & !isAdded)
+  if(qi(input).value != '' && !isAdded)
     SortableMap.get(list).addItemFrom(input);
 }
 
@@ -228,6 +237,10 @@ function appendItemFromBind(dom,value,bind) {
        '<div class="list__item-handle" data-sortable-handle="data-sortable-handle"></div>' +
     '</div>'
   var new_item = template.content.firstChild;
+  if(bind instanceof Date) {
+    new_item.setAttribute("date-bind", bind);
+    new_item.setAttribute("data-bind", "");
+  }
   sortable.list.appendChild(new_item);
   sortable.items.push(new_item);
 }

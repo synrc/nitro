@@ -21,8 +21,7 @@ function querySourceRaw(Id) {
             val = qs('[id="'+Id+'"]:checked'); val = val ? val.value : ""; break;
         case 'INPUT':
             switch (el.getAttribute("type")) {
-                case 'radio': val = qs('input[name='+Id+']:checked'); val = val ? val.value : ""; break;
-                case 'checkbox': val = qs('input[id='+Id+']:checked'); val = val ? val.value : ""; break;
+                case 'radio': case 'checkbox': val = qs('input[name='+Id+']:checked'); val = val ? val.value : ""; break;
                 case 'date': val = Date.parse(el.value);  val = val && new Date(val) || ""; break;
                 case 'calendar': val = pickers[el.id]._d || ""; break;
                 case 'comboLookup': case 'hidden':
@@ -44,7 +43,10 @@ function querySourceRaw(Id) {
             else if (el.getAttribute('data-vector-input')) {
                 val = querySourceRaw(el.children[1].id);
             } else if (el.getAttribute('data-edit-input')) {
-                val = querySourceRaw(el.children[0].children[0].children[0].id);
+                let sortableList = el.children[1];
+                let sourceRaw = sortableList ? sortableList.id :
+                  el.children[0].children[0].children[0].id;
+                val = querySourceRaw(sourceRaw);
             } else if (el.getAttribute('data-sortable-list')) {
                 val = getSortableValues('#' + el.id);
             } else if (el.contentEditable === 'true') {

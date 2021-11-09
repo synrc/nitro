@@ -30,7 +30,7 @@ var clLangs = {
     }
 };
 function getDateParamBySign(date,sign) {
-    sign = sign.toUpperCase();
+    //sign = sign.toUpperCase();
     var param;
     switch(sign) {
         case "YYYY":
@@ -44,6 +44,15 @@ function getDateParamBySign(date,sign) {
         case "DD":
             param = (date.getDate() >= 10) ? date.getDate().toString() : ("0"+date.getDate().toString());
             break;
+        case "hh":
+            param = (date.getHours().toString());
+            break;
+        case "mm":
+            param = (date.getMinutes().toString());
+            break;
+        case "ss":
+            param = (date.getSeconds() >= 10) ? date.getSeconds().toString() : ("0"+date.getSeconds().toString());
+            break;
         default:
             param = date.toDateString();
     }
@@ -52,13 +61,18 @@ function getDateParamBySign(date,sign) {
 
 function formatter(date, format) {
     date = date || new Date();
-    format = format || "DD.MM.YYYY";
-    var signs = format.match(/(Y{2,4})|(M{2})|(D{2})/g);
+    format = format || "DD.MM.YYYYThh:mm:ss";
+    var signs = format.match(/(Y{2,4})|(M{2})|(D{2})|(T{1})|(h{2})|(m{2})|(s{2})/g);
     var params = [];
     var reStr = '';
+    let time = signs.indexOf("T");
     for(var i=0; i<signs.length; ++i) {
-        params.push(getDateParamBySign(date,signs[i]));
-        reStr += ((i+1) != signs.length) ? signs[i] + "(.)" : signs[i];
+        if(i !== time) {
+          params.push(getDateParamBySign(date,signs[i]));
+          reStr += (i+1 != time && (i+1) != signs.length) ? i > time && time !== -1 ? signs[i] + "(:)" : signs[i] + "(.)" : signs[i];
+        } else {
+          reStr += "(T)"
+        }
     }
     var re = new RegExp(reStr,'g');
     var delimiters = re.exec(format);
@@ -103,6 +117,16 @@ function parser(str, format) {
 //     }else{ return new Date(Date.parse(value)); }
 // }
 
+function parseDate(value) {
+  let formattedDate = formatter(value, "YYYY.MM.DDThh:mm:ss");
+  let timeDelimiter = formattedDate.indexOf("T");
+  let date = formattedDate.slice(0, timeDelimiter);
+  let time = formattedDate.slice(timeDelimiter + 1);
+  return tuple(
+    tuple(...date.split(".").map(elem => number(elem))),
+    tuple(...time.split(":").map(elem => number(elem)))
+  )
+}
 
 (function (root, factory)
 {
@@ -579,7 +603,7 @@ function parser(str, format) {
             }else {
                 self.setDate(null);
             }
-            if (!self._v) {
+            if (!self._v && e.initFlag != true) {
                 self.show();
             }
         };

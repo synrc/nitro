@@ -1,4 +1,3 @@
-
 function validateSources(list) {
     return list.reduce(function(acc,x) {
         var event = new CustomEvent('validation');
@@ -6,8 +5,12 @@ function validateSources(list) {
         var el = qi(x),
             listener = el && el.validation,
             res = !listener || listener && el.dispatchEvent(event);
-        if (!res) { console.log("Validation failed:" + x); }
-        if (el) el.style.background = res ? '' : 'pink';
+        console.log(el && el.parentNode.lastChild);
+        if (!res) {
+          console.log("Validation failed:" + x);
+          scrollToValidationInputs();
+        }
+        //if (el) el.style.background = res ? '' : 'pink';
         return res && acc; },true); }
 
 (function () {
@@ -18,3 +21,19 @@ function validateSources(list) {
        return evt;  };
   CustomEvent.prototype = window.Event.prototype;
   window.CustomEvent = CustomEvent; })();
+
+function scrollToValidationInputs() {
+  const inputFields = document.querySelectorAll('.column')
+
+  for (let item of inputFields) {
+    if (item.classList.contains('error')) {
+      const errorInputField = document.querySelector('.column.error')
+      console.log(errorInputField)
+
+      errorInputField.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      })
+    }
+  }
+}
