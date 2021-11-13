@@ -70,7 +70,7 @@ function comboLookupChange(dom) {
   }
 }
 
-function comboLookupClick(dom, feed, mod) {
+function comboLookupClick(uid, dom, feed, mod) {
   var dropdown = qi(dom).closest('.dropdown');
   var char = event.which || event.keyCode;
   if (char ==  1 && !activeCombo && qi(dom).value == '') {
@@ -80,7 +80,8 @@ function comboLookupClick(dom, feed, mod) {
     if (window.innerHeight - dropdown.getBoundingClientRect().bottom < 100)
       dropdown.classList.add('is-reversed');
     direct(tuple(atom('comboKey'),
-                atom('all'),
+                bin(uid),
+                bin('all'),
                 string(dom),
                 string(feed),
                 atom(mod)));
@@ -88,7 +89,7 @@ function comboLookupClick(dom, feed, mod) {
   } else if (char ==  1 && activeCombo == dom) { comboClear(dom); }
 }
 
-function comboLookupKeydown(dom, feed, mod) {
+function comboLookupKeydown(uid, dom, feed, mod) {
     var dropdown = qi(dom).closest('.dropdown');
     var char = event.which || event.keyCode;
     if (char == 40 && !activeCombo && qi(dom).value == '') {
@@ -98,7 +99,8 @@ function comboLookupKeydown(dom, feed, mod) {
         if (window.innerHeight - dropdown.getBoundingClientRect().bottom < 100)
           dropdown.classList.add('is-reversed');
         direct(tuple(atom('comboKey'),
-                     atom('all'),
+                     bin(uid),
+                     bin('all'),
                      string(dom),
                      string(feed),
                      atom(mod)));
@@ -119,7 +121,7 @@ function comboLookupKeydown(dom, feed, mod) {
     if (char == 13) { event.preventDefault(); return }
 }
 
-function comboLookupKeyup(dom, feed, mod) {
+function comboLookupKeyup(uid, dom, feed, mod) {
     var dropdown = qi(dom).closest('.dropdown')
     var char = event.which || event.keyCode;
     if (char == 27 || (char == 8 || char == 46) && qi(dom).value == '') { clearInput(dom); return }
@@ -133,6 +135,7 @@ function comboLookupKeyup(dom, feed, mod) {
         if (window.innerHeight - dropdown.getBoundingClientRect().bottom < 100)
           dropdown.classList.add('is-reversed');
         direct(tuple(atom('comboKey'),
+                     bin(uid),
                      bin(qi(dom).value),
                      string(dom),
                      string(feed),

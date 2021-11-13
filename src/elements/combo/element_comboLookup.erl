@@ -11,15 +11,18 @@ proto(#comboInsert{delegate=Module}=Msg) -> Module:proto(Msg).
 
 render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object,
   feed = Feed, disabled = Disabled, delegate = Module, class = Class} = Data) ->
+  Uid = nitro_pi:uid([], []),
   nitro:render(
     #panel{id=form:atom([lookup, Id]), class=lists:flatten([dropdown, Class]),
            body=[#input{id=Id, disabled = Disabled, type="comboLookup",
                         autocomplete = "off",
                         onkeyup = nitro:jse("comboLookupKeyup('"
+                               ++ nitro:to_list(Uid) ++ "','"
                                ++ nitro:to_list(Id) ++ "','"
                                ++ nitro:to_list(Feed) ++ "','"
                                ++ nitro:to_list(Module) ++ "')"),
                         onkeydown= nitro:jse("comboLookupKeydown('"
+                               ++ nitro:to_list(Uid) ++ "','"
                                ++ nitro:to_list(Id) ++ "','"
                                ++ nitro:to_list(Feed) ++ "','"
                                ++ nitro:to_list(Module) ++ "')"),
@@ -33,6 +36,7 @@ render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object,
                           case Disabled of
                             true -> [];
                             _ -> nitro:jse("comboLookupClick('"
+                              ++ nitro:to_list(Uid) ++ "','"
                               ++ nitro:to_list(Id) ++ "','"
                               ++ nitro:to_list(Feed) ++ "','"
                               ++ nitro:to_list(Module) ++ "')")

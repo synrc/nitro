@@ -2,19 +2,19 @@ defmodule NITRO.Combo.Search do
   require NITRO
   require Record
 
-  Record.defrecord(:state, pid: [], chunks: 0, value: [], reader: [], opts: [], feed: [])
+  Record.defrecord(:state, uid: [], pid: [], chunks: 0, value: [], reader: [], opts: [], feed: [])
 
-  def start(value, field, feed, opts) do
+  def start(uid, value, field, feed, opts) do
     Supervisor.start_link([], strategy: :one_for_one, name: NITRO.Combo.Search)
-    state = state(pid: self(), value: value, reader: :erlang.apply(:kvs, :reader, [feed]), opts: opts, feed: feed)
-    stop(field)
+    state = state(uid: uid, pid: self(), value: value, reader: :erlang.apply(:kvs, :reader, [feed]), opts: opts, feed: feed)
+    stop(uid, field)
     pi =
       NITRO.pi(
         module: NITRO.Combo.Search,
         table: :async,
         sup: NITRO.Combo.Search,
         state: state,
-        name: "#{field}",
+        name: "#{uid}#{field}",
         timeout: :brutal_kill,
         restart: :temporary
       )
@@ -24,38 +24,39 @@ defmodule NITRO.Combo.Search do
     end
   end
 
-  def stop(field) do
-    case :nitro_pi.pid(:async, "#{field}") do
+  def stop(uid, field) do
+    case :nitro_pi.pid(:async, "#{uid}#{field}") do
       [] -> :ok
       pid ->
         :erlang.exit(pid, :kill)
-         try do :nitro_pi.stop(:async, "#{field}") catch _,_ -> :skip end
+         try do :nitro_pi.stop(:async, "#{uid}#{field}") catch _,_ -> :skip end
     end
   end
 
-  def comboScroll(NITRO.comboScroll(dom: field)) do
-    case :nitro_pi.pid(:async, "#{field}") do
+  def comboScroll(NITRO.comboScroll(uid: uid, dom: field)) do
+    case :nitro_pi.pid(:async, "#{uid}#{field}") do
       [] -> []
       pid -> send(pid, {:filterComboValues, :append, []})
     end
   end
 
-  def keyUp(NITRO.comboKey(value: value, dom: field, feed: feed, delegate: module)) do
+  def keyUp(NITRO.comboKey(uid: uid, value: value, dom: field, feed: feed, delegate: module)) do
     opts = [index: NITRO.Combo.index(module), field: field, delegate: module]
     comboContainer = :nitro.atom([:comboContainer, :nitro.to_list(field)])
     :nitro.display(:nitro.atom([:comboContainer, field]), :block)
     :nitro.clear(comboContainer)
     :nitro.wire("comboCloseFormById('#{:nitro.atom([:nitro.to_list(field), 'form'])}');")
     :nitro.wire("comboLookupChange('#{field}');")
-    :nitro.wire(NITRO.bind(target: :nitro.to_binary(comboContainer), type: :scroll, postback: onscroll(field, module)))
-    start(value, field, feed, opts)
+    :nitro.wire(NITRO.bind(target: :nitro.to_binary(comboContainer), type: :scroll, postback: onscroll(uid, field, module)))
+    start(uid, value, field, feed, opts)
   end
 
-  def onscroll(field, delegate), do:
+  def onscroll(uid, field, delegate), do:
     :erlang.iolist_to_binary([
       "if (event.target && (event.target.scrollTop + event.target.offsetHeight + 10 >= event.target.scrollHeight)) {",
         "ws.send(enc(tuple(atom('direct'),
          tuple(atom('comboScroll'),",
+            "bin('#{uid}'),",
             "bin('#{field}'),",
             "atom('#{delegate}'))",
         ")));",
@@ -65,7 +66,7 @@ defmodule NITRO.Combo.Search do
   def proc(:init, NITRO.pi() = pi), do: {:ok, pi}
 
   def proc({:filterComboValues, cmd, value0}, NITRO.pi(state: state(chunks: chunks) = st) = pi) do
-    state(feed: feed, reader: r, value: prev, pid: pid, opts: opts) = st
+    state(uid: uid, feed: feed, reader: r, value: prev, pid: pid, opts: opts) = st
     m = Keyword.get(opts, :delegate, [])
     field = Keyword.get(opts, :field, [])
     value = case cmd do :append -> prev; _ -> :string.lowercase(:unicode.characters_to_list(value0, :unicode)) end
@@ -84,7 +85,7 @@ defmodule NITRO.Combo.Search do
         newChunks = chunks + length(filtered)
         send(pid, {:direct, NITRO.comboInsert(dom: field, delegate: m, chunks: newChunks, feed: feed, rows: filtered)})
         chunks < 100 and
-          case :nitro_pi.pid(:async, "#{field}") do [] -> []; pid -> send(pid, {:filterComboValues, cmd, value0}) end
+          case :nitro_pi.pid(:async, "#{uid}#{field}") do [] -> []; pid -> send(pid, {:filterComboValues, cmd, value0}) end
         {:noreply, NITRO.pi(pi, state: state(st, value: value, chunks: newChunks, reader: :erlang.apply(:kvs, :setfield, [r1, :args, []])))}
     end
   end

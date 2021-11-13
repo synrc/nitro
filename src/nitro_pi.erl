@@ -5,7 +5,7 @@
 -behaviour(gen_server).
 -export([start_link/1]).
 -export([init/1,handle_call/3,handle_cast/2,handle_info/2,terminate/2,code_change/3]).
--export([start/1,stop/2,send/2,send/3,cast/2,cast/3,pid/2,restart/2]).
+-export([start/1,stop/2,send/2,send/3,cast/2,cast/3,pid/2,restart/2,uid/2]).
 
 start(#pi{table=Tab,name=Name,module=Module,sup=Sup,timeout=Timeout,restart=Restart} = Async) ->
     ChildSpec = {{Tab,Name},{?MODULE,start_link,[Async]},Restart,Timeout,worker,[Module]},
@@ -41,6 +41,12 @@ cache(Tab, Key) ->
 cache(Tab, Key, undefined)   -> ets:delete(Tab,Key);
 cache(Tab, Key, Value)       -> cache(Tab, Key, Value, infinity).
 cache(Tab, Key, Value, Till) -> ets:insert(Tab,{Key,{Till,Value}}), Value.
+
+uid(_,_) ->
+  case os:type() of
+       {win32,nt} -> {Mega,Sec,Micro} = erlang:timestamp(), integer_to_list((Mega*1000000+Sec)*1000000+Micro);
+                _ -> erlang:integer_to_list(element(2,hd(lists:reverse(erlang:system_info(os_monotonic_time_source)))))
+  end.
 
 pid(Tab,Name) -> cache(Tab,{Tab,Name}).
 
@@ -83,4 +89,3 @@ init(#pi{module=Mod,table=Tab,name=Name}=Handler) ->
 terminate(_Reason, #pi{name=Name,sup=Sup,table=Tab}) ->
     spawn(fun() -> supervisor:delete_child(Sup,{Tab,Name}) end),
     catch cache(Tab,{Tab,Name},undefined), ok.
-

@@ -45,7 +45,6 @@ defmodule NITRO.Combo do
   end
 
   def comboInsert(NITRO.comboInsert(chunks: 0, dom: field, status: :finished)) do
-    NITRO.Combo.Search.stop(field)
     :nitro.wire("activeCombo = undefined; currentItem = undefined;")
     :nitro.hide(:nitro.atom([:comboContainer, :nitro.to_list(field)]))
     :nitro.wire("comboOpenFormById('#{:nitro.atom([:nitro.to_list(field), 'form'])}');")
