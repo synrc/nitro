@@ -11,13 +11,22 @@ defmodule NITRO.Combo do
     dropDown(obj, dom, module, feed)
   end
 
-  def proto(NITRO.comboKey(value: :all) = msg), do: keyUp(msg)
-  def proto(NITRO.comboKey(delegate: []) = msg), do: keyUp(msg)
+  def proto(NITRO.comboKey(value: "")), do: []
+  def proto(NITRO.comboKey(delegate: []) = msg), do: NITRO.Combo.Search.keyUp(msg)
+  def proto(NITRO.comboScroll(delegate: []) = msg), do: NITRO.Combo.Search.comboScroll(msg)
+  def proto(NITRO.comboInsert(delegate: []) = msg), do: comboInsert(msg)
 
   def proto(NITRO.comboKey(delegate: module) = msg) do
     case has_function(module, :keyUp) do
       true -> module.keyUp(msg)
-      false -> keyUp(msg)
+      false -> NITRO.Combo.Search.keyUp(msg)
+    end
+  end
+
+  def proto(NITRO.comboScroll(delegate: module) = msg) do
+    case has_function(module, :comboScroll) do
+      true -> module.comboScroll(msg)
+      false -> NITRO.Combo.Search.comboScroll(msg)
     end
   end
 
@@ -28,44 +37,27 @@ defmodule NITRO.Combo do
     end
   end
 
-  def keyUp(NITRO.comboKey(value: :all, dom: field0, feed: feed, delegate: module)) do
-    field = :nitro.to_list(field0)
-    all = apply(:kvs,:all,[feed])
-    :nitro.clear(:nitro.atom([:comboContainer, field]))
-    dropDownList0(all, field, module, feed)
+  def proto(NITRO.comboInsert(delegate: module) = msg) do
+    case has_function(module, :comboInsert) do
+      true -> module.comboInsert(msg)
+      false -> comboInsert(msg)
+    end
   end
 
-  def keyUp(NITRO.comboKey(value: value0, dom: field0, feed: feed, delegate: module)) do
-    value = :string.lowercase(:unicode.characters_to_list(value0, :unicode))
-    field = :nitro.to_list(field0)
-    all = apply(:kvs,:all,[feed])
-    index = index(module)
-    :nitro.clear(:nitro.atom([:comboContainer, field]))
-    :nitro.wire("comboLookupChange('#{field0}');")
+  def comboInsert(NITRO.comboInsert(chunks: 0, dom: field, status: :finished)) do
+    NITRO.Combo.Search.stop(field)
+    :nitro.wire("activeCombo = undefined; currentItem = undefined;")
+    :nitro.hide(:nitro.atom([:comboContainer, :nitro.to_list(field)]))
+    :nitro.wire("comboOpenFormById('#{:nitro.atom([:nitro.to_list(field), 'form'])}');")
+  end
 
-    filtered =
-      Enum.filter(all, fn x ->
-        Enum.any?(index, fn i ->
-          fld0 =
-            if is_function(i) do
-              i.(x)
-            else
-              f0 = apply(:kvs,:field, [x, i])
-              tab = elem(x, 0)
-
-              if f0 == tab do
-                :nitro.to_list(f0)
-              else
-                f0
-              end
-            end
-
-          fld = to_list(fld0)
-          fld != elem(x, 0) and :string.rstr(:string.lowercase(:nitro.to_list(fld)), value) > 0
-        end)
-      end)
-
-    dropDownList0(filtered, field, module, feed)
+  def comboInsert(NITRO.comboInsert(dom: field, rows: rows, delegate: module, feed: feed)) do
+    :lists.foreach(fn row ->
+      :nitro.insert_bottom(
+        :nitro.atom([:comboContainer, :nitro.to_list(field)]),
+        :nitro.render(dropDown0(row, :nitro.to_list(field), module, feed))
+      )
+    end, rows)
   end
 
   def dropDownList0(filtered, field, module, feed) do
