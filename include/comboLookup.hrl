@@ -5,10 +5,10 @@
 
 -record(comboKey,    { uid=[], value=[], dom=[], feed=[], delegate=[]}).
 -record(comboKeyup,  { value=[], dom=[], feed=[], delegate=[]}).
--record(comboSelect, { value=[], dom=[], feed=[], delegate=[] }).
+-record(comboSelect, { uid=[], value=[], dom=[], feed=[], delegate=[] }).
 -record(comboNext,   { pos=[],  count=[], feed=[]}).
 -record(comboScroll, { uid=[], dom=[], delegate=[] }).
--record(comboInsert, { dom=[], rows=[], chunks=[], status=[], delegate=[], feed=[] }).
+-record(comboInsert, { uid=[], dom=[], rows=[], chunks=[], status=[], delegate=[], feed=[] }).
 -record(comboLookup, { ?ELEMENT_BASE(element_comboLookup),
     value=[],
     disabled=false,

@@ -5,7 +5,7 @@
 -behaviour(gen_server).
 -export([start_link/1]).
 -export([init/1,handle_call/3,handle_cast/2,handle_info/2,terminate/2,code_change/3]).
--export([start/1,stop/2,send/2,send/3,cast/2,cast/3,pid/2,restart/2,uid/2]).
+-export([start/1,stop/2,send/2,send/3,cast/2,cast/3,pid/2,restart/2,uid/2,cache/4,cache/3]).
 
 start(#pi{table=Tab,name=Name,module=Module,sup=Sup,timeout=Timeout,restart=Restart} = Async) ->
     ChildSpec = {{Tab,Name},{?MODULE,start_link,[Async]},Restart,Timeout,worker,[Module]},

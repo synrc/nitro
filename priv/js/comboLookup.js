@@ -41,7 +41,7 @@ function comboClear(dom) {
     activeCombo = undefined; currentItem = undefined;
 }
 
-function comboSelect(dom, row, feed, mod, id) {
+function comboSelect(uid, dom, row, feed, mod, id) {
     let elem = qi(dom);
     comboClear(dom);
     if (qi(id)) elem.setAttribute("data-bind", qi(id).getAttribute('data-bind'));
@@ -53,6 +53,7 @@ function comboSelect(dom, row, feed, mod, id) {
     dropdown.classList.add('dropdown-bind');
     let value = qi(id) ? dec(unbase64(qi(id).getAttribute('data-bind'))) : string(row);
     direct(tuple(atom('comboSelect'),
+                 bin(uid),
                  value,
                  string(dom),
                  string(feed),

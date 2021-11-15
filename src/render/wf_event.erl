@@ -1,4 +1,6 @@
 -module(wf_event).
+-author('Maxim Sokhatsky').
+-author('Andrey Martemyanov').
 -include_lib("nitro/include/cx.hrl").
 -include_lib("nitro/include/nitro.hrl").
 -export([target/1, new/2, new/6, new/7]).
