@@ -4,7 +4,8 @@ defmodule NITRO.Combo.Search do
 
   Record.defrecord(:state, lastMsg: [], timer: [], uid: [], pid: [], chunks: 0, value: [], reader: [], opts: [], feed: [])
 
-  def start(uid, value, field, feed, opts) do
+  def start(uid, value, field, feed0, opts) do
+    feed = :nitro.to_binary(feed0)
     state = state(uid: uid, pid: self(), value: value, reader: :erlang.apply(:kvs, :reader, [feed]), opts: opts, feed: feed)
     stop(uid, field)
     pi =
