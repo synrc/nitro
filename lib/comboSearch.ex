@@ -88,7 +88,11 @@ defmodule NITRO.Combo.Search do
           case value do
             'all' -> rows
             _ ->
-              :lists.filter(fn x -> :lists.any(&filter(value, x, &1), Keyword.get(opts, :index, [])) end, rows)
+              vals = :string.split(:string.trim(value), " ", :all)
+              if length(vals) > 1, do:
+                :lists.filter(fn x -> :lists.all(fn v ->:lists.any(&filter(v, x, &1), Keyword.get(opts, :index, [])) end, vals) end, rows),
+              else:
+                :lists.filter(fn x -> :lists.any(&filter(value, x, &1), Keyword.get(opts, :index, [])) end, rows)
           end
         newChunks = chunks + length(filtered)
         send(pid, {:direct, NITRO.comboInsert(uid: uid, dom: field, delegate: m, chunks: newChunks, feed: feed, rows: filtered)})
