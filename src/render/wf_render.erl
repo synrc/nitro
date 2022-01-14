@@ -11,5 +11,5 @@ render_item(E) -> E.
 render([]) -> <<>>;
 render(undefined) -> <<>>;
 render(<<E/binary>>) -> E;
-render(Elements) when is_list(Elements) -> [ render_item(E) || E <- Elements, E /= undefined ];
+render(Elements) when is_list(Elements) -> [ render_item(E) || E <- Elements, E /= undefined, E /= nil ];
 render(Elements) -> render_item(Elements).
