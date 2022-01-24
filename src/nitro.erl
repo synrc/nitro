@@ -182,8 +182,9 @@ script(Script) -> put(script, Script).
 % Update DOM nitro:update
 
 update(Target, Elements) ->
-    nitro:wire(#jq{target = Target, property = outerHTML,
-                   right = Elements, format = "`~s`"}).
+    {Render, _, Actions} = render_html(Elements),
+    nitro:wire(nitro:f("var x=qi('~s'); if(x) x.outerHTML=`~s`;", [Target, Render])),
+    nitro:wire(nitro:render(Actions)).
 
 insert_top(Tag, Target, Elements) ->
     {Render, _Ref, Actions} = render_html(Elements),
