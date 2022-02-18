@@ -19,6 +19,7 @@ defmodule NITRO.Combo.Search do
       )
     pid = :erlang.spawn_link(:nitro_pi, :start_link, [pi])
     :nitro_pi.cache(:async,{:async,"comboSearch#{uid}"},pid,:infinity)
+    Process.unlink(pid)
   end
 
   def stop(uid, _field) do
