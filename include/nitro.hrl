@@ -74,7 +74,7 @@
 % HTML Form inputs
 -record(input,       {?ELEMENT_BASE(element_input), required, autocomplete, autofocus, disabled, form, name, value, type=[], checked=false, placeholder, min, max, pattern, accept}).
 -record(input_button,       {?ELEMENT_BASE(element_input_button),  autofocus, disabled, form, name, value}).
--record(checkbox,           {?ELEMENT_BASE(element_checkbox),  autofocus, checked=false, disabled, form, name, required, value}).
+-record(checkbox,           {?ELEMENT_BASE(element_checkbox),  autofocus, checked=false, disabled, form, name, required, value, label=true}).
 -record(color,           {?ELEMENT_BASE(element_color),  autocomplete, autofocus, disabled, form, list, name, value}).
 -record(date,           {?ELEMENT_BASE(element_date),  autocomplete, autofocus, disabled, form, list, max, min, name, step, readonly, required, value}).
 -record(datetime,           {?ELEMENT_BASE(element_datetime),  autocomplete, autofocus, disabled, form, list, max, min, name, step, readonly, required, value}).
