@@ -26,6 +26,6 @@ defmodule NITRO.Mixfile do
   end
 
   def deps do
-    [{:ex_doc, "~> 0.11", only: :dev}]
+    [{:ex_doc, ">= 0.0.0", only: :dev}]
   end
 end
