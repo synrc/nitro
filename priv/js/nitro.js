@@ -42,6 +42,8 @@ function querySourceRaw(Id) {
             }
             else if (el.getAttribute('data-vector-input')) {
                 val = querySourceRaw(el.children[1].id);
+            } else if (el.getAttribute('data-modify-input')) {
+                val = querySourceRaw(el.children[1].id);
             } else if (el.getAttribute('data-edit-input')) {
                 let sortableList = el.children[1];
                 let sourceRaw = sortableList ? sortableList.id :
@@ -49,6 +51,8 @@ function querySourceRaw(Id) {
                 val = querySourceRaw(sourceRaw);
             } else if (el.getAttribute('data-sortable-list')) {
                 val = getSortableValues('#' + el.id);
+            } else if (el.getAttribute('data-modify-list')) {
+                val = comboLookupModifyValues(el.id);
             } else if (el.contentEditable === 'true') {
                 val = el.innerHTML;
             } else {
