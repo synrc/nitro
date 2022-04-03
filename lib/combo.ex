@@ -15,6 +15,8 @@ defmodule NITRO.Combo do
   def proto(NITRO.comboKey(delegate: []) = msg), do: NITRO.Combo.Search.keyUp(msg)
   def proto(NITRO.comboScroll(delegate: []) = msg), do: NITRO.Combo.Search.comboScroll(msg)
   def proto(NITRO.comboInsert(delegate: []) = msg), do: comboInsert(msg)
+  def proto(NITRO.comboAdd(delegate: []) = msg), do: comboAdd(msg)
+  def proto(NITRO.comboModify(delegate: []) = msg), do: comboModify(msg)
 
   def proto(NITRO.comboKey(delegate: module) = msg) do
     case has_function(module, :keyUp) do
@@ -44,6 +46,20 @@ defmodule NITRO.Combo do
     end
   end
 
+  def proto(NITRO.comboAdd(delegate: module) = msg) do
+    case has_function(module, :comboAdd) do
+      true -> module.comboAdd(msg)
+      false -> comboAdd(msg)
+    end
+  end
+
+  def proto(NITRO.comboModify(delegate: module) = msg) do
+    case has_function(module, :comboModify) do
+      true -> module.comboModify(msg)
+      false -> comboModify(msg)
+    end
+  end
+
   def select(NITRO.comboSelect(uid: uid, dom: field)), do:
     NITRO.Combo.Search.stop(uid, field)
 
@@ -60,6 +76,21 @@ defmodule NITRO.Combo do
         :nitro.render(dropDown0(uid, row, :nitro.to_list(field), module, feed))
       )
     end, rows)
+  end
+
+  def comboAdd(NITRO.comboAdd(list_id: list, value: value, bind: bind, delegate: module, pos: pos, feed: feed)) do
+    :nitro.insert_bottom(
+      list,
+      NITRO.comboLookupModify_item(list_id: list, value: value, bind: bind, pos: pos, feed: feed, delegate: module)
+    )
+  end
+
+  def comboModify(NITRO.comboModify(list_id: list, item_id: item, value: value, bind: bind, modify_bind: modify_bind, delegate: module, pos: pos, feed: feed)) do
+    new_bind = :erlang.setelement(pos, bind, modify_bind)
+    :nitro.update(
+      item,
+      NITRO.comboLookupModify_item(list_id: list, value: value, bind: new_bind, pos: pos, feed: feed, delegate: module)
+    )
   end
 
   def dropDown0(uid, obj, dom0, module, feed) do

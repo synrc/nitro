@@ -52,12 +52,21 @@ function comboSelect(uid, dom, row, feed, mod, id) {
     dropdown.classList.remove('is-reversed');
     dropdown.classList.add('dropdown-bind');
     let value = qi(id) ? dec(unbase64(qi(id).getAttribute('data-bind'))) : string(row);
-    direct(tuple(atom('comboSelect'),
-                 bin(uid),
-                 value,
-                 string(dom),
-                 string(feed),
-                 atom(mod)));
+    const modifyItem = qi(elem.getAttribute('nested'));
+    if (modifyItem) {
+      const list = modifyItem.parentNode;
+      direct(tuple(atom('comboModify'),
+                   string(list.id),
+                   string(modifyItem.id),
+                   string(modifyItem.firstChild.innerHTML),
+                   dec(unbase64(modifyItem.getAttribute('data-bind'))),
+                   value,
+                   dec(unbase64(list.getAttribute('data-delegate'))),
+                   dec(unbase64(list.getAttribute('data-pos'))),
+                   dec(unbase64(list.getAttribute('data-feed')))));
+    } else {
+      direct(tuple(atom('comboSelect'), bin(uid), value, string(dom), string(feed), atom(mod)));
+    }
     comboLookupTextApply(dom);
 }
 
@@ -165,6 +174,39 @@ function clearInput(dom) {
   }
   comboLookupChange(dom);
   comboClear(dom);
+}
+
+function comboLookupModifyAdd(listId, inputId) {
+  const input = qi(inputId);
+  const list = qi(listId);
+  if (list && input && input.value != '') {
+    const data = querySourceRaw(inputId);
+    if (data && data.hasOwnProperty('text') && data.hasOwnProperty('bind')) {
+      const bind = data.bind;
+      const value = data.text;
+      if (bind !== '' && bind !== 'null') {
+        clearInput(inputId);
+        direct(tuple(atom('comboAdd'),
+                     string(listId),
+                     string(value),
+                     dec(unbase64(bind)),
+                     dec(unbase64(list.getAttribute('data-delegate'))),
+                     dec(unbase64(list.getAttribute('data-pos'))),
+                     dec(unbase64(list.getAttribute('data-feed')))));
+      }
+    }
+  }
+}
+
+function comboLookupModifyValues(listId) {
+  const list = qi(listId);
+  if (list) {
+    return Array.from(list.children).map(function (el) {
+      return {'text': el.firstChild.innerHTML, 'bind': el.getAttribute('data-bind')}
+    })
+  } else {
+    return []
+  }
 }
 
 document.addEventListener("click", () => {

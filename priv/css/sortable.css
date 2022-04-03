@@ -106,7 +106,8 @@ body {
 }
 
 .add-btn,
-.delete-btn {
+.delete-btn,
+.modify_item-close {
   position: absolute;
   top: 8px;
   right: 10px;
@@ -120,7 +121,8 @@ body {
   background-color: #ffffff;
 }
 
-.delete-btn {
+.delete-btn,
+.modify_item-close {
   background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.6666 4.27325L11.7266 3.33325L7.99992 7.05992L4.27325 3.33325L3.33325 4.27325L7.05992 7.99992L3.33325 11.7266L4.27325 12.6666L7.99992 8.93992L11.7266 12.6666L12.6666 11.7266L8.93992 7.99992L12.6666 4.27325Z' fill='%23757575'/%3E%3C/svg%3E%0A");
   right: 30px;
 }
