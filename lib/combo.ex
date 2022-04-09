@@ -78,10 +78,10 @@ defmodule NITRO.Combo do
     end, rows)
   end
 
-  def comboAdd(NITRO.comboAdd(list_id: list, value: value, bind: bind, delegate: module, pos: pos, feed: feed)) do
+  def comboAdd(NITRO.comboAdd(list_id: list, value: value, bind: bind, delegate: module, pos: pos, feed: feed, default: default)) do
     :nitro.insert_bottom(
       list,
-      NITRO.comboLookupModify_item(list_id: list, value: value, bind: bind, pos: pos, feed: feed, delegate: module)
+      NITRO.comboLookupModify_item(list_id: list, value: value, bind: bind, pos: pos, feed: feed, delegate: module, default: default)
     )
   end
 

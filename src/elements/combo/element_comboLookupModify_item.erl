@@ -5,16 +5,21 @@
 -include_lib("nitro/include/event.hrl").
 -export([render_element/1]).
 
-render_element(#comboLookupModify_item{list_id = ListId, value = Value, bind = Bind, pos = Pos, feed = Feed, delegate = Module, disabled = Disabled}) ->
+render_element(#comboLookupModify_item{list_id = ListId, value = Value, bind = OldBind, pos = Pos, feed = Feed, delegate = Module, default = Default, disabled = Disabled}) ->
   Id = form:atom([ListId, erp:guid()]),
   Close =
     case Disabled of
       true -> [];
       _ -> #panel{class = <<"modify_item-close">>, onclick = nitro:jse("this.parentNode.remove();")}
     end,
-  Selected =
+  {Bind, SelectedBind} =
+    case element(Pos, OldBind) of
+      [] -> {setelement(Pos, OldBind, Default), Default};
+      X -> {OldBind, X}
+    end,
+  SelectedValue =
     case erlang:function_exported(Module, view_value, 1) of
-      true -> apply(Module, view_value, [element(Pos, Bind)]);
+      true -> apply(Module, view_value, [SelectedBind]);
       false -> []
     end,
   nitro:render(
@@ -25,7 +30,7 @@ render_element(#comboLookupModify_item{list_id = ListId, value = Value, bind = B
       body = [
         #panel{class = <<"modify_item-title">>, body = Value},
         Close,
-        #comboLookup{id = form:atom([Id, "input"]), feed = Feed, delegate = Module, value = Selected, nested = Id, disabled = Disabled}
+        #comboLookup{id = form:atom([Id, "input"]), feed = Feed, delegate = Module, value = SelectedValue, bind = SelectedBind, nested = Id, disabled = Disabled}
       ]
     }
   ).

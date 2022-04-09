@@ -83,7 +83,7 @@ function comboLookupChange(dom) {
 function comboLookupClick(uid, dom, feed, mod) {
   var dropdown = qi(dom).closest('.dropdown');
   var char = event.which || event.keyCode;
-  if (char ==  1 && !activeCombo && qi(dom).value == '') {
+  if (char ==  1 && !activeCombo && (qi(dom).value == '' || qi(dom).getAttribute('nested'))) {
     activeCombo = dom;
     currentItem = undefined;
     dropdown.classList.add('dropdown-open');
@@ -192,7 +192,8 @@ function comboLookupModifyAdd(listId, inputId) {
                      dec(unbase64(bind)),
                      dec(unbase64(list.getAttribute('data-delegate'))),
                      dec(unbase64(list.getAttribute('data-pos'))),
-                     dec(unbase64(list.getAttribute('data-feed')))));
+                     dec(unbase64(list.getAttribute('data-feed'))),
+                     dec(unbase64(list.getAttribute('data-default')))));
       }
     }
   }

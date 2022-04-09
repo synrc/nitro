@@ -5,7 +5,8 @@
 -include_lib("nitro/include/event.hrl").
 -export([render_element/1]).
 
-render_element(#comboLookupModify{id = Id, input = Input, disabled = Disabled, validation = Validation, values = Values, modify_pos = Pos, modify_feed = Feed, modify_module = Module}) ->
+render_element(#comboLookupModify{id = Id, input = Input, disabled = Disabled, validation = Validation, values = Values,
+  modify_pos = Pos, modify_feed = Feed, modify_module = Module, modify_default = Default}) ->
   ListId = form:atom([Id, "list"]),
   InputId = element(#element.id, Input),
   InputBody =
@@ -19,7 +20,7 @@ render_element(#comboLookupModify{id = Id, input = Input, disabled = Disabled, v
           ]
         }
     end,
-  ProtoItem = #comboLookupModify_item{list_id = ListId, pos = Pos, feed = Feed, delegate = Module, disabled = Disabled},
+  ProtoItem = #comboLookupModify_item{list_id = ListId, pos = Pos, feed = Feed, delegate = Module, default = Default, disabled = Disabled},
   ListBody =
     case Values of
       {view_value_pairs, X} -> [ProtoItem#comboLookupModify_item{value = Value, bind = Bind} || {Value, Bind} <- X];
@@ -38,7 +39,8 @@ render_element(#comboLookupModify{id = Id, input = Input, disabled = Disabled, v
             {<<"data-modify-list">>, <<"data-modify-list">>},
             {<<"data-pos">>, base64:encode(term_to_binary(Pos))},
             {<<"data-feed">>, base64:encode(term_to_binary(Feed))},
-            {<<"data-delegate">>, base64:encode(term_to_binary(Module))}
+            {<<"data-delegate">>, base64:encode(term_to_binary(Module))},
+            {<<"data-default">>, base64:encode(term_to_binary(Default))}
           ],
           body = ListBody
         }
