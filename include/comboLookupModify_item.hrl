@@ -4,6 +4,6 @@
 -include_lib("nitro/include/nitro.hrl").
 
 -record(comboLookupModify_item, {?ELEMENT_BASE(element_comboLookupModify_item), list_id = [], value = [],
-                                 pos = [], feed = [], disabled = false}).
+                                 pos = [], feed = [], default = [], disabled = false}).
 
 -endif.

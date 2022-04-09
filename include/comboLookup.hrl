@@ -9,7 +9,7 @@
 -record(comboNext,   { pos=[],  count=[], feed=[]}).
 -record(comboScroll, { uid=[], dom=[], delegate=[] }).
 -record(comboInsert, { uid=[], dom=[], rows=[], chunks=[], status=[], delegate=[], feed=[] }).
--record(comboAdd,    { list_id=[], value=[], bind=[], delegate=[], pos=[], feed=[] }).
+-record(comboAdd,    { list_id=[], value=[], bind=[], delegate=[], pos=[], feed=[], default=[]}).
 -record(comboModify, { list_id=[], item_id=[], value=[], bind=[], modify_bind=[], delegate=[], pos=[], feed=[] }).
 -record(comboLookup, { ?ELEMENT_BASE(element_comboLookup),
     value=[],

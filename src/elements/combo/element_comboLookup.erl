@@ -14,15 +14,13 @@ proto(#comboModify{delegate=Module}=Msg) -> Module:proto(Msg).
 render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object,
   feed = Feed, disabled = Disabled, delegate = Module, class = Class, nested = Nested} = Data) ->
   Uid = nitro_pi:uid([], []),
+  DataNested = case Nested of [] -> []; _ -> [{<<"nested">>, Nested}] end,
+  DataBind = case Object of [] -> []; _ -> [{<<"data-bind">>, base64:encode(term_to_binary(Object))}] end,
   nitro:render(
     #panel{id=form:atom([lookup, Id]), class=lists:flatten([dropdown, Class]),
            body=[#input{id=Id, disabled = Disabled, type="comboLookup",
                         autocomplete = "off",
-                        data_fields =
-                          case Nested of
-                            [] -> [];
-                            X -> [{<<"nested">>, X}]
-                          end,
+                        data_fields = DataNested ++ DataBind,
                         onkeyup = nitro:jse("comboLookupKeyup('"
                                ++ nitro:to_list(Uid) ++ "','"
                                ++ nitro:to_list(Id) ++ "','"
