@@ -77,7 +77,8 @@ html_events(#pickle{source = Source, pickled = Pickled,
                   <<>>;
               #ev{} ->
                   render_ev(Ev, Source, Linked, State),
-                  nitro:authenticate([], Token);
+                  nitro:authenticate([], Token),
+                  <<>>;
               _CustomEnvelop -> %?LOG_ERROR("EV expected: ~p~n",[CustomEnvelop]),
                   {error, "EV expected"}
           end,
