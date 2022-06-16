@@ -188,10 +188,10 @@ update(Target, Elements) ->
 
 insert_top(Tag, Target, Elements) ->
     {Render, _Ref, Actions} = render_html(Elements),
-    nitro:wire(nitro:f("qi('~s').insertBefore((function(){var "
+    nitro:wire(nitro:f("var x=qi('~s'); if(x) { x.insertBefore((function(){var "
                        "div = qn('~s'); div.innerHTML = `~s`; "
                        "return div.firstChild; })(),qi('~s').firstChi"
-                       "ld);",
+                       "ld); }",
                        [Target, Tag, Render, Target])),
     nitro:wire(nitro:render(Actions)).
 
