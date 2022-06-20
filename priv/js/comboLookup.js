@@ -42,32 +42,72 @@ function comboClear(dom) {
 }
 
 function comboSelect(uid, dom, row, feed, mod, id) {
-    let elem = qi(dom);
-    comboClear(dom);
-    if (qi(id)) elem.setAttribute("data-bind", qi(id).getAttribute('data-bind'));
-    elem.value = row;
-    elem.style.backgroundColor = 'white';
-    var dropdown = qi(dom).closest('.dropdown');
-    dropdown.classList.remove('dropdown-open');
-    dropdown.classList.remove('is-reversed');
-    dropdown.classList.add('dropdown-bind');
-    let value = qi(id) ? dec(unbase64(qi(id).getAttribute('data-bind'))) : string(row);
-    const modifyItem = qi(elem.getAttribute('nested'));
-    if (modifyItem) {
-      const list = modifyItem.parentNode;
-      direct(tuple(atom('comboModify'),
-                   string(list.id),
-                   string(modifyItem.id),
-                   string(modifyItem.firstChild.innerHTML),
-                   dec(unbase64(modifyItem.getAttribute('data-bind'))),
-                   value,
-                   dec(unbase64(list.getAttribute('data-delegate'))),
-                   dec(unbase64(list.getAttribute('data-pos'))),
-                   dec(unbase64(list.getAttribute('data-feed')))));
-    } else {
-      direct(tuple(atom('comboSelect'), bin(uid), value, string(dom), string(feed), atom(mod)));
+  let elem = qi(dom);
+  elem.value = '';
+  comboClear(dom);
+
+  if (qi(elem.getAttribute('nested'))) {
+    comboSelectModify(...arguments);
+  } else if (elem.parentNode.parentNode.parentNode.getAttribute('data-vector-input')) {
+    comboSelectVector(...arguments);
+  } else if (elem.parentNode.parentNode.getAttribute('data-group-input')) {
+    comboSelectGroup(...arguments);
+  } else {
+    comboSelectDefault(...arguments);
+  }
+}
+
+function comboSelectDefault(uid, dom, row, feed, mod, id) {
+  let elem = qi(dom);
+  elem.closest('.dropdown').classList.add('dropdown-bind')
+  elem.value = row;
+
+  let value = string(row);
+  const selected = qi(id);
+  if (selected) {
+    elem.setAttribute('data-bind', selected.getAttribute('data-bind'));
+    value = dec(unbase64(selected.getAttribute('data-bind')));
+  }
+
+  direct(tuple(atom('comboSelect'), bin(uid), value, string(dom), string(feed), atom(mod)));
+  comboLookupTextApply(dom);
+};
+
+function comboSelectModify(uid, dom, row, feed, mod, id) {
+  const modifyItem = qi(qi(dom).getAttribute('nested'));
+  const list = modifyItem.parentNode;
+  const value = qi(id) ? dec(unbase64(qi(id).getAttribute('data-bind'))) : string(row)
+
+  direct(tuple(atom('comboModify'),
+               string(list.id),
+               string(modifyItem.id),
+               string(modifyItem.firstChild.innerHTML),
+               dec(unbase64(modifyItem.getAttribute('data-bind'))),
+               value,
+               dec(unbase64(list.getAttribute('data-delegate'))),
+               dec(unbase64(list.getAttribute('data-pos'))),
+               dec(unbase64(list.getAttribute('data-feed')))));
+}
+
+function comboSelectVector(uid, dom, row, feed, mod, id) {
+  comboSelectDefault(...arguments);
+  let listSplit = dom.split('_');
+  listSplit.pop();
+  const list = '#' + listSplit.join('_') + '_list';
+  addSortableItemFrom(list, dom);
+}
+
+function comboSelectGroup(uid, dom, row, feed, mod, id) {
+  const selected = qi(id);
+  if (selected) {
+    const parent = qi(dom).parentNode.parentNode;
+    const bind = selected.getAttribute('data-bind');
+    if (!parent.querySelector(`[data-group-item='data-group-item'][data-bind='${bind}']`)) {
+      const draft = parent.id + '_draft';
+      const value = dec(unbase64(bind));
+      direct(tuple(atom('comboGroup'), string(draft), value, atom(mod)));
     }
-    comboLookupTextApply(dom);
+  }
 }
 
 function comboLookupChange(dom) {
@@ -208,6 +248,30 @@ function comboLookupModifyValues(listId) {
   } else {
     return []
   }
+}
+
+function comboLookupGroupDraft(id, group, subtitle, mod) {
+  const elem = qi(id);
+  const values = Array.from(elem.querySelectorAll('[data-group-item]')).map(function (el) {return dec(unbase64(el.getAttribute('data-bind')))});
+  direct(tuple(atom('comboDraft'), string(elem.parentNode.id), string(id), values, atom(group), bin(subtitle), atom(mod)));
+}
+
+function groupListDrag(e) { e.dataTransfer.setData('text', e.target.id); }
+
+function groupListDrop(e) {
+  e.preventDefault();
+  const node1 = e.currentTarget;
+  const node2 = qi(e.dataTransfer.getData('text'));
+  const parent = node1.parentNode;
+  const sibling = node1.nextSibling === node2 ? node1 : node1.nextSibling;
+
+  node2.parentNode.insertBefore(node1, node2);
+  parent.insertBefore(node2, sibling);
+}
+
+function groupListAllowDrop(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
 }
 
 document.addEventListener("click", () => {
