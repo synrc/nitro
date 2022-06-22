@@ -11,8 +11,6 @@
 -record(comboInsert, { uid=[], dom=[], rows=[], chunks=[], status=[], delegate=[], feed=[] }).
 -record(comboAdd,    { list_id=[], value=[], bind=[], delegate=[], pos=[], feed=[], default=[]}).
 -record(comboModify, { list_id=[], item_id=[], value=[], bind=[], modify_bind=[], delegate=[], pos=[], feed=[] }).
--record(comboGroup,  { dom=[], value=[], delegate=[] }).
--record(comboDraft,  { dom=[], list=[], values=[], group=[], subtitle=[], delegate=[] }).
 -record(comboLookup, { ?ELEMENT_BASE(element_comboLookup),
     value=[],
     disabled=false,

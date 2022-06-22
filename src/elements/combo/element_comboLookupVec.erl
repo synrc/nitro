@@ -19,7 +19,13 @@ render_element(#comboLookupVec{id=Id, input=Input, disabled=Disabled, validation
           body =
             case Disabled of
               true -> [];
-              _ -> Input end },
+              _ ->
+                [ Input,
+                  #link{
+                    class = [button, sgreen, 'add-btn'],
+                    style = "min-width: 40px; text-align: center; height: fit-content; margin-left: 5px;",
+                    onclick = nitro:jse("addSortableItemFrom('#" ++ ListId ++ "', '" ++ InputId ++ "')"),
+                    body = <<"+">>} ] end },
         % TODO: Add validation for each list_item and/or "+" button
         % TODO?: Maybe show message "Empty list" when Values == []
         #sortable_list{id = ListId, values = Values, closeable = true, disabled = Disabled}]}).
