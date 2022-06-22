@@ -17,6 +17,8 @@ defmodule NITRO.Combo do
   def proto(NITRO.comboInsert(delegate: []) = msg), do: comboInsert(msg)
   def proto(NITRO.comboAdd(delegate: []) = msg), do: comboAdd(msg)
   def proto(NITRO.comboModify(delegate: []) = msg), do: comboModify(msg)
+  def proto(NITRO.comboGroup(delegate: []) = msg), do: comboGroup(msg)
+  def proto(NITRO.comboDraft(delegate: []) = msg), do: comboDraft(msg)
 
   def proto(NITRO.comboKey(delegate: module) = msg) do
     case has_function(module, :keyUp) do
@@ -60,6 +62,20 @@ defmodule NITRO.Combo do
     end
   end
 
+  def proto(NITRO.comboGroup(delegate: module) = msg) do
+    case has_function(module, :comboGroup) do
+      true -> module.comboGroup(msg)
+      false -> comboGroup(msg)
+    end
+  end
+
+  def proto(NITRO.comboDraft(delegate: module) = msg) do
+    case has_function(module, :comboDraft) do
+      true -> module.comboDraft(msg)
+      false -> comboDraft(msg)
+    end
+  end
+
   def select(NITRO.comboSelect(uid: uid, dom: field)), do:
     NITRO.Combo.Search.stop(uid, field)
 
@@ -91,6 +107,29 @@ defmodule NITRO.Combo do
       item,
       NITRO.comboLookupModify_item(list_id: list, value: value, bind: new_bind, pos: pos, feed: feed, delegate: module)
     )
+  end
+
+  def comboGroup(NITRO.comboGroup(dom: dom, value: value, delegate: module)) do
+    :nitro.insert_bottom(
+      dom,
+      NITRO.comboLookupGroup_item(value: view_value(value, module, []), bind: value, group: :draft)
+    )
+  end
+
+  def comboDraft(NITRO.comboDraft(values: [])), do: []
+  def comboDraft(NITRO.comboDraft(dom: dom, list: list_id, values: values, group: group, subtitle: subtitle, delegate: module)) do
+    value_pairs = {:view_value_pairs, :lists.map(fn val -> {view_value(val, module, []), val} end, values)}
+    proto_item = NITRO.comboLookupGroup_list(subtitle: subtitle, delegate: module)
+    draft_id = :form.atom([dom, :draft])
+
+    case group do
+      :draft ->
+        :nitro.update(draft_id, NITRO.comboLookupGroup_list(proto_item, id: draft_id, group: :draft))
+        :nitro.insert_after(draft_id, NITRO.comboLookupGroup_list(proto_item, id: :form.atom([dom, :erp.guid()]), values: value_pairs, group: :saved))
+      _ ->
+        :nitro.update(draft_id, NITRO.comboLookupGroup_list(proto_item, id: draft_id, values: value_pairs, group: :draft))
+        :nitro.remove(list_id)
+    end
   end
 
   def dropDown0(uid, obj, dom0, module, feed) do
