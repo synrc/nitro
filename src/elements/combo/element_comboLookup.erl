@@ -9,7 +9,9 @@ proto(#comboSelect{delegate=Module}=Msg) -> Module:proto(Msg);
 proto(#comboScroll{delegate=Module}=Msg) -> Module:proto(Msg);
 proto(#comboInsert{delegate=Module}=Msg) -> Module:proto(Msg);
 proto(#comboAdd{delegate=Module}=Msg)    -> Module:proto(Msg);
-proto(#comboModify{delegate=Module}=Msg) -> Module:proto(Msg).
+proto(#comboModify{delegate=Module}=Msg) -> Module:proto(Msg);
+proto(#comboGroup{delegate=Module}=Msg)  -> Module:proto(Msg);
+proto(#comboDraft{delegate=Module}=Msg)  -> Module:proto(Msg).
 
 render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object,
   feed = Feed, disabled = Disabled, delegate = Module, class = Class, nested = Nested} = Data) ->
@@ -36,7 +38,6 @@ render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object,
                         bind = Object,
                         value = Val, style = Style, class = column},
                  #panel{class=['triangle'],
-                        body="&blacktriangledown;",
                         onclick =
                           case Disabled of
                             true -> [];
