@@ -8,18 +8,6 @@
 render_element(#comboLookupModify{id = Id, input = Input, disabled = Disabled, validation = Validation, values = Values,
   modify_pos = Pos, modify_feed = Feed, modify_module = Module, modify_default = Default}) ->
   ListId = form:atom([Id, "list"]),
-  InputId = element(#element.id, Input),
-  InputBody =
-    case Disabled of
-      true -> [];
-      _ ->
-        #panel{
-          body = [
-            Input,
-            #link{class = 'add-btn', onclick = nitro:jse("comboLookupModifyAdd('" ++ ListId ++ "', '" ++ InputId ++ "');")}
-          ]
-        }
-    end,
   ProtoItem = #comboLookupModify_item{list_id = ListId, pos = Pos, feed = Feed, delegate = Module, default = Default, disabled = Disabled},
   ListBody =
     case Values of
@@ -32,7 +20,7 @@ render_element(#comboLookupModify{id = Id, input = Input, disabled = Disabled, v
       data_fields = [{<<"data-modify-input">>, <<"data-modify-input">>}],
       validation = Validation,
       body = [
-        InputBody,
+        case Disabled of true -> []; _ -> Input end,
         #panel{
           id = ListId,
           data_fields = [

@@ -107,7 +107,10 @@ body {
 
 .add-btn,
 .delete-btn,
-.modify_item-close {
+.modify_item-close,
+.group-button__confirm,
+.group-button__delete,
+.group-button__edit {
   position: absolute;
   top: 8px;
   right: 10px;
@@ -122,7 +125,16 @@ body {
 }
 
 .delete-btn,
-.modify_item-close {
+.modify_item-close,
+.group-button__delete {
   background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.6666 4.27325L11.7266 3.33325L7.99992 7.05992L4.27325 3.33325L3.33325 4.27325L7.05992 7.99992L3.33325 11.7266L4.27325 12.6666L7.99992 8.93992L11.7266 12.6666L12.6666 11.7266L8.93992 7.99992L12.6666 4.27325Z' fill='%23757575'/%3E%3C/svg%3E%0A");
   right: 30px;
+}
+
+.group-button__confirm {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8Zm6 1 4-4 1 1-5 5-3-2 1-1 2 1Z' fill='%230D63B3'/%3E%3C/svg%3E");
+}
+
+.group-button__edit {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='m12.246 2.193 1.56 1.56c.26.26.26.68 0 .94l-1.22 1.22-2.5-2.5 1.22-1.22A.656.656 0 0 1 11.772 2c.174 0 .34.06.474.193ZM1.999 11.5V14h2.5l7.373-7.373-2.5-2.5L2 11.5Zm1.947 1.167h-.614v-.614l6.04-6.04.614.614-6.04 6.04Z' fill='%23757575'/%3E%3C/svg%3E");
 }
