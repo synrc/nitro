@@ -1,2 +1,5 @@
 ebin
+_build
+deps
 .DS_Store
+*.lock
