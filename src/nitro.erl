@@ -197,10 +197,11 @@ insert_top(Tag, Target, Elements) ->
 
 insert_bottom(Tag, Target, Elements) ->
     {Render, _Ref, Actions} = render_html(Elements),
-    nitro:wire(nitro:f("(function(){ var div = qn('~s'); div.innerHTM"
-                       "L = `~s`;qi('~s').appendChild(div.firstChild)"
-                       "; })();",
-                       [Tag, Render, Target])),
+    nitro:wire(nitro:f("(function(){ var div = qn('~s');" 
+                       "let x = qi('~s'); if(x){ div.innerHTML = `~s`;"
+                       "x.appendChild(div.firstChild);"
+                       "}})();",
+                       [Tag, Target, Render])),
     nitro:wire(nitro:render(Actions)).
 
 insert_before(Target, Elements) ->
