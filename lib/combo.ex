@@ -120,12 +120,12 @@ defmodule NITRO.Combo do
   def comboDraft(NITRO.comboDraft(dom: dom, list: list_id, values: values, group: group, subtitle: subtitle, delegate: module)) do
     value_pairs = {:view_value_pairs, :lists.map(fn val -> {view_value(val, module, []), val} end, values)}
     proto_item = NITRO.comboLookupGroup_list(subtitle: subtitle, delegate: module)
-    draft_id = :form.atom([dom, :draft])
+    draft_id = :nitro.atom([dom, :draft])
 
     case group do
       :draft ->
         :nitro.update(draft_id, NITRO.comboLookupGroup_list(proto_item, id: draft_id, group: :draft))
-        :nitro.insert_bottom(dom, NITRO.comboLookupGroup_list(proto_item, id: :form.atom([dom, :erp.guid()]), values: value_pairs, group: :saved))
+        :nitro.insert_bottom(dom, NITRO.comboLookupGroup_list(proto_item, id: :nitro.atom([dom, guid()]), values: value_pairs, group: :saved))
       _ ->
         :nitro.update(draft_id, NITRO.comboLookupGroup_list(proto_item, id: draft_id, values: value_pairs, group: :draft))
         :nitro.remove(list_id)
@@ -230,4 +230,6 @@ defmodule NITRO.Combo do
     isF = Keyword.get(functions, f, -1)
     isF != -1
   end
+
+  defp guid(m \\ :erp) do case has_function(m, :guid) do true -> m.guid(); false -> [] end end
 end
