@@ -65,13 +65,15 @@ function comboSelectDefault(uid, dom, row, feed, mod, id) {
   elem.value = row;
 
   let value = string(row);
+  let update = list();
   const selected = qi(id);
   if (selected) {
     elem.setAttribute('data-bind', selected.getAttribute('data-bind'));
     value = dec(unbase64(selected.getAttribute('data-bind')));
+    if (elem.getAttribute('data-update')) { update = dec(unbase64(elem.getAttribute('data-update'))); }
   }
 
-  direct(tuple(atom('comboSelect'), bin(uid), value, string(dom), string(feed), atom(mod)));
+  direct(tuple(atom('comboSelect'), bin(uid), value, string(dom), string(feed), atom(mod), update));
   comboLookupTextApply(dom);
 };
 

@@ -11,6 +11,10 @@ render_element(Record) ->
         [] -> ignore;
         Postback -> nitro:wire(#event { type=change, postback=Postback, target=Id, source=[Id|Record#checkbox.source], delegate=Record#checkbox.delegate })
     end,
+    case Record#checkbox.update of
+        [] -> ignore;
+        Update -> nitro:wire(#event { type=change, postback=Update, target=Id, source=[Id|Record#checkbox.source], delegate=Record#checkbox.delegate })
+    end,
    List = [
       % global
       {<<"accesskey">>, Record#checkbox.accesskey},

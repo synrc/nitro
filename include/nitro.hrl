@@ -68,13 +68,13 @@
 -record(option,       {?ELEMENT_BASE(element_select), disabled=[], label=[], selected=false, value=[]}).
 -record(output,       {?ELEMENT_BASE(element_output), for, form, name}).
 -record(progress,       {?ELEMENT_BASE(element_progress), max=[], value=[]}).
--record(select,       {?ELEMENT_BASE(element_select), autofocus=[], disabled=[], form=[], name=[], required=[], size=[]}).
+-record(select,       {?ELEMENT_BASE(element_select), autofocus=[], disabled=[], form=[], name=[], required=[], size=[], update=[]}).
 -record(textarea,       {?ELEMENT_BASE(element_textarea), autofocus=[], cols=[], dirname=[], disabled=[], form=[], maxlength, name, placeholder, readonly=[], required=[], rows=[], wrap=[], value=[]}).
 
 % HTML Form inputs
 -record(input,       {?ELEMENT_BASE(element_input), required, autocomplete, autofocus, disabled, form, name, value, type=[], checked=false, placeholder, min, max, pattern, accept}).
 -record(input_button,       {?ELEMENT_BASE(element_input_button),  autofocus, disabled, form, name, value}).
--record(checkbox,           {?ELEMENT_BASE(element_checkbox),  autofocus, checked=false, disabled, form, name, required, value, label=true}).
+-record(checkbox,           {?ELEMENT_BASE(element_checkbox),  autofocus, checked=false, disabled, form, name, required, value, label=true, update=[]}).
 -record(color,           {?ELEMENT_BASE(element_color),  autocomplete, autofocus, disabled, form, list, name, value}).
 -record(date,           {?ELEMENT_BASE(element_date),  autocomplete, autofocus, disabled, form, list, max, min, name, step, readonly, required, value}).
 -record(datetime,           {?ELEMENT_BASE(element_datetime),  autocomplete, autofocus, disabled, form, list, max, min, name, step, readonly, required, value}).
