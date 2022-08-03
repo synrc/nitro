@@ -76,6 +76,10 @@ defmodule NITRO.Combo do
     end
   end
 
+  def select(NITRO.comboSelect(uid: uid, dom: field, value: value, update: NITRO.comboUpdate() = update)) do
+    send(self(), {:direct, NITRO.comboUpdate(update, value: value)})
+    NITRO.Combo.Search.stop(uid, field)
+  end
   def select(NITRO.comboSelect(uid: uid, dom: field)), do:
     NITRO.Combo.Search.stop(uid, field)
 

@@ -13,6 +13,13 @@ render_element(Record = #select{}) ->
                                 postback=Postback,
                                 source=[nitro:to_atom(ID)|Record#select.source],
                                 delegate=Record#select.delegate }) end,
+  case Record#select.update of
+    [] -> skip;
+    Update -> nitro:wire(#event{ type=change,
+                                target=ID,
+                                postback=Update,
+                                source=[nitro:to_atom(ID)|Record#select.source],
+                                delegate=Record#select.delegate }) end,
   Props = [
     {<<"id">>, ID},
     {<<"class">>, Record#select.class},
