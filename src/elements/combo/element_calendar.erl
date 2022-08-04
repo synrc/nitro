@@ -6,14 +6,14 @@
 
 render_element(Record) when Record#calendar.show_if==false -> [<<>>];
 render_element(Record) ->
-    Id = case Recprd#calendar.id of [] -> nitro:temp_id(); I -> I end,
+    Id = case Record#calendar.id of [] -> nitro:temp_id(); I -> I end,
     case Record#calendar.postback of
       [] -> skip;
-      Postback -> nitro:wire(#event{type=click, postback=Postback, target=ID, source=Record#calendar.source, delegate=Record#calendar.delegate}),
+      Postback -> nitro:wire(#event{type=click, postback=Postback, target=Id, source=Record#calendar.source, delegate=Record#calendar.delegate})
     end,
     case Record#calendar.update of
       [] -> skip;
-      Update -> nitro:wire(#event{type=click, postback=Update, target=ID, source=Record#calendar.source, delegate=Record#calendar.delegate}),
+      Update -> nitro:wire(#event{type=click, postback=Update, target=Id, source=Record#calendar.source, delegate=Record#calendar.delegate})
     end,
 
     init(Id,Record),
