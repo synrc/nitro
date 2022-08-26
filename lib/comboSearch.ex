@@ -79,7 +79,7 @@ defmodule NITRO.Combo.Search do
     state(uid: uid, feed: feed, reader: r, value: prev, pid: pid, opts: opts) = st
     m = Keyword.get(opts, :delegate, [])
     field = Keyword.get(opts, :field, [])
-    value = case cmd do :append -> prev; _ -> :string.lowercase(:unicode.characters_to_list(value0, :unicode)) end
+    value = case cmd do :init -> :string.lowercase(:unicode.characters_to_list(value0, :unicode)); _ -> prev end
     cmd in [:init, :append] and send(pid, {:direct, NITRO.comboLoader(dom: field, delegate: m)})
     r1 = :erlang.apply(:kvs, :take, [:erlang.apply(:kvs, :setfield, [r, :args, 10])])
     case :erlang.apply(:kvs, :field, [r1, :args]) do
