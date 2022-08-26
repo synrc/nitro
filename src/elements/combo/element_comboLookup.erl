@@ -11,7 +11,8 @@ proto(#comboInsert{delegate=Module}=Msg) -> Module:proto(Msg);
 proto(#comboAdd{delegate=Module}=Msg)    -> Module:proto(Msg);
 proto(#comboModify{delegate=Module}=Msg) -> Module:proto(Msg);
 proto(#comboGroup{delegate=Module}=Msg)  -> Module:proto(Msg);
-proto(#comboDraft{delegate=Module}=Msg)  -> Module:proto(Msg).
+proto(#comboDraft{delegate=Module}=Msg)  -> Module:proto(Msg);
+proto(#comboLoader{delegate=Module}=Msg) -> Module:proto(Msg).
 
 render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object,
   feed = Feed, disabled = Disabled, delegate = Module, class = Class, nested = Nested, update = Update} = Data) ->

@@ -19,6 +19,7 @@ defmodule NITRO.Combo do
   def proto(NITRO.comboModify(delegate: []) = msg), do: comboModify(msg)
   def proto(NITRO.comboGroup(delegate: []) = msg), do: comboGroup(msg)
   def proto(NITRO.comboDraft(delegate: []) = msg), do: comboDraft(msg)
+  def proto(NITRO.comboLoader(delegate: []) = msg), do: comboLoader(msg)
 
   def proto(NITRO.comboKey(delegate: module) = msg) do
     case has_function(module, :keyUp) do
@@ -76,12 +77,22 @@ defmodule NITRO.Combo do
     end
   end
 
-  def select(NITRO.comboSelect(uid: uid, dom: field, value: value, update: NITRO.comboUpdate() = update)) do
+  def proto(NITRO.comboLoader(delegate: module) = msg) do
+    case has_function(module, :comboLoader) do
+      true -> module.comboLoader(msg)
+      false -> comboLoader(msg)
+    end
+  end
+
+  def select(NITRO.comboSelect(uid: uid, dom: field, value: value, delegate: m, update: NITRO.comboUpdate() = update)) do
     send(self(), {:direct, NITRO.comboUpdate(update, value: value)})
+    send(self(), {:direct, NITRO.comboLoader(dom: field, delegate: m, status: :finished)})
     NITRO.Combo.Search.stop(uid, field)
   end
-  def select(NITRO.comboSelect(uid: uid, dom: field)), do:
+  def select(NITRO.comboSelect(uid: uid, dom: field, delegate: m)) do
+    send(self(), {:direct, NITRO.comboLoader(dom: field, delegate: m, status: :finished)})
     NITRO.Combo.Search.stop(uid, field)
+  end
 
   def comboInsert(NITRO.comboInsert(chunks: 0, dom: field, status: :finished)) do
     :nitro.wire("activeCombo = undefined; currentItem = undefined;")
@@ -135,6 +146,9 @@ defmodule NITRO.Combo do
         :nitro.remove(list_id)
     end
   end
+
+  def comboLoader(NITRO.comboLoader(dom: dom, status: :finished)), do: :nitro.remove(:nitro.atom([dom, :loader]))
+  def comboLoader(NITRO.comboLoader(dom: dom)), do: :nitro.insert_bottom(:nitro.atom([:lookup, dom]), loader(:nitro.atom([dom, :loader])))
 
   def dropDown0(uid, obj, dom0, module, feed) do
     case has_function(module, :dropDown) do
@@ -203,6 +217,13 @@ defmodule NITRO.Combo do
       false -> item(obj, [])
     end
   end
+
+  def loader(id), do:
+    NITRO.div(
+      id: id,
+      class: "search-loader",
+      body: [NITRO.span(), NITRO.span(), NITRO.span(), NITRO.span(), NITRO.span(), NITRO.span()]
+    )
 
   def update_comboVec(_parent, dom, feed, module, default, elem) do
     vector  = view_value(default, module, feed)
