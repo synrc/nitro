@@ -14,6 +14,7 @@
 -record(comboGroup,  { dom=[], value=[], delegate=[] }).
 -record(comboDraft,  { dom=[], list=[], values=[], group=[], subtitle=[], delegate=[] }).
 -record(comboUpdate, { id=[], fields=[], module=[], action=[], value=[] }).
+-record(comboLoader, { dom=[], delegate=[], status=[] }).
 -record(comboLookup, { ?ELEMENT_BASE(element_comboLookup),
     value=[],
     disabled=false,

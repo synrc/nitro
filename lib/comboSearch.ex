@@ -46,6 +46,7 @@ defmodule NITRO.Combo.Search do
     :nitro.wire("comboCloseFormById('#{:nitro.atom([:nitro.to_list(field), 'form'])}');")
     :nitro.wire("comboLookupChange('#{field}');")
     :nitro.wire(NITRO.bind(target: :nitro.to_binary(comboContainer), type: :scroll, postback: onscroll(uid, field, module)))
+    send(self(), {:direct, NITRO.comboLoader(dom: field, delegate: module, status: :finished)})
     start(uid, value, field, feed, opts)
   end
 
@@ -79,10 +80,12 @@ defmodule NITRO.Combo.Search do
     m = Keyword.get(opts, :delegate, [])
     field = Keyword.get(opts, :field, [])
     value = case cmd do :append -> prev; _ -> :string.lowercase(:unicode.characters_to_list(value0, :unicode)) end
+    cmd in [:init, :append] and send(pid, {:direct, NITRO.comboLoader(dom: field, delegate: m)})
     r1 = :erlang.apply(:kvs, :take, [:erlang.apply(:kvs, :setfield, [r, :args, 10])])
     case :erlang.apply(:kvs, :field, [r1, :args]) do
       [] ->
         send(pid, {:direct, NITRO.comboInsert(uid: uid, dom: field, delegate: m, chunks: chunks, status: :finished)})
+        send(pid, {:direct, NITRO.comboLoader(dom: field, delegate: m, status: :finished)})
         {:stop, :normal, NITRO.pi(pi, state: state(st, reader: :erlang.apply(:kvs, :setfield, [r1, :args, []])))}
       rows ->
         filtered =
@@ -97,8 +100,9 @@ defmodule NITRO.Combo.Search do
           end
         newChunks = chunks + length(filtered)
         send(pid, {:direct, NITRO.comboInsert(uid: uid, dom: field, delegate: m, chunks: newChunks, feed: feed, rows: filtered)})
-        chunks < 100 and
-          case :nitro_pi.pid(:async, "comboSearch#{uid}") do [] -> []; pid -> send(pid, {:filterComboValues, cmd, value0}) end
+        if chunks < 100, do:
+          (case :nitro_pi.pid(:async, "comboSearch#{uid}") do [] -> []; pid -> send(pid, {:filterComboValues, :continue, value0}) end),
+        else: send(pid, {:direct, NITRO.comboLoader(dom: field, delegate: m, status: :finished)})
         {:noreply, NITRO.pi(pi, state: state(st, lastMsg: :erlang.timestamp(), value: value, chunks: newChunks, reader: :erlang.apply(:kvs, :setfield, [r1, :args, []])))}
     end
   end
