@@ -10,7 +10,7 @@ function unbase64(base64) {
 
 // Nitrogen Compatibility Layer
 
-function direct(term) { active ? ws.send(enc(tuple(atom('direct'),term))) : null; }
+function direct(term) { ws.send(enc(tuple(atom('direct'),term))); }
 function validateSources() { return true; }
 function querySourceRaw(Id) {
     var val, el = document.getElementById(Id);
