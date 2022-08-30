@@ -70,9 +70,12 @@ defmodule NITRO.Combo.Search do
       "}"
     ])
 
-  def proc(:init, NITRO.pi(state: state(value: v, opts: opts, feed: feed) = st) = pi) do
+  def proc(:init, NITRO.pi(state: state(value: v, opts: opts, feed: feed, pid: pid) = st) = pi) do
     v = :string.lowercase(v)
     reader = :erlang.apply(:kvs, :reader, [feed])
+
+    m     = Keyword.get(opts, :delegate, [])
+    field = Keyword.get(opts, :field, [])
     index = Keyword.get(opts, :index, [])
       |> Enum.flat_map(
           fn (i) when is_function(i) -> [i];
@@ -86,6 +89,8 @@ defmodule NITRO.Combo.Search do
     opts = Keyword.put(opts, :cps, cps)
 
     send self(), {:filterComboValues, :init, v}
+
+    send(pid, {:direct, NITRO.comboLoader(dom: field, delegate: m)})
 
     {:ok, NITRO.pi(pi, state: state(st, opts: opts, reader: reader, lastMsg: :erlang.timestamp(), timer: ping(100)))}
   end
@@ -115,8 +120,10 @@ defmodule NITRO.Combo.Search do
     cps   = Keyword.get(opts, :cps, [])
     value = case cmd do :init -> value0; _ -> prev end
 
-    cmd in [:init, :append] and 
+    if cmd in [:append] do
+      send(pid, {:direct, NITRO.comboLoader(dom: field, delegate: m, status: :finished)})
       send(pid, {:direct, NITRO.comboLoader(dom: field, delegate: m)})
+    end
 
     r1 = :erlang.apply(:kvs, :take, [:erlang.apply(:kvs, :setfield, [r, :args, 10])])
     case :erlang.apply(:kvs, :field, [r1, :args]) do
