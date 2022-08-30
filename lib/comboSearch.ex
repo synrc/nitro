@@ -6,7 +6,7 @@ defmodule NITRO.Combo.Search do
 
   def start(uid, value, field, feed0, opts) do
     feed = :nitro.to_binary(feed0)
-    state = state(uid: uid, pid: self(), value: value, reader: :erlang.apply(:kvs, :reader, [feed]), opts: opts, feed: feed)
+    state = state(uid: uid, pid: self(), value: value,  opts: opts, feed: feed)
     stop(uid, field)
     pi =
       NITRO.pi(
@@ -70,9 +70,9 @@ defmodule NITRO.Combo.Search do
       "}"
     ])
 
-  def proc(:init, NITRO.pi(state: state(value: v, opts: opts) = st) = pi) do
+  def proc(:init, NITRO.pi(state: state(value: v, opts: opts, feed: feed) = st) = pi) do
     v = :string.lowercase(v)
-
+    reader = :erlang.apply(:kvs, :reader, [feed])
     index = Keyword.get(opts, :index, [])
       |> Enum.flat_map(
           fn (i) when is_function(i) -> [i];
@@ -87,7 +87,7 @@ defmodule NITRO.Combo.Search do
 
     send self(), {:filterComboValues, :init, v}
 
-    {:ok, NITRO.pi(pi, state: state(st, opts: opts, lastMsg: :erlang.timestamp(), timer: ping(100)))}
+    {:ok, NITRO.pi(pi, state: state(st, opts: opts, reader: reader, lastMsg: :erlang.timestamp(), timer: ping(100)))}
   end
 
   def proc({:check}, NITRO.pi(state: state(timer: t, lastMsg: {_, sec, _}) = st) = pi) do
@@ -98,10 +98,10 @@ defmodule NITRO.Combo.Search do
     end
   end
 
-  def proc({:stop, uid, ref}, NITRO.pi(state: state(opts: opts)) = pi) do
+  def proc({:stop, uid, _ref}, NITRO.pi(state: state(opts: opts, pid: pid)) = pi) do
     m  = Keyword.get(opts, :delegate, [])
 
-    send(ref, {:direct, NITRO.comboLoader(dom: uid, delegate: m, status: :finished)})
+    send(pid, {:direct, NITRO.comboLoader(dom: uid, delegate: m, status: :finished)})
 
     {:stop, :normal, pi}
   end
@@ -122,10 +122,10 @@ defmodule NITRO.Combo.Search do
       [] ->
         send(pid, {:direct, NITRO.comboInsert(uid: uid, dom: field, delegate: m, chunks: chunks, status: :finished)})
         send(pid, {:direct, NITRO.comboLoader(dom: field, delegate: m, status: :finished)})
+
         {:stop, :normal, NITRO.pi(pi, state: state(st, reader: :erlang.apply(:kvs, :setfield, [r1, :args, []])))}
-      rows when value == "all" -> rows
       rows ->
-        filtered = rows |>
+        filtered = if value == "all", do: rows, else: rows |>
           Enum.flat_map(fn row ->
             if index
               |> Enum.map(&(:string.lowercase(&1.(row))))
@@ -140,7 +140,9 @@ defmodule NITRO.Combo.Search do
         if chunks < 50, do:  send(self(), {:filterComboValues, :continue, value0}),
         else: send(pid, {:direct, NITRO.comboLoader(dom: field, delegate: m, status: :finished)})
 
-        {:noreply, NITRO.pi(pi, state: state(st, lastMsg: :erlang.timestamp(), value: value, chunks: newChunks, reader: :erlang.apply(:kvs, :setfield, [r1, :args, []])))}
+        reader = :erlang.apply(:kvs, :setfield, [r1, :args, []])
+
+        {:noreply, NITRO.pi(pi, state: state(st, lastMsg: :erlang.timestamp(), value: value, chunks: newChunks, reader: reader))}
     end
   end
 
