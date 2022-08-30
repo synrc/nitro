@@ -849,7 +849,7 @@ function parseDate(value) {
 
             if (this._o.field) {
                 this._o.field.value = this.toString();
-                fireEvent(this._o.field, 'change', { firedBy: this });
+//                fireEvent(this._o.field, 'change', { firedBy: this }); // infinity loop leak
             }
             if (!preventOnSelect && typeof this._o.onSelect === 'function') {
                 this._o.onSelect.call(this, this.getDate());
