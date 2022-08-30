@@ -171,8 +171,13 @@ function comboLookupClick(uid, dom, feed, mod) {
 }
 
 function comboLookupKeydown(uid, dom, feed, mod) {
+    if (event.key == 'Meta')  { return }
+    if (event.key == 'Alt')   { return }
+    if (event.key == 'Shift') { return }
+    if (event.key == 'Enter') { return }
     var dropdown = qi(dom).closest('.dropdown');
     var char = event.which || event.keyCode;
+    if (qi(dom).value == '' && event.key == 'Backspace') { return }
     if (char == 40 && !activeCombo && qi(dom).value == '') {
         activeCombo = dom;
         currentItem = undefined;
@@ -204,10 +209,23 @@ function comboLookupKeydown(uid, dom, feed, mod) {
 
 function comboLookupKeyup(uid, dom, feed, mod) {
     var dropdown = qi(dom).closest('.dropdown')
+    if (event.key == 'Meta')  { return }
+    if (event.key == 'Alt')   { return }
     if (event.key == 'Shift') { return }
+    if (event.key == 'Enter') { return }
     if (event.key == 'Tab') { dropdown.classList.remove('dropdown-open'); return }
     var char = event.which || event.keyCode;
-    if (char == 27 || (char == 8 || char == 46) && qi(dom).value == '') { clearInput(dom); return }
+    if (char == 27 || (char == 8 || char == 46) && qi(dom).value == '') { 
+      if(event.key == 'Backspace') {
+        direct(tuple(atom('comboKey'),
+                     bin(uid),
+                     bin('stop'),
+                     string(dom),
+                     string(feed),
+                     atom(mod)));
+      }
+      clearInput(dom); return 
+    }
     if (char == 13 && currentItem) { currentItem.click(); return }
     if ([33, 34, 37, 39].includes(char)) { return }
     if (activeCombo && [35, 36, 38, 40].includes(char)) { return }
