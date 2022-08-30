@@ -38,6 +38,14 @@ defmodule NITRO.Combo.Search do
     end
   end
 
+  def keyUp(NITRO.comboKey(uid: uid, value: "stop")) do 
+    case :nitro_pi.pid(:async, "comboSearch#{uid}") do
+      [] -> []
+      pid ->
+        send pid, {:stop, uid, self()}
+    end
+  end
+
   def keyUp(NITRO.comboKey(uid: uid, value: value, dom: field, feed: feed, delegate: module)) do
     opts = [index: NITRO.Combo.index(module), field: field, delegate: module]
     comboContainer = :nitro.atom([:comboContainer, :nitro.to_list(field)])
@@ -88,6 +96,14 @@ defmodule NITRO.Combo.Search do
       {_, x, _} when x - sec >= 60 -> {:stop, :normal, NITRO.pi(pi, state: state(st, timer: []))}
       _ -> {:noreply, NITRO.pi(pi, state: state(st, timer: ping(10000)))}
     end
+  end
+
+  def proc({:stop, uid, ref}, NITRO.pi(state: state(opts: opts)) = pi) do
+    m  = Keyword.get(opts, :delegate, [])
+
+    send(ref, {:direct, NITRO.comboLoader(dom: uid, delegate: m, status: :finished)})
+
+    {:stop, :normal, pi}
   end
 
   def proc({:filterComboValues, cmd, value0}, NITRO.pi(state: state(chunks: chunks, value: prev) = st) = pi) do
