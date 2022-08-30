@@ -98,10 +98,11 @@ defmodule NITRO.Combo.Search do
     end
   end
 
-  def proc({:stop, uid, _ref}, NITRO.pi(state: state(opts: opts, pid: pid)) = pi) do
+  def proc({:stop, _uid, _ref}, NITRO.pi(state: state(opts: opts, pid: pid)) = pi) do
     m  = Keyword.get(opts, :delegate, [])
+    field = Keyword.get(opts, :field, [])
 
-    send(pid, {:direct, NITRO.comboLoader(dom: uid, delegate: m, status: :finished)})
+    send(pid, {:direct, NITRO.comboLoader(dom: field, delegate: m, status: :finished)})
 
     {:stop, :normal, pi}
   end
