@@ -136,7 +136,9 @@ defmodule NITRO.Combo.Search do
         filtered = if value == "all", do: rows, else: rows |>
           Enum.flat_map(fn row ->
             if index
-              |> Enum.map(&(:string.lowercase(&1.(row))))
+              |> Enum.map(&(&1.(row)))
+              |> Enum.map(&:nitro.to_binary(&1))
+              |> Enum.map(&:string.lowercase(&1))
               |> Enum.filter(fn r -> cps |> Enum.all?(&:binary.match(r,&1,[]) != :nomatch) end)
               |> Enum.empty?, do: [], else: [row]
           end)
