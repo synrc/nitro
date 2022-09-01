@@ -71,23 +71,31 @@ defmodule NITRO.Combo.Search do
     ])
 
   def proc(:init, NITRO.pi(state: state(value: v, opts: opts, feed: feed, pid: pid) = st) = pi) do
-    v = :string.lowercase(v)
     reader = :erlang.apply(:kvs, :reader, [feed])
-
     m     = Keyword.get(opts, :delegate, [])
     field = Keyword.get(opts, :field, [])
     index = Keyword.get(opts, :index, [])
-      |> Enum.flat_map(
-          fn (i) when is_function(i) -> [i];
-             (i) -> [fn o -> :erlang.apply(:kvs, :field, [o,i]) end]
-          end)
 
-    cps = :binary.split(v, [" "], [:global,:trim_all]) 
-        |> Enum.map(&:binary.compile_pattern(&1))
+    cpx = case NITRO.Combo.has_function(m, :patterns) do
+      true ->
+        m.patterns(:string.lexemes(v, [32]))
+      false ->
+        value_cps = :binary.split(:string.lowercase(v), [" "], [:global,:trim_all]) 
+          |> Enum.map(&:binary.compile_pattern(&1))
 
-    opts = Keyword.put(opts, :index, index)
-    opts = Keyword.put(opts, :cps, cps)
+        input_cp = index
+          |> Enum.flat_map(
+               fn (i) when is_function(i) -> [i];
+                  (i) -> [fn o -> :erlang.apply(:kvs, :field, [o,i]) end]
+               end)
+          |> Enum.map(fn i -> {i, value_cps} end)
 
+        {input_cp, []}
+    end
+
+    opts = Keyword.put(opts, :cpx, cpx)
+
+    v = :string.lowercase(v)
     send self(), {:filterComboValues, :init, v}
 
     send(pid, {:direct, NITRO.comboLoader(dom: field, delegate: m)})
@@ -116,8 +124,8 @@ defmodule NITRO.Combo.Search do
     state(uid: uid, feed: feed, reader: r, pid: pid, opts: opts) = st
     m     = Keyword.get(opts, :delegate, [])
     field = Keyword.get(opts, :field, [])
-    index = Keyword.get(opts, :index, [])
-    cps   = Keyword.get(opts, :cps, [])
+    {cpv, cpe}   = Keyword.get(opts, :cpx, {[],[]})
+
     value = case cmd do :init -> value0; _ -> prev end
 
     if cmd in [:append] do
@@ -125,22 +133,34 @@ defmodule NITRO.Combo.Search do
       send(pid, {:direct, NITRO.comboLoader(dom: field, delegate: m)})
     end
 
-    r1 = :erlang.apply(:kvs, :take, [:erlang.apply(:kvs, :setfield, [r, :args, 10])])
+    r1 = :erlang.apply(:kvs, :take, [:erlang.apply(:kvs, :setfield, [r, :args, 50])])
     case :erlang.apply(:kvs, :field, [r1, :args]) do
       [] ->
         send(pid, {:direct, NITRO.comboInsert(uid: uid, dom: field, delegate: m, chunks: chunks, status: :finished)})
         send(pid, {:direct, NITRO.comboLoader(dom: field, delegate: m, status: :finished)})
 
         {:stop, :normal, NITRO.pi(pi, state: state(st, reader: :erlang.apply(:kvs, :setfield, [r1, :args, []])))}
-      rows ->
+      rows when cpe != [] or cpv != []->
+        filter_val = fn patterns, r ->
+          if patterns
+            |> Enum.map(&{elem(&1,0).(r), elem(&1,1)})
+            |> Enum.map(&{:nitro.to_binary(elem(&1,0)),elem(&1,1)})
+            |> Enum.map(&{:string.lowercase(elem(&1,0)),elem(&1,1)})
+            |> Enum.filter(fn {v1,cps} ->
+                cps |> Enum.all?(&:binary.match(v1,&1,[]) != :nomatch)
+               end)
+            |> Enum.empty?, do: [], else: [r]
+        end
+
         filtered = if value == "all", do: rows, else: rows |>
-          Enum.flat_map(fn row ->
-            if index
-              |> Enum.map(&(&1.(row)))
-              |> Enum.map(&:nitro.to_binary(&1))
-              |> Enum.map(&:string.lowercase(&1))
-              |> Enum.filter(fn r -> cps |> Enum.all?(&:binary.match(r,&1,[]) != :nomatch) end)
-              |> Enum.empty?, do: [], else: [row]
+          Enum.flat_map(fn (row) when cpe == [] -> filter_val.(cpv, row)
+            (row) ->
+              if cpe
+                |> Enum.reduce_while([row], fn {f,c}, acc ->
+                    if :binary.match(f.(row), c, []) == :nomatch, do: {:halt, []}, else: {:cont,acc}
+                   end)
+                |> Enum.flat_map(&filter_val.(cpv, &1))
+                |> Enum.empty?, do: [], else: [row]
           end)
 
         newChunks = chunks + length(filtered)
@@ -153,6 +173,9 @@ defmodule NITRO.Combo.Search do
         reader = :erlang.apply(:kvs, :setfield, [r1, :args, []])
 
         {:noreply, NITRO.pi(pi, state: state(st, lastMsg: :erlang.timestamp(), value: value, chunks: newChunks, reader: reader))}
+      _ ->
+        send(pid, {:direct, NITRO.comboLoader(dom: field, delegate: m, status: :finished)})
+        {:noreply, NITRO.pi(pi, state: state(st, lastMsg: :erlang.timestamp(), value: value))}
     end
   end
 
