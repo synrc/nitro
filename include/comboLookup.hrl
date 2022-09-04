@@ -12,7 +12,7 @@
 -record(comboInsert, { uid=[], dom=[], rows=[], chunks=[], status=[], delegate=[], feed=[] }).
 -record(comboAdd,    { list_id=[], value=[], bind=[], delegate=[], pos=[], feed=[], default=[]}).
 -record(comboModify, { list_id=[], item_id=[], value=[], bind=[], modify_bind=[], delegate=[], pos=[], feed=[] }).
--record(comboGroup,  { dom=[], value=[], delegate=[] }).
+-record(comboGroup,  { dom=[], value=[], delegate=[], subtitle=[], parent=[]}).
 -record(comboDraft,  { dom=[], list=[], values=[], group=[], subtitle=[], delegate=[] }).
 -record(comboUpdate, { id=[], fields=[], module=[], action=[], value=[] }).
 -record(comboLoader, { dom=[], delegate=[], status=[] }).

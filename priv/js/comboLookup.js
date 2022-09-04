@@ -149,7 +149,8 @@ function comboSelectGroup(uid, dom, row, feed, mod, id) {
     if (!parent.querySelector(`[data-group-item='data-group-item'][data-bind='${bind}']`)) {
       const draft = parent.id + '_draft';
       const value = dec(unbase64(bind));
-      direct(tuple(atom('comboGroup'), string(draft), value, atom(mod)));
+      const subtitle = qi(draft).querySelector(".group-list__label");
+      direct(tuple(atom('comboGroup'), string(draft), value, atom(mod), bin(subtitle.textContent), string(parent.id)));
     }
   }
 }
