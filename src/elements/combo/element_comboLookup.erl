@@ -8,6 +8,7 @@ proto(#comboKeyup{delegate=Module}=Msg)  -> Module:proto(Msg);
 proto(#comboSelect{delegate=Module}=Msg) -> Module:proto(Msg);
 proto(#comboScroll{delegate=Module}=Msg) -> Module:proto(Msg);
 proto(#comboInsert{delegate=Module}=Msg) -> Module:proto(Msg);
+proto(#comboVecAdd{delegate=Module}=Msg) -> Module:proto(Msg);
 proto(#comboAdd{delegate=Module}=Msg)    -> Module:proto(Msg);
 proto(#comboModify{delegate=Module}=Msg) -> Module:proto(Msg);
 proto(#comboGroup{delegate=Module}=Msg)  -> Module:proto(Msg);

@@ -229,18 +229,21 @@ function getSortableValues(list) {
 
 function appendItemFromBind(dom,value,bind) {
   var sortable = SortableMap.get('#'+dom);
-  var template = document.createElement('template');
-  template.innerHTML =
-    '<div class="list__item" data-sortable-item="data-sortable-item" style="" data-bind="'+ bind + '">' +
-       '<div class="list__item-close" onclick="removeSortableItem(\'#' + sortable.list.id + '\', this.parentNode);"></div>' +
-       '<div class="list__item-content" list-item-content="list-item-content"><div class="list__item-title">' + value + '</div></div>' +
-       '<div class="list__item-handle" data-sortable-handle="data-sortable-handle"></div>' +
-    '</div>'
-  var new_item = template.content.firstChild;
-  if(bind instanceof Date) {
-    new_item.setAttribute("date-bind", bind);
-    new_item.setAttribute("data-bind", "");
+  var isAdded = sortable.items.map(el => el.textContent).includes(value || {"text": value, "bind": bind});
+  if(!isAdded) {
+    var template = document.createElement('template');
+    template.innerHTML =
+      '<div class="list__item" data-sortable-item="data-sortable-item" style="" data-bind="'+ bind + '">' +
+         '<div class="list__item-close" onclick="removeSortableItem(\'#' + sortable.list.id + '\', this.parentNode);"></div>' +
+         '<div class="list__item-content" list-item-content="list-item-content"><div class="list__item-title">' + value + '</div></div>' +
+         '<div class="list__item-handle" data-sortable-handle="data-sortable-handle"></div>' +
+      '</div>'
+    var new_item = template.content.firstChild;
+    if(bind instanceof Date) {
+      new_item.setAttribute("date-bind", bind);
+      new_item.setAttribute("data-bind", "");
+    }
+    sortable.list.appendChild(new_item);
+    sortable.items.push(new_item);
   }
-  sortable.list.appendChild(new_item);
-  sortable.items.push(new_item);
 }

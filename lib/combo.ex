@@ -56,6 +56,13 @@ defmodule NITRO.Combo do
     end
   end
 
+  def proto(NITRO.comboVecAdd(delegate: module) = msg) do
+    case has_function(module, :comboVecAdd) do
+      true -> module.comboVecAdd(msg)
+      false -> comboVecAdd(msg)
+    end
+  end
+
   def proto(NITRO.comboModify(delegate: module) = msg) do
     case has_function(module, :comboModify) do
       true -> module.comboModify(msg)
@@ -115,6 +122,9 @@ defmodule NITRO.Combo do
       NITRO.comboLookupModify_item(list_id: list, value: value, bind: bind, pos: pos, feed: feed, delegate: module, default: default)
     )
   end
+
+  def comboVecAdd(NITRO.comboVecAdd(list_id: list, value: value, delegate: mod, feed: feed)), do:
+    :nitro.wire("appendItemFromBind('#{list}', '#{view_value(value, mod, feed)}', '#{:base64.encode(:erlang.term_to_binary(value))}');")
 
   def comboModify(NITRO.comboModify(list_id: list, item_id: item, value: value, bind: bind, modify_bind: modify_bind, delegate: module, pos: pos, feed: feed)) do
     new_bind = :erlang.setelement(pos, bind, modify_bind)

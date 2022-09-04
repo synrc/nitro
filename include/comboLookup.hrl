@@ -6,6 +6,7 @@
 -record(comboKey,    { uid=[], value=[], dom=[], feed=[], delegate=[]}).
 -record(comboKeyup,  { value=[], dom=[], feed=[], delegate=[]}).
 -record(comboSelect, { uid=[], value=[], dom=[], feed=[], delegate=[], update=[]}).
+-record(comboVecAdd, { list_id=[], value=[], feed=[], delegate=[]}).
 -record(comboNext,   { pos=[],  count=[], feed=[]}).
 -record(comboScroll, { uid=[], dom=[], delegate=[] }).
 -record(comboInsert, { uid=[], dom=[], rows=[], chunks=[], status=[], delegate=[], feed=[] }).

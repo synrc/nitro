@@ -124,9 +124,22 @@ function comboSelectVector(uid, dom, row, feed, mod, id) {
   comboSelectDefault(...arguments);
   let listSplit = dom.split('_');
   listSplit.pop();
-  const list = '#' + listSplit.join('_') + '_list';
-  addSortableItemFrom(list, dom);
+  const listId = listSplit.join('_') + '_list';
+  const input = qi(dom);
+  const list = qi(listId);
+  if (list && input && input.value != '') {
+    const data = querySourceRaw(dom);
+    if (data && data.hasOwnProperty('text') && data.hasOwnProperty('bind')) {
+      const bind = data.bind;
+      const value = data.text;
+      if (bind !== '' && bind !== 'null') {
+        clearInput(dom);
+        direct(tuple(atom('comboVecAdd'), string(listId), dec(unbase64(bind)), string(feed), atom(mod)));
+      }
+    }
+  }
 }
+
 
 function comboSelectGroup(uid, dom, row, feed, mod, id) {
   const selected = qi(id);
