@@ -73,6 +73,8 @@ inner_to_list(I) when is_integer(I) ->
     integer_to_list(I);
 inner_to_list(L) when is_tuple(L) ->
     lists:flatten(io_lib:format("~p", [L]));
+inner_to_list(L) when is_pid(L) ->
+    lists:flatten(io_lib:format("~p", [L]));
 inner_to_list(L) when is_list(L) -> L;
 inner_to_list(F) when is_float(F) ->
     float_to_list(F, [{decimals, 9}, compact]).
