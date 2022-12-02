@@ -54,6 +54,8 @@ function comboSelect(uid, dom, row, feed, mod, id) {
     comboSelectVector(...arguments);
   } else if (elem.parentNode.parentNode.getAttribute('data-group-input')) {
     comboSelectGroup(...arguments);
+  } else if (elem.parentNode.parentNode.parentNode.getAttribute('data-edit-input') && elem.parentNode.parentNode.parentNode.getAttribute('multiple') === "true") {
+    comboSelectVector(...arguments); comboCloseFormById(`${dom}_form`);
   } else {
     comboSelectDefault(...arguments);
   }
@@ -138,8 +140,8 @@ function comboSelectVector(uid, dom, row, feed, mod, id) {
       }
     }
   }
-}
 
+}
 
 function comboSelectGroup(uid, dom, row, feed, mod, id) {
   const selected = qi(id);
@@ -188,7 +190,6 @@ function comboLookupKeydown(uid, dom, feed, mod) {
     if (event.key == 'Meta')  { return }
     if (event.key == 'Alt')   { return }
     if (event.key == 'Shift') { return }
-    if (event.key == 'Enter') { return }
     var dropdown = qi(dom).closest('.dropdown');
     var char = event.which || event.keyCode;
     if (qi(dom).value == '' && event.key == 'Backspace') { return }
@@ -226,7 +227,6 @@ function comboLookupKeyup(uid, dom, feed, mod) {
     if (event.key == 'Meta')  { return }
     if (event.key == 'Alt')   { return }
     if (event.key == 'Shift') { return }
-    if (event.key == 'Enter') { return }
     if (event.key == 'Tab') { dropdown.classList.remove('dropdown-open'); return }
     var char = event.which || event.keyCode;
     if (char == 27 || (char == 8 || char == 46) && qi(dom).value == '') { 
@@ -279,6 +279,12 @@ function clearInput(dom) {
   }
   comboLookupChange(dom);
   comboClear(dom);
+
+  if (input && input.getAttribute('data-update')) {
+    let update = dec(unbase64(input.getAttribute('data-update')));
+    update.v[5] = atom('skip');
+    direct(update);
+  }
 }
 
 function comboLookupModifyValues(listId) {

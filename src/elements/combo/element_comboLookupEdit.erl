@@ -13,21 +13,12 @@ render_element(#comboLookupEdit{id=Id, input=Input, disabled=Disabled, validatio
     #panel{
       id = Id,
       validation = Validation,
-      data_fields = [{<<"data-edit-input">>,<<"data-edit-input">>}],
+      data_fields = [{<<"data-edit-input">>,<<"data-edit-input">>}, {<<"multiple">>,Multiple}],
       body = [
         #panel{
           style = "display: flex; position: relative; width: 100%; justify-content: center;",
           body =
             [ Input,
-              case Multiple of
-                true ->
-                  #link{
-                    class = [button, sgreen, 'add-btn'],
-                    style = "min-width: 40px; text-align: center; height: fit-content; margin-left: 5px;",
-                    onclick = nitro:jse("addSortableItemFrom('#" ++ ListId ++ "', '" ++ InputId ++ "')"),
-                    body = <<"+">>};
-                false -> []
-              end,
               case Disabled of
                 true -> [];
                 _ ->

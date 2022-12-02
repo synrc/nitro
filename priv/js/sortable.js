@@ -229,7 +229,8 @@ function getSortableValues(list) {
 
 function appendItemFromBind(dom,value,bind) {
   var sortable = SortableMap.get('#'+dom);
-  var isAdded = sortable.items.map(el => el.textContent).includes(value || {"text": value, "bind": bind});
+  var isAdded = sortable.items.map(el => el.textContent).includes(value || {"text": value, "bind": bind}) ||
+                sortable.items.map(el => el.getAttribute("data-bind")).includes(bind);
   if(!isAdded) {
     var template = document.createElement('template');
     template.innerHTML =
