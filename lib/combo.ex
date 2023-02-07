@@ -195,7 +195,7 @@ defmodule NITRO.Combo do
     id = :nitro.jse(:erlang.iolist_to_binary(:nitro.atom([dom, :erlang.element(2, obj)])))
     item = :nitro.to_list(item(obj, module))
     source = :erlang.iolist_to_binary(feed)
-    click = :nitro.jse("comboSelect('#{uid}', '#{dom}', '#{view_value}', '#{source}', '#{module}', '#{id}')")
+    click = :nitro.hte(:nitro.jse("comboSelect('#{uid}', '#{dom}', '#{view_value}', '#{source}', '#{module}', '#{id}')"))
     move = :nitro.jse("comboLookupMouseMove('#{dom}')")
 
     NITRO.panel(

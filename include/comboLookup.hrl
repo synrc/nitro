@@ -14,7 +14,7 @@
 -record(comboModify, { list_id=[], item_id=[], value=[], bind=[], modify_bind=[], delegate=[], pos=[], feed=[] }).
 -record(comboGroup,  { dom=[], value=[], delegate=[], subtitle=[], parent=[]}).
 -record(comboDraft,  { dom=[], list=[], values=[], group=[], subtitle=[], delegate=[] }).
--record(comboUpdate, { id=[], fields=[], module=[], action=[], value=[] }).
+-record(comboUpdate, { id=[], fields=[], module=[], action=[], value=[], options=[], etc=[]}).
 -record(comboLoader, { dom=[], delegate=[], status=[] }).
 -record(comboLookup, { ?ELEMENT_BASE(element_comboLookup),
     value=[],
