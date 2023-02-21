@@ -7,7 +7,7 @@
 
 render_element(#comboLookupModify{id = Id, input = Input, disabled = Disabled, validation = Validation, values = Values,
   modify_pos = Pos, modify_feed = Feed, modify_module = Module, modify_default = Default}) ->
-  ListId = form:atom([Id, "list"]),
+  ListId = nitro:atom([Id, "list"]),
   ProtoItem = #comboLookupModify_item{list_id = ListId, pos = Pos, feed = Feed, delegate = Module, default = Default, disabled = Disabled},
   ListBody =
     case Values of

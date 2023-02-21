@@ -7,7 +7,7 @@
 -export([render_element/1]).
 
 render_element(#comboLookupEdit{id=Id, input=Input, disabled=Disabled, validation=Validation, form=Form, values=Values, multiple=Multiple}) ->
-  ListId = form:atom([Id, "list"]),
+  ListId = nitro:atom([Id, "list"]),
   InputId = element(#element.id, Input),
   nitro:render(
     #panel{
@@ -23,7 +23,7 @@ render_element(#comboLookupEdit{id=Id, input=Input, disabled=Disabled, validatio
                 true -> [];
                 _ ->
                   #panel{
-                    id = form:atom([InputId, "form"]),
+                    id = nitro:atom([InputId, "form"]),
                     class = ['dropdown-content', 'dropdown-content-form'],
                     body = #panel{class = ['dropdown-item'], body = Form}
                   } end ]},

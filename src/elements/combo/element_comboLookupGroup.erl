@@ -14,8 +14,8 @@ render_element(#comboLookupGroup{id = Id, input = Input, disabled = Disabled, va
       data_fields = [{<<"data-group-input">>, <<"data-group-input">>}],
       body = lists:flatten([
         case Disabled of true -> []; _ -> Input end,
-        ProtoItem#comboLookupGroup_list{id = form:atom([Id, "draft"]), group = draft},
-        [ProtoItem#comboLookupGroup_list{id = form:atom([Id, erp:guid()]), values = Val, group = saved} || Val <- Values]
+        ProtoItem#comboLookupGroup_list{id = nitro:atom([Id, "draft"]), group = draft},
+        [ProtoItem#comboLookupGroup_list{id = nitro:atom([Id, erp:guid()]), values = Val, group = saved} || Val <- Values]
       ])
     }
   ).

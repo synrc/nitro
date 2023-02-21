@@ -6,7 +6,7 @@
 -export([render_element/1]).
 
 render_element(#comboLookupVec{id=Id, input=Input, disabled=Disabled, validation=Validation, values=Values}) ->
-  ListId = form:atom([Id, "list"]),
+  ListId = nitro:atom([Id, "list"]),
   InputId = element(#element.id, Input),
   nitro:render(
     #panel{

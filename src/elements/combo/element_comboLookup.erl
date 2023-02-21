@@ -22,7 +22,7 @@ render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object,
   DataBind = case Object of [] -> []; _ -> [{<<"data-bind">>, base64:encode(term_to_binary(Object))}] end,
   DataUpdate = case Update of [] -> []; _ -> [{<<"data-update">>, base64:encode(term_to_binary(Update))}] end,
   nitro:render(
-    #panel{id=form:atom([lookup, Id]), class=lists:flatten([dropdown, Class]),
+    #panel{id=nitro:atom([lookup, Id]), class=lists:flatten([dropdown, Class]),
            body=[#input{id=Id, disabled = Disabled, type="comboLookup",
                         autocomplete = "off",
                         data_fields = DataNested ++ DataBind ++ DataUpdate,
@@ -50,7 +50,7 @@ render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object,
                               ++ nitro:to_list(Feed) ++ "','"
                               ++ nitro:to_list(Module) ++ "')")
                           end},
-                 #panel{id=form:atom([comboContainer, Id]),
+                 #panel{id=nitro:atom([comboContainer, Id]),
                         class = ['dropdown-content']},
                  case Disabled of
                    true -> [];

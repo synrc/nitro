@@ -6,7 +6,7 @@
 -export([render_element/1]).
 
 render_element(#comboLookupModify_item{list_id = ListId, value = Value, bind = OldBind, pos = Pos, feed = Feed, delegate = Module, default = Default, disabled = Disabled}) ->
-  Id = form:atom([ListId, erp:guid()]),
+  Id = nitro:atom([ListId, erp:guid()]),
   Close =
     case Disabled of
       true -> [];
@@ -30,7 +30,7 @@ render_element(#comboLookupModify_item{list_id = ListId, value = Value, bind = O
       body = [
         #panel{class = <<"modify_item-title">>, body = Value},
         Close,
-        #comboLookup{id = form:atom([Id, "input"]), feed = Feed, delegate = Module, value = SelectedValue, bind = SelectedBind, nested = Id, disabled = Disabled}
+        #comboLookup{id = nitro:atom([Id, "input"]), feed = Feed, delegate = Module, value = SelectedValue, bind = SelectedBind, nested = Id, disabled = Disabled}
       ]
     }
   ).

@@ -10,8 +10,8 @@ render_element(#koatuu{id=Id, style=Style, postback = Postback,delegate = Module
                        body = <<"Хмельницька"/utf8>>,
                       selected = true}], % 25 regions from const feed
   nitro:render(
-    #panel{id=form:atom([koatuu, Id]),
-           body=[ #select{ id=form:atom([koatuu_select, Id]), postback=Postback,
+    #panel{id=nitro:atom([koatuu, Id]),
+           body=[ #select{ id=nitro:atom([koatuu_select, Id]), postback=Postback,
                            body=Options},
 
                   #comboLookup{ } ]}).
