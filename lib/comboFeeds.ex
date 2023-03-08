@@ -144,8 +144,14 @@ defmodule NITRO.Combo.Feeds do
       send(pid, {:direct, NITRO.comboLoader(dom: field, delegate: m)})
     end
 
-    vxs = cpe |> Enum.flat_map(fn ({f,_}) -> f.(value); (_) -> [] end)
-    feed = [feed | vxs] |> Enum.join("/")
+    feed = case Process.get(:feed) do
+      nil ->
+        vxs = cpe |> Enum.flat_map(fn ({f,_}) -> f.(value); (_) -> [] end)
+        fee0 = [feed | vxs] |> Enum.join("/")
+        Process.put(:feed, fee0)
+        fee0
+      fee0 -> fee0
+    end
 
     r = Map.get(rs, feed, :erlang.apply(:kvs, :reader, [feed]))
     r1 = :erlang.apply(:kvs, :take, [:erlang.apply(:kvs, :setfield, [r, :args, @page])])
