@@ -2,7 +2,6 @@ NITRO: Nitrogen Web Framework
 =============================
 
 [![Actions Status](https://github.com/synrc/nitro/workflows/mix/badge.svg)](https://github.com/synrc/nitro/actions)
-[![Build Status](https://travis-ci.com/synrc/nitro.svg?branch=master)](https://travis-ci.com/synrc/nitro)
 [![Hex pm](http://img.shields.io/hexpm/v/nitro.svg?style=flat)](https://hex.pm/packages/nitro)
 
 Features
