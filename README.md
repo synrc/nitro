@@ -20,8 +20,7 @@ Features
 Credits
 -------
 
-* Maxim Sokhatsky — adaptation
-* Rusty Klophaus — original author
-* Jesse Gumm — author of http://nitrogenproject.com/
+* Maxim Sokhatsky — Adaptation
+* Rusty Klophaus — Original Author
+* Jesse Gumm — Nitrogen Maintainer
 
-OM A HUM
