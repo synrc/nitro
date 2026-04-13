@@ -104,7 +104,7 @@ defmodule NITRO.Combo do
   def comboInsert(NITRO.comboInsert(chunks: 0, dom: field, status: :finished)) do
     :nitro.wire("activeCombo = undefined; currentItem = undefined;")
     :nitro.hide(:nitro.atom([:comboContainer, :nitro.to_list(field)]))
-    :nitro.wire("comboOpenFormById('#{:nitro.atom([:nitro.to_list(field), 'form'])}');")
+    :nitro.wire("comboOpenFormById('#{:nitro.atom([:nitro.to_list(field), ~c"form"])}');")
   end
 
   def comboInsert(NITRO.comboInsert(uid: uid, dom: field, rows: rows, delegate: module, feed: feed)) do
@@ -200,7 +200,7 @@ defmodule NITRO.Combo do
 
     NITRO.panel(
       id: id,
-      class: ['dropdown-item'],
+      class: [~c"dropdown-item"],
       bind: :base64.encode(:erlang.term_to_binary(obj)),
       onclick: click,
       onmousemove: move,

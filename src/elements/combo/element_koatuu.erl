@@ -5,7 +5,7 @@
 -include_lib("nitro/include/event.hrl").
 -export([render_element/1]).
 
-render_element(#koatuu{id=Id, style=Style, postback = Postback,delegate = Module} = Data) ->
+render_element(#koatuu{id=Id, postback = Postback}) ->
   Options = [ #option{ value = <<"Хмельницька"/utf8>>,
                        body = <<"Хмельницька"/utf8>>,
                       selected = true}], % 25 regions from const feed

@@ -43,10 +43,10 @@ render_element(O = #option{}) ->
 
 get_attrs(O) ->
   ValueAttr = case {O#option.selected, O#option.disabled} of
-                {true, _} -> <<"selected value">>;
                 {true, true} -> <<"selected disabled value">>;
-                {_, true} -> <<"disabled value">>;
-                _ -> <<"value">>
+                {true, false} -> <<"selected value">>;
+                {false, true} -> <<"disabled value">>;
+                {false, false} -> <<"value">>
               end,
   [{<<"id">>, O#option.id},
     {<<"label">>, O#option.label},

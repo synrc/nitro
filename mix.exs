@@ -4,10 +4,11 @@ defmodule NITRO.Mixfile do
   def project do
     [
       app: :nitro,
-      version: "9.9.6",
+      version: "9.9.7",
       description: "NITRO Nitrogen Web Framework",
       package: package(),
-      deps: deps()
+      deps: deps(),
+      erlc_options: [:nowarn_export_all, :nowarn_deprecated_function]
     ]
   end
 

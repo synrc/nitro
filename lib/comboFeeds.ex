@@ -57,7 +57,7 @@ defmodule NITRO.Combo.Feeds do
     comboContainer = :nitro.atom([:comboContainer, :nitro.to_list(field)])
     :nitro.display(:nitro.atom([:comboContainer, field]), :block)
     :nitro.clear(comboContainer)
-    :nitro.wire("comboCloseFormById('#{:nitro.atom([:nitro.to_list(field), 'form'])}');")
+    :nitro.wire("comboCloseFormById('#{:nitro.atom([:nitro.to_list(field), ~c"form"])}');")
     :nitro.wire("comboLookupChange('#{field}');")
     :nitro.wire(NITRO.bind(target: :nitro.to_binary(comboContainer), type: :scroll, postback: onscroll(uid, field, module)))
     send(self(), {:direct, NITRO.comboLoader(dom: field, delegate: module, status: :finished)})

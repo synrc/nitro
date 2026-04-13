@@ -3,8 +3,7 @@
 -include_lib("nitro/include/nitro.hrl").
 -export([render_element/1]).
 
-render_element(#comboLookupText{id=Id, input=Input, disabled=Disabled, validation=Validation, textarea=Textarea, values=Values}) ->
-  InputId = element(#element.id, Input),
+render_element(#comboLookupText{id=Id, input=Input, disabled=Disabled, validation=Validation, textarea=Textarea, values=_Values}) ->
   LookupId = "wrap_" ++ Id ++ "_lookup",
   TextareaId = "wrap_" ++ Id ++ "_textarea",
   WrapId = "wrap_" ++ Id ++ "_comboLookupText",

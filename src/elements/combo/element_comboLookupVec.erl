@@ -7,7 +7,6 @@
 
 render_element(#comboLookupVec{id=Id, input=Input, disabled=Disabled, validation=Validation, values=Values}) ->
   ListId = nitro:atom([Id, "list"]),
-  InputId = element(#element.id, Input),
   nitro:render(
     #panel{
       id = Id,

@@ -16,7 +16,7 @@ proto(#comboDraft{delegate=Module}=Msg)  -> Module:proto(Msg);
 proto(#comboLoader{delegate=Module}=Msg) -> Module:proto(Msg).
 
 render_element(#comboLookup{id=Id, style=Style, value = Val, bind = Object,
-  feed = Feed, disabled = Disabled, delegate = Module, class = Class, nested = Nested, update = Update} = Data) ->
+  feed = Feed, disabled = Disabled, delegate = Module, class = Class, nested = Nested, update = Update} = _Data) ->
   Uid = nitro_pi:uid([], []),
   DataNested = case Nested of [] -> []; _ -> [{<<"nested">>, Nested}] end,
   DataBind = case Object of [] -> []; _ -> [{<<"data-bind">>, base64:encode(term_to_binary(Object))}] end,

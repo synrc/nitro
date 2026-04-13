@@ -51,9 +51,9 @@ render_element(Record) ->
     ],
     wf_tags:emit_tag(<<"input">>, nitro:render(Record#calendar.body), List).
 
-init(Id,#calendar{minDate=Min,maxDate=Max,lang=Lang,format=Form,
-        value=Value,onSelect=SelectFn,disableDayFn=DisDayFn,firstDay=FirstDay,
-        position=Pos,reposition=Repos,yearRange=YearRange} = Calendar) ->
+init(Id,#calendar{minDate=Min,maxDate=Max,lang=_Lang,format=Form,
+        value=Value,onSelect=_SelectFn,disableDayFn=_DisDayFn,firstDay=FirstDay,
+        position=_Pos,reposition=_Repos,yearRange=YearRange} = _Calendar) ->
     ID = nitro:to_list(Id),
     I18n =        "clLangs.ua",
     DefaultDate = case Value of
