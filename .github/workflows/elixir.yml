@@ -9,8 +9,6 @@ jobs:
       with:
         otp-version: 26.x
         elixir-version: 1.16.x
-    - name: CMake
-      run: sudo apt-get install -y cmake libsnappy-dev
     - name: Dependencies
       run: |
         mix local.rebar --force
