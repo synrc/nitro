@@ -3,7 +3,7 @@
 -author('Andrey Martemyanov').
 -include_lib("nitro/include/nitro.hrl").
 -include_lib("nitro/include/event.hrl").
--compile(export_all).
+-compile([export_all, nowarn_export_all]).
 -define(B(E), nitro:to_binary(E)).
 
 render_action(#event{source=undefined}) -> [];

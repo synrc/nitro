@@ -1,7 +1,7 @@
 -module(action_transfer).
 -author('Andrey Martemyanov').
 -include_lib("nitro/include/nitro.hrl").
--compile(export_all).
+-compile([export_all, nowarn_export_all]).
 
 render_action(Record) ->
     case Record#transfer.state of

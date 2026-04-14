@@ -1,7 +1,7 @@
 -module(element_input).
 -include_lib("nitro/include/nitro.hrl").
 -include_lib("nitro/include/event.hrl").
--compile(export_all).
+-compile([export_all, nowarn_export_all]).
 
 render_element(Record) when Record#input.show_if==false -> [<<>>];
 render_element(Record) ->

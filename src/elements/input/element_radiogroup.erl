@@ -1,7 +1,7 @@
 -module(element_radiogroup).
 -author('Rusty Klophaus').
 -include_lib("nitro/include/nitro.hrl").
--compile(export_all).
+-compile([export_all, nowarn_export_all]).
 
 render_element(Record) when Record#radiogroup.show_if==false -> [<<>>];
 render_element(Record) -> 

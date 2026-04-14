@@ -1,7 +1,7 @@
 -module(action_manage).
 -author('Andrey Martemyanov').
 -include_lib("nitro/include/nitro.hrl").
--compile(export_all).
+-compile([export_all, nowarn_export_all]).
 
 -define(B(E), nitro:to_binary(E)).
 -define(R(E), nitro:render(E)).

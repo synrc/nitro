@@ -1,5 +1,5 @@
 -module(element_upload).
--compile(export_all).
+-compile([export_all, nowarn_export_all]).
 -include_lib("nitro/include/nitro.hrl").
 -include_lib("nitro/include/event.hrl").
 
