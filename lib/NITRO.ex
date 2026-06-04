@@ -3,7 +3,7 @@ defmodule NITRO do
 
   files = ["calendar.hrl", "nitro.hrl", "comboLookup.hrl", "nitro_pi.hrl", "comboLookupVec.hrl", "comboLookupEdit.hrl",
            "comboLookupText.hrl", "comboLookupModify.hrl", "comboLookupModify_item.hrl", "comboLookupGroup.hrl",
-           "comboLookupGroup_list.hrl", "comboLookupGroup_item.hrl", "koatuuControl.hrl", "n2o.hrl"]
+           "comboLookupGroup_list.hrl", "comboLookupGroup_item.hrl", "koatuuControl.hrl", "n2o.hrl", "event.hrl"]
 
   hrl_files =
     Enum.filter(files, fn f ->
